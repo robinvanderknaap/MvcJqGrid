@@ -1,0 +1,52 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/smoothness/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css" /> 
+    <link href="~/Content/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<%= VirtualPathUtility.ToAbsolute("~/Scripts/jquery-1.4.1.min.js")%>"></script>
+    <script type="text/javascript" src="<%= VirtualPathUtility.ToAbsolute("~/Scripts/grid.locale-en.js")%>"></script>
+    <script type="text/javascript" src="<%= VirtualPathUtility.ToAbsolute("~/Scripts/jquery.jqGrid.min.js")%>"></script>
+    <script type="text/javascript" src="<%= VirtualPathUtility.ToAbsolute("~/Scripts/jquery-ui.min.js")%>"></script>
+</head>
+
+<body>
+    <div class="page">
+
+        <div id="header">
+            <div id="title">
+                <h1>MVC JqGrid Examples</h1>
+            </div>
+              
+            <div id="logindisplay">
+                &nbsp;
+            </div> 
+            
+            <div id="menucontainer">
+            
+                <ul id="menu">              
+                    <li><%: Html.ActionLink("Basic", "Basic", "Home")%></li>
+                    <li><%: Html.ActionLink("Search", "Search", "Home")%></li>
+                    <li><%: Html.ActionLink("Toolbar", "Toolbar", "Home")%></li>
+                    <li><%: Html.ActionLink("Multiselect", "Multiselect", "Home")%></li>
+                    <li><%: Html.ActionLink("Formatters", "Formatters", "Home")%></li>
+                    <li><%: Html.ActionLink("Events", "Events", "Home")%></li>
+                    <li><%: Html.ActionLink("About", "About", "Home")%></li>
+                </ul>
+            
+            </div>
+        </div>
+
+        <div id="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+            <div id="footer">
+                Created by <a href="http://www.webpirates.nl">Webpirates</a>, 2010, The Netherlands
+            </div>
+        </div>
+    </div>
+</body>
+</html>
