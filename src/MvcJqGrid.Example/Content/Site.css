@@ -170,7 +170,7 @@ footer {
 ----------------------------------------------------------*/
 ul#menu {
     font-size: 1.3em;
-    font-weight: 600;
+    font-weight: normal;
     margin: 0;
     text-align: right;
 }
