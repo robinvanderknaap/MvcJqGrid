@@ -1,4 +1,5 @@
-﻿# MvcJqGrid
+﻿
+# MvcJqGrid
 MvcJqGrid is a html helper for ASP.NET MVC which eases the implementation of jqGrid in your website or webapplication.
 The helper contains a fluent interface providing for a clean and readable view. Most of the properties, events and methods from the base classes of jqGrid are implemented in the helper, including paging, sorting and toolbar searching. At this point, editing, treegrids and subgrids are not yet supported.
 
