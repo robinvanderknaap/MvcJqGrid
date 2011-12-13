@@ -1,0 +1,72 @@
+﻿@section Title {Search}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Search Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("search")
+    .SetCaption("Toolbar Search")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company")
+        .SetSearchType(Searchtype.Select)
+        .SetSearchTerms((string[])ViewData["CompanyNames"]))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified")
+        .SetSearchType(Searchtype.Datepicker))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetSearchToolbar(true)
+    .SetSearchOnEnter(false))
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("search")
+    .SetCaption("Toolbar Search")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company")
+        .SetSearchType(Searchtype.Select)
+        .SetSearchTerms((string[])ViewData["CompanyNames"]))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified")
+        .SetSearchType(Searchtype.Datepicker))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl("@Url.Action("GridDataBasic")")
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetSearchToolbar(true)
+    .SetSearchOnEnter(false))</pre>
+
+<h3>Explanation:</h3>
+
+<pre>This configuration demonstrates toolbar searching. A searchtype can be specified for each column.
+
+<i>SetSearchType</i>: Sets searchtype for a column. Searchtype can be set to Input (default), Select or 
+Datepicker.
+
+<i>SetSearchTerms</i>: When searchtype is set to select, this function is used to the fill the selectbox.
+The function takes a collection of strings as selectoptions.
+
+<i>SetSearchToolbar</i>: Enables or disables toolbar searching.
+
+<i>SetSearchOnEnter</i>: When set to true, search is executed when the user hits enter. When set to false 
+search is executed after the user stops typing.</pre>

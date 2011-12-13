@@ -1,0 +1,22 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+    <Target Name="Clean">
+        <MSBuild Targets="Clean" Projects="../MvcJqGrid.sln" />
+    </Target>
+
+    <Target Name="Rebuild">
+        <MSBuild Targets="Rebuild" Projects="../MvcJqGrid.sln" Properties="Configuration=Release"/>
+    </Target>
+    
+    <Target Name="Build" DependsOnTargets="Clean;Rebuild">
+		<Copy
+            SourceFiles="../src/MvcJqGrid.Net35/bin/Release/MvcJqGrid.dll"
+            DestinationFiles="./Package/lib/net35/MvcJqGrid.dll"
+        />
+		<Copy
+            SourceFiles="../src/MvcJqGrid.Net40/bin/Release/MvcJqGrid.dll"
+            DestinationFiles="./Package/lib/net40/MvcJqGrid.dll"
+        />
+	</Target>
+</Project>

@@ -1,0 +1,76 @@
+﻿@section Title {Toolbar}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Toolbar Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("toolbar")
+    .SetCaption("Toolbar")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetToolbar(true)
+    .SetToolbarPosition(ToolbarPosition.Bottom))
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#t_toolbar')
+            .append("<input type='button' value='Click Me' onclick=\"alert('Hi');\"/>");
+    });
+</script>
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("toolbar")
+    .SetCaption("Toolbar")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl("@Url.Action("GridDataBasic")")
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetToolbar(true)
+    .SetToolbarPosition(ToolbarPosition.Bottom))
+
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function () {
+        $('#t_toolbar')
+            .append("&lt;input type='button' value='Click Me' onclick=\"alert('Hi');\"/&gt;");
+    });
+&lt;/script&gt;</pre>
+
+<h3>Explanation:</h3>
+
+<pre>A toolbar is added to the grid by using the setToolbar method. The id of the toolbar equals the id of 
+the grid, prefixed by t_. You can add buttons easily, or any other html elements for that matter, by
+adding some javascript to the page.
+
+<i>SetToolbar</i>: Enables or disables toolbar.
+
+<i>SetToolparPosition</i>: Sets position of toolbar, top, bottom or both. When set to both, two 
+toolbars are generated (id top toolbar: t_ + grid id, id of bottom toolbar: tb_ + grid id).</pre>

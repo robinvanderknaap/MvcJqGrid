@@ -1,0 +1,79 @@
+﻿@section Title {Formatters}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Formatters Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("formatters")
+    .SetCaption("Formatters")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id")
+        .SetCustomFormatter("buttonize"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress")
+        .SetFormatter(Formatters.Email))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager"))
+
+<script type="text/javascript">
+    function buttonize(cellvalue, options, rowobject) {
+        return '<input type="button" value="' + cellvalue + '" onclick="alert(' + cellvalue + ')">';
+    }
+</script>
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("formatters")
+    .SetCaption("Formatters")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id")
+        .SetCustomFormatter("buttonize"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress")
+        .SetFormatter(Formatters.Email))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl("@Url.Action("GridDataBasic")")
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager"))
+
+&lt;script type="text/javascript"&gt;
+    function buttonize(cellvalue, options, rowobject) {
+        return '&lt;input type="button" value="' + cellvalue + '" onclick="alert(' + cellvalue + ')"&gt;';
+    }
+&lt;/script&gt;</pre>
+
+<h3>Explanation:</h3>
+
+<pre>Formatters can attached to each individual column to easily format the content of the column. JqGrid 
+supports a number of predefined formatters, also custom formatters can be set.
+
+<i>SetFormatter</i>: Sets predefined formatter for individual column. Available formatters: Integer, Number,
+Currency, Date, Email, Link, Showlink, Checkbox, Select
+
+<i>SetCustomFormatter</i>: Use this method to attach a custom formatter to a column. The method expects the 
+name of the function which will handle the custom formatting. The following variables are passed to 
+the function:
+    'cellvalue': The value to be formated (pure text).
+    'options': Object { rowId: rid, colModel: cm} where rowId - is the id of the row and colModel is 
+               the object of the properties for this column retrieved from colModel array of jqGrid
+    'rowobject': Row data represented in the format determined from datatype option.</pre>

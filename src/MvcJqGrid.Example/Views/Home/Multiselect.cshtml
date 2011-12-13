@@ -1,0 +1,65 @@
+﻿@section Title {Multiselect}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Multiselect Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("multiselect")
+    .SetCaption("Multiselect Grid")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetMultiSelect(true)
+    .SetMultiBoxOnly(false)
+    .SetMultiSelectWidth(20))
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("multiselect")
+    .SetCaption("Multiselect Grid")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl("@Url.Action("GridDataBasic")")
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetMultiSelect(true)
+    .SetMultiBoxOnly(false)
+    .SetMultiSelectWidth(20))</pre>
+
+<h3>Explanation</h3>
+
+<pre>JqGrid supports selecting multiple selection of rows. By using the SetMultiSelect method multiselect
+is enabled. A column containing checkboxes is automatically added.
+
+<i>SetMultiSelect</i>: Enables or disables multiple selection of rows (default: false).
+
+<i>SetMultiBoxOnly</i>: By enabling this option, users can only select rows by using the checkbox.
+When set to false (default), the entire row can be clicked to select the row.
+
+<i>SetMultiSelectWidth</i>: Sets the width of the column containing the checkboxes (default: 20).</pre>

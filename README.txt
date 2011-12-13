@@ -1,1 +1,0 @@
-﻿Sample application demonstrating fluent jqGrid html helper for ASP.NET MVC

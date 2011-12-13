@@ -1,0 +1,75 @@
+﻿@section Title {Basic}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Basic Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("Basic")
+    .SetCaption("Basic Grid")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[]{10,15,20,50})
+    .SetViewRecords(true)
+    .SetPager("pager"))
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("Basic")
+    .SetCaption("Basic Grid")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl("@Url.Action("GridDataBasic")")
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[]{10,15,20,50})
+    .SetViewRecords(true)
+    .SetPager("pager"))</pre>   
+     
+<h3>Explanation:</h3>
+
+<pre>This configuration renders a basic grid, with ordering and paging enabled. To retrieve data the grid 
+will send a request to the specified url (SetUrl). The grid expects a json (default) or xml response 
+from the server to fill the grid.
+
+<i>SetCaption</i>: Sets the grid title.
+
+<i>AddColumn</i>: Adds a column to the grid, the column class contains additional properties
+which can be set fluently, like setLabel.
+
+<i>SetUrl</i> Sets the url which is used by the grid to request data. Default is a json request,
+this can changed with the the SetDataType method.
+
+<i>SetLabel</i>: Sets the column header text.
+
+<i>SetAutoWidth</i>: When set to true will force the grid to fit the width of the parent element.
+
+<i>SetRowNum</i>: Sets the number of rows displayed initially.
+
+<i>SetRowList</i>: Fills the dropdownlist in the pager which controls the number of rows per page.
+
+<i>SetViewRecords</i>: When set to true displays the total number of rows in the dataset.
+
+<i>SetPager</i>: Enables the pager, id of the pagerelement has to be specified. You don't have to
+create a pager element yourself, this is created for you.
+</pre>        
