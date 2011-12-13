@@ -7,6 +7,8 @@ A modelbinder for handling ajax requests from the grid is also included in the l
 ## Sample Application
 To showcase the helper a sample application was created which demonstrates various grids with different configurations. The source code from the view is displayed below every grid, which should make it easy to get started. The sample application is included in the source code, you can find a live version [here](http://playground.webpirates.nl/mvcjqgrid).
 
+One word about the sample data being used. The sample data is contained in a Sql Express Database in the App_Data folder. Make sure you have installed Sql Server Express 2008 R2. The Web Platform Installer sometimes indicates you have installed R2 when actually you only have SP2 installed. More info on [StackOverflow](http://stackoverflow.com/questions/4257684/sql-server-attach-incorrent-version-661).
+
 ##NuGet
 
 	Install-Package MvcJqGrid
@@ -64,6 +66,12 @@ Creating a basic grid with the WebForms view engine:
 		.SetViewRecords(true)
 		.SetPager("pager")
     %>
+
+The grid is available in the Html class as a regular Html helper. The grid's constructor takes one parameter, which is used to set the id of the grid. All additional properties, methods and events are available through method chaining. The order in which you call the methods doesn't influence the behavior of the grid.
+
+After the grid is rendered in the client, the grid issues an AJAX callback to request the data. The SetUrl method points to an action on your controller, which should either return a json or an xml response containing the requested data (responsetype is set using the SetDataType property, default is json). The exact format of the response can be found [here](http://www.trirand.com/jqgridwiki/doku.php?id=wiki:how_to_install).
+
+The helper's only responsibility is to create the appropriate clientside Html and JavaScript to generate the grid. It's the responsibility of the controller to generate the correct response to the request for data send by the grid.
 	
 For more information on creating grids, take a look at the sample application hosted [here](http://playground.webpirates.nl/mvcjqgrid).
 
