@@ -1076,5 +1076,15 @@ namespace MvcJqGrid.Tests
 
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
+
+        /// <summary>
+        /// Issues #3: extra comma at end of column list
+        /// </summary>
+        [Test]
+        public void ColModelDoesNotHaveTrailingComma()
+        {
+            var grid = new Grid("testGrid");
+            StringAssert.Contains("colModel: []}", grid.ToString().Replace("\r\n", ""));
+        }
     }
 }

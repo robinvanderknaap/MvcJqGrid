@@ -1366,7 +1366,7 @@ namespace MvcJqGrid
             script.AppendLine("colModel: [");
             var colModel = string.Join(",", ((from c in _columns select c.ToString()).ToArray()));
             script.AppendLine(colModel);
-            script.AppendLine("],");
+            script.AppendLine("]");
 
             // End jqGrid call
             script.AppendLine("});");
