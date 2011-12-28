@@ -131,6 +131,7 @@
     <Content Include="Content\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\themes\smoothness\jquery-ui-1.8.custom.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\grid.postext.js" />
     <Content Include="Scripts\i18n\grid.locale-ar.js" />
     <Content Include="Scripts\i18n\grid.locale-bg.js" />
     <Content Include="Scripts\i18n\grid.locale-bg1251.js" />
@@ -200,6 +201,7 @@
     <Content Include="Views\Home\Formatters.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\PostData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AdventureWorks.dbml.layout">

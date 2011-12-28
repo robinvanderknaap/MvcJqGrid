@@ -45,6 +45,11 @@ namespace MvcJqGrid.Example.Controllers
             return View();
         }
 
+        public ActionResult PostData()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();
