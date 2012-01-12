@@ -339,6 +339,19 @@ namespace MvcJqGrid.Tests
             JavascriptAssertColumn.IsValid(column);
         }
 
+        /// <summary>
+        /// Issue #4: Formatoptions where accidently lower cased, causing some options to break (like baseLinkUrl)
+        /// </summary>
+        [Test]
+        public void CanSetFormatOptions()
+        {
+            var column = GetTestableColumn();
+            column.SetFormatter(Formatters.Showlink, "baseLinkUrl:'test.php'");
+
+            StringAssert.Contains("baseLinkUrl:'test.php'", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
+
         private static Column GetTestableColumn()
         {
             return new Column("testColumn");    

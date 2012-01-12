@@ -327,7 +327,7 @@ namespace MvcJqGrid
                 script.AppendFormat("formatter:'{0}',", _formatter.Value.Key.ToString().ToLower()).AppendLine();
 
             if (_formatter.HasValue && !string.IsNullOrWhiteSpace(_formatter.Value.Value))
-                script.AppendLine("formatter:'" + _formatter.Value.Key.ToString().ToLower() + "', formatoptions: {" + _formatter.Value.Value.ToLower() + "},"); 
+                script.AppendLine("formatter:'" + _formatter.Value.Key.ToString().ToLower() + "', formatoptions: {" + _formatter.Value.Value + "},"); 
 
             // Custom formatter
             if (!string.IsNullOrWhiteSpace(_customFormatter))
