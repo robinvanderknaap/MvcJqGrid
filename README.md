@@ -17,10 +17,10 @@ One word about the sample data being used. The sample data is contained in a Sql
 All source code is licensed under the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
 
 ## Requirements
-You need jQuery, jqGrid and the MvcJqGrid helper to get started, all three are available through NuGet. The helper will work with jqGrid v3.65 or later. If you're using the [Download Builder](http://www.trirand.com/blog/?page_id=6) to create your own custom jqGrid package, make sure you select all three base modules (Grid base, Formatter and Custom).
+You need jQuery, jqGrid and the MvcJqGrid helper to get started, all three are available through NuGet. jQuery and jqGrid aren't included in the helper. The helper will work with jqGrid v3.65 or later. If you're using the [Download Builder](http://www.trirand.com/blog/?page_id=6) to create your own custom jqGrid package, make sure you select all three base modules (Grid base, Formatter and Custom). You can find a manual on how to install jqgrid [here](http://www.trirand.com/jqgridwiki/doku.php?id=wiki:how_to_install)
 
 ## Get started
-After installing jqGrid and the helper you can start using the helper in your views. Make sure to include an using/import statement to the top of the viewpage that will use the helper:
+After [installing jqGrid](http://www.trirand.com/jqgridwiki/doku.php?id=wiki:how_to_install) and the helper you can start using the helper in your views. Make sure to include an using/import statement to the top of the viewpage that will use the helper:
 
 	Razor:
 	@using MvcJqGrid
@@ -30,6 +30,8 @@ After installing jqGrid and the helper you can start using the helper in your vi
 	
 If you're planning on using the grid on multiple pages in your project, it's possible to add the reference to your web.config, which enables the helper in all your views. For the Razor view engine use the web.config file located in the Views folder, for the WebForms view engine you can use the web.config located in the root of your application:
 
+	<add namespace="MvcJqGrid" />
+	
 Creating a basic grid with the Razor view engine:
 
 	@(Html.Grid("basic")
