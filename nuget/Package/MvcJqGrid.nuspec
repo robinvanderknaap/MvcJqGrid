@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>MvcJqGrid</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>Robin van der Knaap,Daan le Duc</authors>
     <owners>Robin van der Knaap,Daan le Duc</owners>
     <licenseUrl>https://github.com/robinvanderknaap/MvcJqGrid</licenseUrl>
     <projectUrl>https://github.com/robinvanderknaap/MvcJqGrid</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A fluent html helper which eases the the implementation of jqGrid in ASP.NET MVC applications. Support for Razor and WebForms view engine.</description>
-    <tags>jqGrid, htmlhelper, asp.net, mvc, fluent</tags>    
+    <description>A fluent html helper which eases the the implementation of jqGrid in ASP.NET MVC applications. Support for Razor and WebForms view engine. JqGrid modelbinder included.</description>
+    <tags>jqGrid, htmlhelper, asp.net, mvc, fluent, modelbinder</tags>    
   </metadata>
 </package>
