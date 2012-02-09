@@ -29,7 +29,12 @@ namespace MvcJqGrid
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(Filter));
-                var ms = new System.IO.MemoryStream(Encoding.Default.GetBytes(jsonData));
+                //var ms = new System.IO.MemoryStream(Encoding.Default.GetBytes(jsonData));
+                var ms = new System.IO.MemoryStream(
+                    Encoding.Convert(
+                        Encoding.Default,
+                        Encoding.UTF8,
+                        Encoding.Default.GetBytes(jsonData)));
                 return serializer.ReadObject(ms) as Filter;
             }
             catch
