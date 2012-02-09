@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ColumnTests.cs" />
     <Compile Include="GridHelperTests.cs" />
+    <Compile Include="GridModelBinderTests.cs.cs" />
     <Compile Include="GridTests.cs" />
     <Compile Include="JavascriptCompiler\JavascriptAssert.cs" />
     <Compile Include="JavascriptCompiler\JavascriptCompiler.cs" />
