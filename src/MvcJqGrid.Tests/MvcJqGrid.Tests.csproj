@@ -62,7 +62,6 @@
     <Compile Include="JavascriptCompiler\JavascriptAssert.cs" />
     <Compile Include="JavascriptCompiler\JavascriptCompiler.cs" />
     <Compile Include="JavascriptCompiler\JavascriptCompilerResult.cs" />
-    <Compile Include="ModelBinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
