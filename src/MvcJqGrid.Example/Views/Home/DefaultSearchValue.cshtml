@@ -1,0 +1,72 @@
+﻿@section Title {Search}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Search Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("search")
+    .SetCaption("Toolbar Default Search Value")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name")
+        .SetSearchType(Searchtype.Text)
+        .SetDefaultSearchValue("Orland"))
+    .AddColumn(new Column("Company")
+        .SetSearchType(Searchtype.Select)
+        .SetSearchTerms((string[])ViewData["CompanyNames"])
+        .SetDefaultSearchValue("A Bike Store"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified")
+        .SetSearchType(Searchtype.Datepicker))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetSearchToolbar(true)
+    .SetSearchOnEnter(false)) 
+    
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("search")
+    .SetCaption("Toolbar Default Search Value")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name")
+        .SetSearchType(Searchtype.Text)
+        .SetDefaultSearchValue("Orland"))
+    .AddColumn(new Column("Company")
+        .SetSearchType(Searchtype.Select)
+        .SetSearchTerms((string[])ViewData["CompanyNames"])
+        .SetDefaultSearchValue("A Bike Store"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified")
+        .SetSearchType(Searchtype.Datepicker))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager")
+    .SetSearchToolbar(true)
+    .SetSearchOnEnter(false))</pre>
+
+<h3>Explanation:</h3>
+
+<pre>This configuration demonstrates default search value in toolbar searching. The default value can be specified for each column.
+
+<i>SetDefaultSearchValue</i>: Sets default search value for a column. SearchToolbar needs to be enabled and Searchtype needs to be specified.
+
+</pre>

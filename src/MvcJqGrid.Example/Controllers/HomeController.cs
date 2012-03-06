@@ -25,6 +25,12 @@ namespace MvcJqGrid.Example.Controllers
             return View();
         }
 
+        public ActionResult DefaultSearchValue()
+        {
+            ViewData["CompanyNames"] = _repo.GetCompanyNames();
+            return View();
+        }
+
         public ActionResult Toolbar()
         {
             return View();

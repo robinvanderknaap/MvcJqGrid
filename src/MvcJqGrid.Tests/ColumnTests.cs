@@ -352,6 +352,17 @@ namespace MvcJqGrid.Tests
             JavascriptAssertColumn.IsValid(column);
         }
 
+        [Test]
+        public void CanSetDefaultSearchValue()
+        {
+            var column = GetTestableColumn();
+            column.SetDefaultSearchValue("test");
+            column.SetSearchType(Searchtype.Text);
+
+            StringAssert.Contains("defaultValue: 'test'", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
+
         private static Column GetTestableColumn()
         {
             return new Column("testColumn");    

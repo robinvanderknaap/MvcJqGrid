@@ -27,6 +27,7 @@ namespace MvcJqGrid
         private bool? _sortable;
         private bool? _title;
         private int? _width;
+        private string _defaultSearchValue;
 
         /// <summary>
         ///     Constructor
@@ -211,6 +212,11 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Gets index of column
+        /// </summary>
+        internal string Index { get { return _index; } }
+
+        /// <summary>
         ///     In case if there is no id from server, this can be set as as id for the unique row id. 
         ///     Only one column can have this property. If there are more than one key the grid finds 
         ///     the first one and the second is ignored. (default: false)
@@ -294,6 +300,30 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Sets default search value
+        /// </summary>
+        /// <param name="defaultSearchValue">Default serach value</param>
+        /// <returns>Column</returns>
+        public Column SetDefaultSearchValue(string defaultSearchValue)
+        {
+            _defaultSearchValue = defaultSearchValue;
+            return this;
+        }
+
+        /// <summary>
+        /// Returns if there is an default search value set
+        /// </summary>
+        internal bool HasDefaultSearchValue
+        {
+            get { return !string.IsNullOrWhiteSpace(_defaultSearchValue); }
+        }
+
+        /// <summary>
+        /// Gets default search value
+        /// </summary>
+        internal string DefaultSearchValue { get { return _defaultSearchValue; } }
+
+        /// <summary>
         ///     Creates javascript string from column to be included in grid javascript
         /// </summary>
         /// <returns></returns>
@@ -354,13 +384,13 @@ namespace MvcJqGrid
             {
                 if (_searchType.Value == Searchtype.Text) script.AppendLine("stype:'text',");
                 if (_searchType.Value == Searchtype.Select) script.AppendLine("stype:'select',");
+             
+                script.Append("searchoptions: {");
             }
 
             // Searchoptions
             if (_searchType == Searchtype.Select || _searchType == Searchtype.Datepicker)
             {
-                script.Append("searchoptions: {");
-
                 // SearchType select
                 if (_searchType == Searchtype.Select)
                 {
@@ -387,6 +417,22 @@ namespace MvcJqGrid
                             "dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" +
                             _searchDateFormat + "'});}");
                 }
+
+                if (!string.IsNullOrWhiteSpace(_defaultSearchValue))
+                {
+                    script.Append(",");
+                }
+            }
+
+            // SearchType
+            if (_searchType.HasValue)
+            {
+
+                if (!string.IsNullOrWhiteSpace(_defaultSearchValue))
+                {
+                    script.AppendFormat("defaultValue: '{0}'", _defaultSearchValue);
+                }
+
                 script.AppendLine("},");
             }
 

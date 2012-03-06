@@ -201,6 +201,7 @@
     <Content Include="Views\Home\Formatters.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\DefaultSearchValue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AdventureWorks.dbml.layout">

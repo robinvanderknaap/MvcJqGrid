@@ -27,6 +27,7 @@ namespace MvcJqGrid
         private bool? _sortable;
         private bool? _title;
         private int? _width;
+        private string _defaultSearchValue;
 
         /// <summary>
         ///     Constructor
@@ -56,8 +57,8 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     This option allow to add a class to to every cell on that column. In the grid css 
-        ///     there is a predefined class ui-ellipsis which allow to attach ellipsis to a 
+        ///     This option allow to add a class to to every cell on that column. In the grid css
+        ///     there is a predefined class ui-ellipsis which allow to attach ellipsis to a
         ///     particular row. Also this will work in FireFox too.
         ///     Multiple calls to this function are allowed to set multiple classes
         /// </summary>
@@ -100,7 +101,7 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     Defines the alignment of the cell in the Body layer, not in header cell. 
+        ///     Defines the alignment of the cell in the Body layer, not in header cell.
         ///     Possible values: left, center, right. (default: left)
         /// </summary>
         /// <param name = "align">Alignment of column (center, right, left</param>
@@ -111,7 +112,7 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     If set to asc or desc, the column will be sorted in that direction on first 
+        ///     If set to asc or desc, the column will be sorted in that direction on first
         ///     sort.Subsequent sorts of the column will toggle as usual (default: null)
         /// </summary>
         /// <param name = "firstSortOrder">First sort order</param>
@@ -122,8 +123,8 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     If set to true this option does not allow recalculation of the width of the 
-        ///     column if shrinkToFit option is set to true. Also the width does not change 
+        ///     If set to true this option does not allow recalculation of the width of the
+        ///     column if shrinkToFit option is set to true. Also the width does not change
         ///     if a setGridWidth method is used to change the grid width. (default: false)
         /// </summary>
         /// <param name = "fixedWidth">Indicates if width of column is fixed</param>
@@ -165,16 +166,16 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     Sets custom formatter. Usually this is a function. When set in the formatter option 
-        ///     this should not be enclosed in quotes and not entered with () - 
+        ///     Sets custom formatter. Usually this is a function. When set in the formatter option
+        ///     this should not be enclosed in quotes and not entered with () -
         ///     just specify the name of the function
         ///     The following variables are passed to the function:
         ///     'cellvalue': The value to be formated (pure text).
-        ///     'options': Object { rowId: rid, colModel: cm} where rowId - is the id of the row colModel is 
+        ///     'options': Object { rowId: rid, colModel: cm} where rowId - is the id of the row colModel is
         ///     the object of the properties for this column getted from colModel array of jqGrid
-        ///     'rowobject': Row data represented in the format determined from datatype option. 
-        ///     If we have datatype: xml/xmlstring - the rowObject is xml node,provided according to the rules 
-        ///     from xmlReader If we have datatype: json/jsonstring - the rowObject is array, provided according to 
+        ///     'rowobject': Row data represented in the format determined from datatype option.
+        ///     If we have datatype: xml/xmlstring - the rowObject is xml node,provided according to the rules
+        ///     from xmlReader If we have datatype: json/jsonstring - the rowObject is array, provided according to
         ///     the rules from jsonReader
         /// </summary>
         /// <param name = "customFormatter"></param>
@@ -211,8 +212,13 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     In case if there is no id from server, this can be set as as id for the unique row id. 
-        ///     Only one column can have this property. If there are more than one key the grid finds 
+        /// Gets index of column
+        /// </summary>
+        internal string Index { get { return _index; } }
+
+        /// <summary>
+        ///     In case if there is no id from server, this can be set as as id for the unique row id.
+        ///     Only one column can have this property. If there are more than one key the grid finds
         ///     the first one and the second is ignored. (default: false)
         /// </summary>
         /// <param name = "key">Indicates if key is set</param>
@@ -294,6 +300,30 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Sets default search value
+        /// </summary>
+        /// <param name="defaultSearchValue">Default serach value</param>
+        /// <returns>Column</returns>
+        public Column SetDefaultSearchValue(string defaultSearchValue)
+        {
+            _defaultSearchValue = defaultSearchValue;
+            return this;
+        }
+
+        /// <summary>
+        /// Returns if there is an default search value set
+        /// </summary>
+        internal bool HasDefaultSearchValue
+        {
+            get { return !string.IsNullOrEmpty(_defaultSearchValue.Trim()); }
+        }
+
+        /// <summary>
+        /// Gets default search value
+        /// </summary>
+        internal string DefaultSearchValue { get { return _defaultSearchValue; } }
+
+        /// <summary>
         ///     Creates javascript string from column to be included in grid javascript
         /// </summary>
         /// <returns></returns>
@@ -327,7 +357,7 @@ namespace MvcJqGrid
                 script.AppendFormat("formatter:'{0}',", _formatter.Value.Key.ToString().ToLower()).AppendLine();
 
             if (_formatter.HasValue && !string.IsNullOrEmpty(_formatter.Value.Value.Trim()))
-                script.AppendLine("formatter:'" + _formatter.Value.Key.ToString().ToLower() + "', formatoptions: {" + _formatter.Value.Value + "},"); 
+                script.AppendLine("formatter:'" + _formatter.Value.Key.ToString().ToLower() + "', formatoptions: {" + _formatter.Value.Value + "},");
 
             // Custom formatter
             if (!string.IsNullOrEmpty(_customFormatter.Trim()))
@@ -354,13 +384,13 @@ namespace MvcJqGrid
             {
                 if (_searchType.Value == Searchtype.Text) script.AppendLine("stype:'text',");
                 if (_searchType.Value == Searchtype.Select) script.AppendLine("stype:'select',");
+
+                script.Append("searchoptions: {");
             }
 
             // Searchoptions
             if (_searchType == Searchtype.Select || _searchType == Searchtype.Datepicker)
             {
-                script.Append("searchoptions: {");
-
                 // SearchType select
                 if (_searchType == Searchtype.Select)
                 {
@@ -387,6 +417,22 @@ namespace MvcJqGrid
                             "dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" +
                             _searchDateFormat + "'});}");
                 }
+
+                if (!string.IsNullOrEmpty(_defaultSearchValue.Trim()))
+                {
+                    script.Append(",");
+                }
+            }
+
+            // SearchType
+            if (_searchType.HasValue)
+            {
+
+                if (!string.IsNullOrEmpty(_defaultSearchValue.Trim()))
+                {
+                    script.AppendFormat("defaultValue: '{0}'", _defaultSearchValue);
+                }
+
                 script.AppendLine("},");
             }
 
