@@ -1305,26 +1305,22 @@ namespace MvcJqGrid
                         var defaultValueColumns = " + new JavaScriptSerializer().Serialize(defaultValueColumns) + @";
                         var colModel = this.p.colModel;
 
-                        // if there are any default search options retrieve the post data
                         if (defaultValueColumns.length > 0) {
 
                             var postData = this.p.postData;
 
                             var filters = {};
 
-                            // check if post data already has filters
                             if (postData.hasOwnProperty('filters')) {
                                 filters = JSON.parse(postData.filters);
                             }
 
                             var rules = [];
 
-                            // check if filtes already has rules
                             if (filters.hasOwnProperty('rules')) {
                                 rules = filters.rules;
                             }
 
-                            // loop trough each default search option and add the search option if the filter rule doesnt exists
                             $.each(defaultValueColumns, function (defaultValueColumnIndex, defaultValueColumn) {
 
                                 $.each(rules, function (index, rule) {
@@ -1341,7 +1337,6 @@ namespace MvcJqGrid
                             filters.groupOp = 'AND';
                             filters.rules = rules;
 
-                            // set search = true
                             postData._search = true;
                             postData.filters = JSON.stringify(filters);
                         }

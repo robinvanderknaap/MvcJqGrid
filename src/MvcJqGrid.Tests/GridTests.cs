@@ -817,7 +817,7 @@ namespace MvcJqGrid.Tests
             var grid = new Grid("testGrid");
             grid.OnLoadBeforeSend("someJavascriptFunction()");
 
-            StringAssert.Contains("loadBeforeSend: function(xhr) {someJavascriptFunction()},", grid.ToString());
+            StringAssert.Contains("loadBeforeSend: function(xhr, settings) {someJavascriptFunction()},", grid.ToString());
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
 
