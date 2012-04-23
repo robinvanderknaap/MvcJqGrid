@@ -116,6 +116,16 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Adds a number of columns to grid
+        /// </summary>
+        /// <param name = "columns">IEnumerable of Colomn objects to add to the grid</param>
+        public Grid AddColumns(IEnumerable<Column> columns)
+        {
+            _columns.AddRange(columns);
+            return this;
+        }
+
+        /// <summary>
         ///     The class that is used for alternate rows. You can construct your own class and replace this value.
         ///     This option is valid only if altRows options is set to true (default: ui-priority-secondary)
         /// </summary>
