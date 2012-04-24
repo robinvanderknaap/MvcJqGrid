@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MvcJqGrid.Tests.JavascriptCompiler;
 using NUnit.Framework;
 using MvcJqGrid.DataReaders;
@@ -22,7 +23,7 @@ namespace MvcJqGrid.Tests
         [Test]
         public void CannotConstructGridWithEmptyId()
         {
-            Assert.Throws<ArgumentException>(() => new Grid("")); 
+            Assert.Throws<ArgumentException>(() => new Grid(""));
         }
 
         [Test]
@@ -34,10 +35,44 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains("name:'testColumn1',", grid.ToString());
             StringAssert.Contains("index:'testColumn1'", grid.ToString());
             JavascriptAssert.IsValid(grid.RenderJavascript());
-         }
+        }
+
+
+        [Test]
+        public void CanAddColumnFromList()
+        {
+            var grid = new Grid("testGrid");
+            IList<Column> column = new List<Column>
+                                       {
+                                           new Column("testColumn1")
+                                       };
+            grid.AddColumns(column);
+
+            StringAssert.Contains("name:'testColumn1',", grid.ToString());
+            StringAssert.Contains("index:'testColumn1'", grid.ToString());
+            JavascriptAssert.IsValid(grid.RenderJavascript());
+        }
 
         [Test]
         public void CanAddMultipleColumns()
+        {
+            var grid = new Grid("testGrid");
+            IList<Column> columns = new List<Column>
+                                       {
+                                            new Column("testColumn1"),
+                                            new Column("testColumn2")
+                                       };
+            grid.AddColumns(columns);
+
+            StringAssert.Contains("name:'testColumn1',", grid.ToString());
+            StringAssert.Contains("index:'testColumn1'", grid.ToString());
+            StringAssert.Contains("name:'testColumn2',", grid.ToString());
+            StringAssert.Contains("index:'testColumn2'", grid.ToString());
+            JavascriptAssert.IsValid(grid.RenderJavascript());
+        }
+
+        [Test]
+        public void CanAddMultipleColumnsFromList()
         {
             var grid = new Grid("testGrid");
             grid.AddColumn(new Column("testColumn1"));
@@ -49,7 +84,7 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains("index:'testColumn2'", grid.ToString());
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
- 
+
         [Test]
         public void CanSetAlternateClass()
         {
@@ -103,7 +138,7 @@ namespace MvcJqGrid.Tests
         [Test]
         public void CanSetDataType()
         {
-            var grid = new Grid("testGrid");    
+            var grid = new Grid("testGrid");
             grid.SetDataType(DataType.Xml);
 
             StringAssert.Contains("datatype:'xml',", grid.ToString());
@@ -270,7 +305,8 @@ namespace MvcJqGrid.Tests
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
 
-        [Test] public void CanSetMultiKeyToCtrlKey()
+        [Test]
+        public void CanSetMultiKeyToCtrlKey()
         {
             var grid = new Grid("testGrid");
             grid.SetMultiKey(MultiKey.CtrlKey);
@@ -702,7 +738,7 @@ namespace MvcJqGrid.Tests
         public void CanSetToolbarPositionBoth()
         {
             var grid = new Grid("testGrid");
-            grid.SetToolbar(true); 
+            grid.SetToolbar(true);
             grid.SetToolbarPosition(ToolbarPosition.Both);
 
             StringAssert.Contains("toolbar:[true,'both'],", grid.ToString());
@@ -724,7 +760,7 @@ namespace MvcJqGrid.Tests
         public void CanSetToolbarPositionBottom()
         {
             var grid = new Grid("testGrid");
-            grid.SetToolbar(true); 
+            grid.SetToolbar(true);
             grid.SetToolbarPosition(ToolbarPosition.Bottom);
 
             StringAssert.Contains("toolbar:[true,'bottom'],", grid.ToString());
@@ -974,7 +1010,7 @@ namespace MvcJqGrid.Tests
         [Test]
         public void CanConstructGridWithALotOfStuff()
         {
-            
+
             #region LotOfJavascript
 
             var grid = new Grid("Test")
@@ -991,7 +1027,7 @@ namespace MvcJqGrid.Tests
                                .SetResizeable(true)
                                .SetSearch(true)
                                .SetSearchDateFormat("dd-mm")
-                               .SetSearchTerms(new[] {"abdd", "asdfasf"})
+                               .SetSearchTerms(new[] { "abdd", "asdfasf" })
                                .SetSearchType(Searchtype.Select)
                                .SetSortable(true)
                                .SetTitle(true)
@@ -1047,7 +1083,7 @@ namespace MvcJqGrid.Tests
                 .SetRecordText("Recordafasfd")
                 .SetRequestType(RequestType.Get)
                 .SetResizeClass("Resdafasd")
-                .SetRowList(new[] {10, 20, 30})
+                .SetRowList(new[] { 10, 20, 30 })
                 .SetRowNum(3)
                 .SetRowNumWidth(300)
                 .SetRowNumbers(true)
