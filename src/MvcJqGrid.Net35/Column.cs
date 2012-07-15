@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MvcJqGrid.Enums;
+using MvcJqGrid.Extensions;
 
 namespace MvcJqGrid
 {
@@ -36,7 +37,7 @@ namespace MvcJqGrid
         public Column(string columnName)
         {
             // Make sure columnname is not left blank
-            if (string.IsNullOrEmpty(columnName.Trim()))
+            if (columnName.IsNullOrWhiteSpace())
             {
                 throw new ArgumentException("No columnname specified");
             }
@@ -140,7 +141,7 @@ namespace MvcJqGrid
         /// <param name = "formatter">Formatter</param>
         public Column SetFormatter(Formatters formatter)
         {
-            if (!string.IsNullOrEmpty(_customFormatter.Trim()))
+            if (!_customFormatter.IsNullOrWhiteSpace())
             {
                 throw new Exception(
                     "You cannot set a formatter and a customformatter at the same time, please choose one.");
@@ -156,7 +157,7 @@ namespace MvcJqGrid
         /// <param name = "formatOptions">Formatoptions</param>
         public Column SetFormatter(Formatters formatter, string formatOptions)
         {
-            if (!string.IsNullOrEmpty(_customFormatter.Trim()))
+            if (!_customFormatter.IsNullOrWhiteSpace())
             {
                 throw new Exception(
                     "You cannot set a formatter and a customformatter at the same time, please choose one.");
@@ -315,7 +316,7 @@ namespace MvcJqGrid
         /// </summary>
         internal bool HasDefaultSearchValue
         {
-            get { return !string.IsNullOrEmpty(_defaultSearchValue.Trim()); }
+            get { return !_defaultSearchValue.IsNullOrWhiteSpace(); }
         }
 
         /// <summary>
@@ -353,14 +354,14 @@ namespace MvcJqGrid
                 script.AppendFormat("fixed:{0},", _fixedWidth.Value.ToString().ToLower()).AppendLine();
 
             // Formatters
-            if (_formatter.HasValue && string.IsNullOrEmpty(_formatter.Value.Value.Trim()))
+            if (_formatter.HasValue && _formatter.Value.Value.IsNullOrWhiteSpace())
                 script.AppendFormat("formatter:'{0}',", _formatter.Value.Key.ToString().ToLower()).AppendLine();
 
-            if (_formatter.HasValue && !string.IsNullOrEmpty(_formatter.Value.Value.Trim()))
+            if (_formatter.HasValue && !_formatter.Value.Value.IsNullOrWhiteSpace())
                 script.AppendLine("formatter:'" + _formatter.Value.Key.ToString().ToLower() + "', formatoptions: {" + _formatter.Value.Value + "},");
 
             // Custom formatter
-            if (!string.IsNullOrEmpty(_customFormatter.Trim()))
+            if (!_customFormatter.IsNullOrWhiteSpace())
                 script.AppendFormat("formatter:{0},", _customFormatter).AppendLine();
 
             // Hidden
@@ -370,7 +371,7 @@ namespace MvcJqGrid
             if (_key.HasValue) script.AppendFormat("key:{0},", _key.Value.ToString().ToLower()).AppendLine();
 
             // Label
-            if (!string.IsNullOrEmpty(_label.Trim())) script.AppendFormat("label:'{0}',", _label).AppendLine();
+            if (!_label.IsNullOrWhiteSpace()) script.AppendFormat("label:'{0}',", _label).AppendLine();
 
             // Resizable
             if (_resizeable.HasValue)
@@ -409,7 +410,7 @@ namespace MvcJqGrid
                 // SearchType datepicker
                 if (_searchType == Searchtype.Datepicker)
                 {
-                    if (string.IsNullOrEmpty(_searchDateFormat.Trim()))
+                    if (_searchDateFormat.IsNullOrWhiteSpace())
                         script.Append(
                             "dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}");
                     else
@@ -418,7 +419,7 @@ namespace MvcJqGrid
                             _searchDateFormat + "'});}");
                 }
 
-                if (!string.IsNullOrEmpty(_defaultSearchValue.Trim()))
+                if (!_defaultSearchValue.IsNullOrWhiteSpace())
                 {
                     script.Append(",");
                 }
@@ -428,7 +429,7 @@ namespace MvcJqGrid
             if (_searchType.HasValue)
             {
 
-                if (!string.IsNullOrEmpty(_defaultSearchValue.Trim()))
+                if (!_defaultSearchValue.IsNullOrWhiteSpace())
                 {
                     script.AppendFormat("defaultValue: '{0}'", _defaultSearchValue);
                 }
