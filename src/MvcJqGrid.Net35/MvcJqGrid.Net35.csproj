@@ -58,6 +58,7 @@
     <Compile Include="Enums\Searchtype.cs" />
     <Compile Include="Enums\SortOrder.cs" />
     <Compile Include="Enums\ToolbarPosition.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="GridHtmlHelper.cs" />
     <Compile Include="GridModelBinder.cs" />

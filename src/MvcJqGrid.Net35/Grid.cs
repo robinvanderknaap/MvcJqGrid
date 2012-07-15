@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MvcJqGrid.DataReaders;
 using MvcJqGrid.Enums;
+using MvcJqGrid.Extensions;
 using System.Web.Script.Serialization;
 
 namespace MvcJqGrid
@@ -98,7 +99,7 @@ namespace MvcJqGrid
         /// <param name = "id">Id of grid</param>
         public Grid(string id)
         {
-            if (string.IsNullOrEmpty(id.Trim()))
+            if (id.IsNullOrWhiteSpace())
             {
                 throw new ArgumentException("Id must contain a value to identify the grid");
             }
@@ -1107,7 +1108,7 @@ namespace MvcJqGrid
                 script.AppendFormat("altRows:{0},", _altRows.ToString().ToLower()).AppendLine();
 
             // Altclass
-            if (!string.IsNullOrEmpty(_altClass.Trim())) script.AppendFormat("altclass:'{0}',", _altClass).AppendLine();
+            if (!_altClass.IsNullOrWhiteSpace()) script.AppendFormat("altclass:'{0}',", _altClass).AppendLine();
 
             // Autoencode
             if (_autoEncode.HasValue)
@@ -1118,7 +1119,7 @@ namespace MvcJqGrid
                 script.AppendFormat("autowidth:{0},", _autoWidth.ToString().ToLower()).AppendLine();
 
             // Caption
-            if (!string.IsNullOrEmpty(_caption.Trim())) script.AppendFormat("caption:'{0}',", _caption).AppendLine();
+            if (!_caption.IsNullOrWhiteSpace()) script.AppendFormat("caption:'{0}',", _caption).AppendLine();
 
             // Datatype
             script.AppendLine(string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
@@ -1129,7 +1130,7 @@ namespace MvcJqGrid
             }
 
             // Emptyrecords
-            if (!string.IsNullOrEmpty(_emptyRecords.Trim()))
+            if (!_emptyRecords.IsNullOrWhiteSpace())
                 script.AppendFormat("emptyrecords:'{0}',", _emptyRecords).AppendLine();
 
             // FooterRow
@@ -1173,7 +1174,7 @@ namespace MvcJqGrid
                 script.AppendFormat("loadonce:{0},", _loadOnce.ToString().ToLower()).AppendLine();
 
             // Loadtext
-            if (!string.IsNullOrEmpty(_loadText.Trim())) script.AppendFormat("loadtext:'{0}',", _loadText).AppendLine();
+            if (!_loadText.IsNullOrWhiteSpace()) script.AppendFormat("loadtext:'{0}',", _loadText).AppendLine();
 
             // LoadUi
             if (_loadUi.HasValue) script.AppendFormat("loadui:'{0}',", _loadUi.ToString().ToLower()).AppendLine();
@@ -1197,7 +1198,7 @@ namespace MvcJqGrid
             if (_page.HasValue) script.AppendFormat("page:{0},", _page).AppendLine();
 
             // Pager
-            if (!string.IsNullOrEmpty(_pager.Trim())) script.AppendFormat("pager:'#{0}',", _pager).AppendLine();
+            if (!_pager.IsNullOrWhiteSpace()) script.AppendFormat("pager:'#{0}',", _pager).AppendLine();
 
             // PagerPos
             if (_pagerPos.HasValue) script.AppendFormat("pagerpos:'{0}',", _pagerPos.ToString().ToLower()).AppendLine();
@@ -1211,20 +1212,20 @@ namespace MvcJqGrid
                 script.AppendFormat("pginput:{0},", _pgInput.ToString().ToLower()).AppendLine();
 
             // PGText
-            if (!string.IsNullOrEmpty(_pgText.Trim())) script.AppendFormat("pgtext:'{0}',", _pgText).AppendLine();
+            if (!_pgText.IsNullOrWhiteSpace()) script.AppendFormat("pgtext:'{0}',", _pgText).AppendLine();
 
             // RecordPos
             if (_recordPos.HasValue) script.AppendFormat("recordpos:'{0}',", _recordPos.ToString().ToLower()).AppendLine();
 
             // RecordText
-            if (!string.IsNullOrEmpty(_recordText.Trim()))
+            if (!_recordText.IsNullOrWhiteSpace())
                 script.AppendFormat("recordtext:'{0}',", _recordText).AppendLine();
 
             // Request Type
             if (_requestType.HasValue) script.AppendFormat("mtype:'{0}',", _requestType.ToString().ToLower()).AppendLine();
 
             // ResizeClass
-            if (!string.IsNullOrEmpty(_resizeClass.Trim()))
+            if (!_resizeClass.IsNullOrWhiteSpace())
                 script.AppendFormat("resizeclass:'{0}',", _resizeClass).AppendLine();
 
             // Rowlist
@@ -1257,7 +1258,7 @@ namespace MvcJqGrid
             if (_scrollTimeout.HasValue) script.AppendFormat("scrollTimeout:{0},", _scrollTimeout).AppendLine();
 
             // Sortname
-            if (!string.IsNullOrEmpty(_sortName.Trim())) script.AppendFormat("sortname:'{0}',", _sortName).AppendLine();
+            if (!_sortName.IsNullOrWhiteSpace()) script.AppendFormat("sortname:'{0}',", _sortName).AppendLine();
 
             // Sorticons
             if (_showAllSortIcons.HasValue || _sortIconDirection.HasValue || _sortOnHeaderClick.HasValue)
@@ -1288,7 +1289,7 @@ namespace MvcJqGrid
                 script.AppendFormat("toppager:{0},", _topPager.ToString().ToLower()).AppendLine();
 
             // Url
-            if (!string.IsNullOrEmpty(_url.Trim())) script.AppendFormat("url:'{0}',", _url).AppendLine();
+            if (!_url.IsNullOrWhiteSpace()) script.AppendFormat("url:'{0}',", _url).AppendLine();
 
             // View records
             if (_viewRecords.HasValue)
@@ -1298,7 +1299,7 @@ namespace MvcJqGrid
             if (_width.HasValue) script.AppendFormat("width:'{0}',", _width).AppendLine();
 
             // onAfterInsertRow
-            if (!string.IsNullOrEmpty(_onAfterInsertRow.Trim()))
+            if (!_onAfterInsertRow.IsNullOrWhiteSpace())
                 script.AppendFormat("afterInsertRow: function(rowid, rowdata, rowelem) {{{0}}},", _onAfterInsertRow).
                     AppendLine();
 
@@ -1351,7 +1352,7 @@ namespace MvcJqGrid
                             postData.filters = JSON.stringify(filters);
                         }
 
-                        this.p.beforeRequest = function() { " + ((!string.IsNullOrEmpty(_onBeforeRequest.Trim())) ? _onBeforeRequest : "") + @" };
+                        this.p.beforeRequest = function() { " + ((!_onBeforeRequest.IsNullOrWhiteSpace()) ? _onBeforeRequest : "") + @" };
                         this.p.beforeRequest.call(this);
                     } ";
 
@@ -1360,76 +1361,76 @@ namespace MvcJqGrid
                 script.AppendFormat("beforeRequest: {0},", onbeforeRequestHack).AppendLine();
             }
             // onBeforeRequest
-            else if (!string.IsNullOrEmpty(_onBeforeRequest.Trim()))
+            else if (!_onBeforeRequest.IsNullOrWhiteSpace())
             {
                 script.AppendFormat("beforeRequest: function() {{{0}}},", _onBeforeRequest).AppendLine();
             }
 
             // onBeforeSelectRow
-            if (!string.IsNullOrEmpty(_onBeforeSelectRow.Trim()))
+            if (!_onBeforeSelectRow.IsNullOrWhiteSpace())
                 script.AppendFormat("beforeSelectRow: function(rowid, e) {{{0}}},", _onBeforeSelectRow).AppendLine();
 
             // onGridComplete
-            if (!string.IsNullOrEmpty(_onGridComplete.Trim()))
+            if (!_onGridComplete.IsNullOrWhiteSpace())
                 script.AppendFormat("gridComplete: function() {{{0}}},", _onGridComplete).AppendLine();
 
             // onLoadBeforeSend
-            if (!string.IsNullOrEmpty(_onLoadBeforeSend.Trim()))
-                script.AppendFormat("loadBeforeSend: function(xhr) {{{0}}},", _onLoadBeforeSend).AppendLine();
+            if (!_onLoadBeforeSend.IsNullOrWhiteSpace())
+                script.AppendFormat("loadBeforeSend: function(xhr, settings) {{{0}}},", _onLoadBeforeSend).AppendLine();
 
             // onLoadComplete
-            if (!string.IsNullOrEmpty(_onLoadComplete.Trim()))
+            if (!_onLoadComplete.IsNullOrWhiteSpace())
                 script.AppendFormat("loadComplete: function(xhr) {{{0}}},", _onLoadComplete).AppendLine();
 
             // onLoadError
-            if (!string.IsNullOrEmpty(_onLoadError.Trim()))
+            if (!_onLoadError.IsNullOrWhiteSpace())
                 script.AppendFormat("loadError: function(xhr, status, error) {{{0}}},", _onLoadError).AppendLine();
 
             // onCellSelect
-            if (!string.IsNullOrEmpty(_onCellSelect.Trim()))
+            if (!_onCellSelect.IsNullOrWhiteSpace())
                 script.AppendFormat("onCellSelect: function(rowid, iCol, cellcontent, e) {{{0}}},", _onCellSelect).
                     AppendLine();
 
             // onDblClickRow
-            if (!string.IsNullOrEmpty(_onDblClickRow.Trim()))
+            if (!_onDblClickRow.IsNullOrWhiteSpace())
                 script.AppendFormat("ondblClickRow: function(rowid, iRow, iCol, e) {{{0}}},", _onDblClickRow).AppendLine
                     ();
 
             // onHeaderClick
-            if (!string.IsNullOrEmpty(_onHeaderClick.Trim()))
+            if (!_onHeaderClick.IsNullOrWhiteSpace())
                 script.AppendFormat("onHeaderClick: function(gridstate) {{{0}}},", _onHeaderClick).AppendLine();
 
             // onPaging
-            if (!string.IsNullOrEmpty(_onPaging.Trim()))
+            if (!_onPaging.IsNullOrWhiteSpace())
                 script.AppendFormat("onPaging: function(pgButton) {{{0}}},", _onPaging).AppendLine();
 
             // onRightClickRow
-            if (!string.IsNullOrEmpty(_onRightClickRow.Trim()))
+            if (!_onRightClickRow.IsNullOrWhiteSpace())
                 script.AppendFormat("onRightClickRow: function(rowid, iRow, iCol, e) {{{0}}},", _onRightClickRow).
                     AppendLine();
 
             // onSelectAll
-            if (!string.IsNullOrEmpty(_onSelectAll.Trim()))
+            if (!_onSelectAll.IsNullOrWhiteSpace())
                 script.AppendFormat("onSelectAll: function(aRowids, status) {{{0}}},", _onSelectAll).AppendLine();
 
             // onSelectRow event
-            if (!string.IsNullOrEmpty(_onSelectRow.Trim()))
+            if (!_onSelectRow.IsNullOrWhiteSpace())
                 script.AppendFormat("onSelectRow: function(rowid, status) {{{0}}},", _onSelectRow).AppendLine();
 
             // onSortCol
-            if (!string.IsNullOrEmpty(_onSortCol.Trim()))
+            if (!_onSortCol.IsNullOrWhiteSpace())
                 script.AppendFormat("onSortCol: function(index, iCol, sortorder) {{{0}}},", _onSortCol).AppendLine();
 
             // onResizeStart
-            if (!string.IsNullOrEmpty(_onResizeStart.Trim()))
+            if (!_onResizeStart.IsNullOrWhiteSpace())
                 script.AppendFormat("resizeStart: function(jqGridEvent, index) {{{0}}},", _onResizeStart).AppendLine();
 
             // onResizeStop
-            if (!string.IsNullOrEmpty(_onResizeStop.Trim()))
+            if (!_onResizeStop.IsNullOrWhiteSpace())
                 script.AppendFormat("resizeStop: function(newwidth, index) {{{0}}},", _onResizeStop).AppendLine();
 
             // onSerializeGridData
-            if (!string.IsNullOrEmpty(_onSerializeGridData.Trim()))
+            if (!_onSerializeGridData.IsNullOrWhiteSpace())
                 script.AppendFormat("serializeGridData: function(postData) {{{0}}},", _onSerializeGridData).AppendLine();
 
             // Colmodel
@@ -1441,7 +1442,7 @@ namespace MvcJqGrid
             // End jqGrid call
             script.AppendLine("});");
 
-            if (_searchToolbar == true && !string.IsNullOrEmpty(_pager.Trim()) &&
+            if (_searchToolbar == true && !_pager.IsNullOrWhiteSpace() &&
                 (_searchClearButton.HasValue && _searchClearButton == true || _searchToggleButton.HasValue && _searchToggleButton == true))
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navGrid',\"#" + _pager +
@@ -1449,14 +1450,14 @@ namespace MvcJqGrid
             }
 
             // Search clear button
-            if (_searchToolbar == true && _searchClearButton.HasValue && !string.IsNullOrEmpty(_pager.Trim()) &&
+            if (_searchToolbar == true && _searchClearButton.HasValue && !_pager.IsNullOrWhiteSpace() &&
                 _searchClearButton == true)
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navButtonAdd',\"#" + _pager +
                                  "\",{caption:\"Clear\",title:\"Clear Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){mygrid[0].clearToolbar(); }}); ");
             }
 
-            if (_searchToolbar == true && _searchToggleButton.HasValue && !string.IsNullOrEmpty(_pager.Trim()) && _searchToggleButton == true)
+            if (_searchToolbar == true && _searchToggleButton.HasValue && !_pager.IsNullOrWhiteSpace() && _searchToggleButton == true)
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navButtonAdd',\"#" + _pager +
                               "\",{caption:\"Toggle Search\",title:\"Toggle Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){mygrid[0].toggleToolbar(); }}); ");
@@ -1481,6 +1482,32 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Renders the required Html Elements
+        /// </summary>
+        /// <returns></returns>
+        public string RenderHtmlElements()
+        {
+            // Create table which is used to render grid
+            var table = new StringBuilder();
+            table.AppendFormat("<table id=\"{0}\"></table>", _id);
+
+            // Create pager element if is set
+            var pager = new StringBuilder();
+            if (!_pager.IsNullOrWhiteSpace())
+            {
+                pager.AppendFormat("<div id=\"{0}\"></div>", _pager);
+            }
+
+            // Create toppager element if is set
+            var topPager = new StringBuilder();
+            if (_topPager == true)
+            {
+                topPager.AppendFormat("<div id=\"{0}_toppager\"></div>", _id);
+            }
+            return table.ToString() + pager + topPager;
+        }
+        
+        /// <summary>
         ///     Creates and returns javascript + required html elements to render grid
         /// </summary>
         /// <returns></returns>
@@ -1494,29 +1521,11 @@ namespace MvcJqGrid
             script.Append(RenderJavascript());
             script.AppendLine("</script>");
 
-            // Create table which is used to render grid
-            var table = new StringBuilder();
-            table.AppendFormat("<table id=\"{0}\"></table>", _id);
-
-            // Create pager element if is set
-            var pager = new StringBuilder();
-            if (!string.IsNullOrEmpty(_pager.Trim()))
-            {
-                pager.AppendFormat("<div id=\"{0}\"></div>", _pager);
-            }
-
-            // Create toppager element if is set
-            var topPager = new StringBuilder();
-            if (_topPager == true)
-            {
-                topPager.AppendFormat("<div id=\"{0}_toppager\"></div>", _id);
-            }
-
             // Insert grid id where needed (in columns)
             script.Replace("##gridid##", _id);
 
             // Return script + required elements
-            return script + table.ToString() + pager + topPager;
+            return script + RenderHtmlElements();
         }
     }
 }
