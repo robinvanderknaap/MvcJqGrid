@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using MvcJqGrid.DataReaders;
 using MvcJqGrid.Enums;
-using System.Web.Script.Serialization;
 
 namespace MvcJqGrid
 {
@@ -1012,7 +1012,6 @@ namespace MvcJqGrid
             return this;
         }
 
-
         /// <summary>
         ///     Raised immediately when row is clicked.
         ///     Variables available in function call:
@@ -1026,7 +1025,6 @@ namespace MvcJqGrid
             _onSelectRow = onSelectRow;
             return this;
         }
-
 
         /// <summary>
         ///     Raised immediately after sortable column was clicked and before sorting the data.
@@ -1100,7 +1098,7 @@ namespace MvcJqGrid
             var script = new StringBuilder();
 
             // Start script
-           script.AppendLine("jQuery(document).ready(function () {");
+            script.AppendLine("jQuery(document).ready(function () {");
             script.AppendLine("jQuery('#" + _id + "').jqGrid({");
 
             // Altrows
@@ -1288,7 +1286,7 @@ namespace MvcJqGrid
             if (_topPager.HasValue)
                 script.AppendFormat("toppager:{0},", _topPager.ToString().ToLower()).AppendLine();
 
-   			// Url
+            // Url
             if (!string.IsNullOrWhiteSpace(_url)) script.AppendFormat("url:'{0}',", _url).AppendLine();
 
             // View records
@@ -1312,12 +1310,10 @@ namespace MvcJqGrid
 
                 var onbeforeRequestHack = @"
                 function() {
-
                         var defaultValueColumns = " + new JavaScriptSerializer().Serialize(defaultValueColumns) + @";
                         var colModel = this.p.colModel;
 
                         if (defaultValueColumns.length > 0) {
-
                             var postData = this.p.postData;
 
                             var filters = {};
@@ -1333,9 +1329,7 @@ namespace MvcJqGrid
                             }
 
                             $.each(defaultValueColumns, function (defaultValueColumnIndex, defaultValueColumn) {
-
                                 $.each(rules, function (index, rule) {
-
                                     if (defaultValueColumn.field == rule.field) {
                                         delete rules[index];
                                         return;
@@ -1356,14 +1350,14 @@ namespace MvcJqGrid
                         this.p.beforeRequest.call(this);
                     } ";
 
-                #endregion
+                #endregion jqGrid javascript onbefore request hack
 
                 script.AppendFormat("beforeRequest: {0},", onbeforeRequestHack).AppendLine();
             }
             // onBeforeRequest
-            else  if (!string.IsNullOrWhiteSpace(_onBeforeRequest))
+            else if (!string.IsNullOrWhiteSpace(_onBeforeRequest))
             {
-                    script.AppendFormat("beforeRequest: function() {{{0}}},", _onBeforeRequest).AppendLine();
+                script.AppendFormat("beforeRequest: function() {{{0}}},", _onBeforeRequest).AppendLine();
             }
 
             // onBeforeSelectRow
@@ -1482,19 +1476,11 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        ///     Creates and returns javascript + required html elements to render grid
+        /// Renders the required Html Elements
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public string RenderHtmlElements()
         {
-            // Create javascript
-            var script = new StringBuilder();
-
-            // Start script
-            script.AppendLine("<script type=\"text/javascript\">");
-            script.Append(RenderJavascript());
-            script.AppendLine("</script>");
-
             // Create table which is used to render grid
             var table = new StringBuilder();
             table.AppendFormat("<table id=\"{0}\"></table>", _id);
@@ -1512,12 +1498,28 @@ namespace MvcJqGrid
             {
                 topPager.AppendFormat("<div id=\"{0}_toppager\"></div>", _id);
             }
+            return table.ToString() + pager + topPager;
+        }
+
+        /// <summary>
+        ///     Creates and returns javascript + required html elements to render grid
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            // Create javascript
+            var script = new StringBuilder();
+
+            // Start script
+            script.AppendLine("<script type=\"text/javascript\">");
+            script.Append(RenderJavascript());
+            script.AppendLine("</script>");
 
             // Insert grid id where needed (in columns)
             script.Replace("##gridid##", _id);
 
             // Return script + required elements
-            return script + table.ToString() + pager + topPager;
+            return script + RenderHtmlElements();
         }
 
         public string ToHtmlString()
