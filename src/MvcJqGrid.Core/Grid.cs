@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
 using MvcJqGrid.DataReaders;
 using MvcJqGrid.Enums;
 using MvcJqGrid.Extensions;
-using System.Web.Script.Serialization;
 
 namespace MvcJqGrid
 {
     /// <summary>
     ///     Grid class, used to render JqGrid
     /// </summary>
-    public class Grid
+    public partial class Grid
     {
         private readonly List<Column> _columns = new List<Column>();
         private readonly string _id;
@@ -117,7 +117,7 @@ namespace MvcJqGrid
         }
 
         /// <summary>
-        /// Adds a number of columns to grid
+        ///     Adds a number of columns to grid
         /// </summary>
         /// <param name = "columns">IEnumerable of Colomn objects to add to the grid</param>
         public Grid AddColumns(IEnumerable<Column> columns)
@@ -1012,7 +1012,6 @@ namespace MvcJqGrid
             return this;
         }
 
-
         /// <summary>
         ///     Raised immediately when row is clicked.
         ///     Variables available in function call:
@@ -1026,7 +1025,6 @@ namespace MvcJqGrid
             _onSelectRow = onSelectRow;
             return this;
         }
-
 
         /// <summary>
         ///     Raised immediately after sortable column was clicked and before sorting the data.
@@ -1100,7 +1098,7 @@ namespace MvcJqGrid
             var script = new StringBuilder();
 
             // Start script
-           script.AppendLine("jQuery(document).ready(function () {");
+            script.AppendLine("jQuery(document).ready(function () {");
             script.AppendLine("jQuery('#" + _id + "').jqGrid({");
 
             // Altrows
@@ -1312,12 +1310,10 @@ namespace MvcJqGrid
 
                 var onbeforeRequestHack = @"
                 function() {
-
                         var defaultValueColumns = " + new JavaScriptSerializer().Serialize(defaultValueColumns) + @";
                         var colModel = this.p.colModel;
 
                         if (defaultValueColumns.length > 0) {
-
                             var postData = this.p.postData;
 
                             var filters = {};
@@ -1333,9 +1329,7 @@ namespace MvcJqGrid
                             }
 
                             $.each(defaultValueColumns, function (defaultValueColumnIndex, defaultValueColumn) {
-
                                 $.each(rules, function (index, rule) {
-
                                     if (defaultValueColumn.field == rule.field) {
                                         delete rules[index];
                                         return;
@@ -1356,7 +1350,7 @@ namespace MvcJqGrid
                         this.p.beforeRequest.call(this);
                     } ";
 
-                #endregion
+                #endregion jqGrid javascript onbefore request hack
 
                 script.AppendFormat("beforeRequest: {0},", onbeforeRequestHack).AppendLine();
             }
@@ -1454,13 +1448,13 @@ namespace MvcJqGrid
                 _searchClearButton == true)
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navButtonAdd',\"#" + _pager +
-                                 "\",{caption:\"Clear\",title:\"Clear Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){mygrid[0].clearToolbar(); }}); ");
+                                 "\",{caption:\"Clear\",title:\"Clear Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#" + _id + "').clearToolbar(); }}); ");
             }
 
             if (_searchToolbar == true && _searchToggleButton.HasValue && !_pager.IsNullOrWhiteSpace() && _searchToggleButton == true)
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navButtonAdd',\"#" + _pager +
-                              "\",{caption:\"Toggle Search\",title:\"Toggle Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){mygrid[0].toggleToolbar(); }}); ");
+                              "\",{caption:\"Toggle Search\",title:\"Toggle Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#" + _id + "').toggleToolbar(); }}); ");
             }
 
             // Search toolbar
@@ -1506,7 +1500,7 @@ namespace MvcJqGrid
             }
             return table.ToString() + pager + topPager;
         }
-        
+
         /// <summary>
         ///     Creates and returns javascript + required html elements to render grid
         /// </summary>
@@ -1526,6 +1520,11 @@ namespace MvcJqGrid
 
             // Return script + required elements
             return script + RenderHtmlElements();
+        }
+
+        public string ToHtmlString()
+        {
+            return ToString();
         }
     }
 }

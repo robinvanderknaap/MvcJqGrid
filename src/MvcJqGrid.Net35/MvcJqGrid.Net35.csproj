@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -44,26 +45,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Column.cs" />
-    <Compile Include="DataReaders\JsonReader.cs" />
-    <Compile Include="Enums\Align.cs" />
-    <Compile Include="Enums\DataType.cs" />
-    <Compile Include="Enums\Direction.cs" />
-    <Compile Include="Enums\Formatters.cs" />
-    <Compile Include="Enums\LoadUi.cs" />
-    <Compile Include="Enums\MultiKey.cs" />
-    <Compile Include="Enums\PagerPos.cs" />
-    <Compile Include="Enums\RecordPos.cs" />
-    <Compile Include="Enums\RequestType.cs" />
-    <Compile Include="Enums\Searchtype.cs" />
-    <Compile Include="Enums\SortOrder.cs" />
-    <Compile Include="Enums\ToolbarPosition.cs" />
+    <Compile Include="..\MvcJqGrid.Core\Column.cs">
+      <Link>Column.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\DataReaders\JsonReader.cs">
+      <Link>DataReaders\JsonReader.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\Align.cs">
+      <Link>Enums\Align.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\DataType.cs">
+      <Link>Enums\DataType.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\Direction.cs">
+      <Link>Enums\Direction.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\Formatters.cs">
+      <Link>Enums\Formatters.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\LoadUi.cs">
+      <Link>Enums\LoadUi.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\MultiKey.cs">
+      <Link>Enums\MultiKey.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\PagerPos.cs">
+      <Link>Enums\PagerPos.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\RecordPos.cs">
+      <Link>Enums\RecordPos.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\RequestType.cs">
+      <Link>Enums\RequestType.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\Searchtype.cs">
+      <Link>Enums\Searchtype.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\SortOrder.cs">
+      <Link>Enums\SortOrder.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\ToolbarPosition.cs">
+      <Link>Enums\ToolbarPosition.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Grid.cs">
+      <Link>Grid.cs</Link>
+    </Compile>
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Grid.cs" />
     <Compile Include="GridHtmlHelper.cs" />
     <Compile Include="GridModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
