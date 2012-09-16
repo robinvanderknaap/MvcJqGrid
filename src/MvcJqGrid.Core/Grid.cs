@@ -1448,13 +1448,13 @@ namespace MvcJqGrid
                 _searchClearButton == true)
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navButtonAdd',\"#" + _pager +
-                                 "\",{caption:\"Clear\",title:\"Clear Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#" + _id + "').clearToolbar(); }}); ");
+                                 "\",{caption:\"Clear\",title:\"Clear Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#" + _id + "')[0].clearToolbar(); }}); ");
             }
 
             if (_searchToolbar == true && _searchToggleButton.HasValue && !_pager.IsNullOrWhiteSpace() && _searchToggleButton == true)
             {
                 script.AppendLine("jQuery('#" + _id + "').jqGrid('navButtonAdd',\"#" + _pager +
-                              "\",{caption:\"Toggle Search\",title:\"Toggle Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#" + _id + "').toggleToolbar(); }}); ");
+                              "\",{caption:\"Toggle Search\",title:\"Toggle Search\",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#" + _id + "')[0].toggleToolbar(); }}); ");
             }
 
             // Search toolbar
