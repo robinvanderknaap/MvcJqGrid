@@ -1,0 +1,42 @@
+﻿@section Title {TreeGrid}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>TreeGrid Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("treeGrid")
+    .SetCaption("TreeGrid")
+    .AddColumn(new Column("ItemID")
+        .SetLabel("Id").SetKey(true))
+    .AddColumn(new Column("Name")
+                .SetAsExpandable())
+    .SetUrl(Url.Action("TreeGridData"))
+    .EnableTreeGrid()
+    )
+ 
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("treeGrid")
+    .SetCaption("TreeGrid")
+    .AddColumn(new Column("ItemID")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name")
+                .SetAsExpandable())
+    .SetUrl(Url.Action("TreeGridData"))
+    .EnableTreeGrid()
+    )
+</pre>
+
+<h3>Explanation:</h3>
+
+<pre>The jqGrid helper has basic support for tree grid. Both data strucutres are supported, as well as automatic data type (json/xml) is inferred.
+
+One column must be set as key, and one column must be set as expandable (it may or may not be the same column).</pre>
