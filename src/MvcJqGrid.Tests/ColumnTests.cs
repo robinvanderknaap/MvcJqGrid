@@ -363,6 +363,24 @@ namespace MvcJqGrid.Tests
             JavascriptAssertColumn.IsValid(column);
         }
 
+        [Test]
+        public void ReportsIfIsKeyCorrectly()
+        {
+            var column = GetTestableColumn();
+            column.SetKey(true);
+
+            Assert.AreEqual(column.IsKey, true);
+        }
+
+        [Test]
+        public void ReportsIfIsExpandableCorrectly()
+        {
+            var column = GetTestableColumn();
+            column.SetAsExpandable();
+
+            Assert.AreEqual(column.IsExpandable, true);
+        }
+
         private static Column GetTestableColumn()
         {
             return new Column("testColumn");    
