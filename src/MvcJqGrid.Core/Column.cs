@@ -29,6 +29,7 @@ namespace MvcJqGrid
         private bool? _title;
         private int? _width;
         private string _defaultSearchValue;
+        private bool? _expandableInTree;
 
         /// <summary>
         ///     Constructor
@@ -43,7 +44,7 @@ namespace MvcJqGrid
             }
 
             // Make sure columnname is not part of the reserved names collection
-            var reservedNames = new[] { "subgrid", "cb", "rn" };
+            var reservedNames = new[] {"subgrid", "cb", "rn"};
 
             if (reservedNames.Contains(columnName))
             {
@@ -215,7 +216,10 @@ namespace MvcJqGrid
         /// <summary>
         /// Gets index of column
         /// </summary>
-        internal string Index { get { return _index; } }
+        internal string Index
+        {
+            get { return _index; }
+        }
 
         /// <summary>
         ///     In case if there is no id from server, this can be set as as id for the unique row id. 
@@ -312,6 +316,16 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Sets the column as expandable when using TreeGrid
+        /// </summary>
+        /// <returns></returns>
+        public Column SetAsExpandable()
+        {
+            _expandableInTree = true;
+            return this;
+        }
+
+        /// <summary>
         /// Returns if there is an default search value set
         /// </summary>
         internal bool HasDefaultSearchValue
@@ -323,6 +337,27 @@ namespace MvcJqGrid
         /// Gets default search value
         /// </summary>
         internal string DefaultSearchValue { get { return _defaultSearchValue; } }
+
+        /// <summary>
+        /// Identify if a column is set as key column
+        /// </summary>
+        public bool IsKey
+        {
+            get { return _key ?? false; }
+        }
+
+        /// <summary>
+        /// Identify a column if set as expandable in tree grid
+        /// </summary>
+        public bool IsExpandable
+        {
+            get { return _expandableInTree ?? false; }
+        }
+
+        public string Name
+        {
+            get { return _columnName; }
+        }
 
         /// <summary>
         ///     Creates javascript string from column to be included in grid javascript

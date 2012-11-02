@@ -92,6 +92,9 @@ namespace MvcJqGrid
         private int? _width;
         private JsonReader _jsonReader;
         private bool? _searchToggleButton;
+        private bool _enabledTreeGrid = false;
+        private int? _treeGridRootLevel;
+        private TreeGridModel _treeGridModel;
 
         /// <summary>
         ///     Constructor
@@ -1092,6 +1095,15 @@ namespace MvcJqGrid
             return this;
         }
 
+        public Grid EnableTreeGrid(TreeGridModel treeGridModel = TreeGridModel.Adjacency, int rootLevel = 0)
+        {
+            _treeGridRootLevel = 0;
+            _enabledTreeGrid = true;
+            _treeGridModel = treeGridModel;
+
+            return this;
+        }
+
         public string RenderJavascript()
         {
             // Create javascript
@@ -1100,6 +1112,12 @@ namespace MvcJqGrid
             // Start script
             script.AppendLine("jQuery(document).ready(function () {");
             script.AppendLine("jQuery('#" + _id + "').jqGrid({");
+
+            // Make sure there is at most one key
+            if (_columns.Count(r => r.IsKey) > 1)
+            {
+                throw new ArgumentException("Too many key columns added. Maximum allowed id 1.");
+            }
 
             // Altrows
             if (_altRows.HasValue)
@@ -1120,7 +1138,14 @@ namespace MvcJqGrid
             if (!_caption.IsNullOrWhiteSpace()) script.AppendFormat("caption:'{0}',", _caption).AppendLine();
 
             // Datatype
-            script.AppendLine(string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
+            if (_enabledTreeGrid)
+            {
+                script.AppendLine(string.Format("treedatatype:'{0}',", _dataType.ToString().ToLower()));
+            }
+            else
+            {
+                script.AppendLine(string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
+            }
 
             if (_dataType == DataType.Json && _jsonReader != null)
             {
@@ -1427,6 +1452,30 @@ namespace MvcJqGrid
             if (!_onSerializeGridData.IsNullOrWhiteSpace())
                 script.AppendFormat("serializeGridData: function(postData) {{{0}}},", _onSerializeGridData).AppendLine();
 
+            // TreeGrid controls
+            if (_enabledTreeGrid)
+            {
+                if (_columns.Count(r => r.IsExpandable) > 1)
+                {
+                    throw new ArgumentException("Too many key columns set as expandable. Maximum allowed is 1.");
+                }
+                var keyColumn = _columns.FirstOrDefault(r => r.IsKey);
+                var expandableColumn = _columns.FirstOrDefault(r => r.IsExpandable);
+                if (keyColumn == null)
+                {
+                    throw new ArgumentException("Enabling treegrid needs at least one column set as Key.");
+                }
+                if (expandableColumn == null)
+                {
+                    throw new ArgumentException("Enabling treegrid needs at least one column set as expandable.");
+                }
+
+                script.AppendLine("treeGrid: true,");
+                script.AppendFormat("ExpandColumn : '{0}',", expandableColumn.Name).AppendLine();
+                script.AppendFormat("treeGridModel : '{0}',", _treeGridModel.ToString().ToLower()).AppendLine();
+                script.AppendFormat("tree_root_level : {0},", _treeGridRootLevel).AppendLine();
+            }
+
             // Colmodel
             script.AppendLine("colModel: [");
             var colModel = string.Join(",", ((from c in _columns select c.ToString()).ToArray()));
@@ -1465,6 +1514,8 @@ namespace MvcJqGrid
                     script.AppendFormat(", searchOnEnter:{0}", _searchOnEnter.ToString().ToLower());
                 script.AppendLine("});");
             }
+
+
 
             // End script
             script.AppendLine("});");
