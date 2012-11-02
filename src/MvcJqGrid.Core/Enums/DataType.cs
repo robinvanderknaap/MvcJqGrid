@@ -3,6 +3,8 @@
     public enum DataType
     {
         Json,
-        Xml
+        Xml,
+        ClientSide,
+        Local
     }
 }

@@ -90,5 +90,17 @@ namespace MvcJqGrid.Example.Controllers
 
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult TreeGrid()
+        {
+            return View();
+        }
+
+
+        public ActionResult TreeGridData()
+        {
+            Response.ContentType = "text/xml";
+            return View();
+        }
     }
 }
