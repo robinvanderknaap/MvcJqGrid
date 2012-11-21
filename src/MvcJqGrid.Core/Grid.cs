@@ -1369,6 +1369,8 @@ namespace MvcJqGrid
 
                             postData._search = true;
                             postData.filters = JSON.stringify(filters);
+
+                            $(this).setGridParam({ search: true, 'postData': postData});
                         }
 
                         this.p.beforeRequest = function() { " + ((!_onBeforeRequest.IsNullOrWhiteSpace()) ? _onBeforeRequest : "") + @" };
