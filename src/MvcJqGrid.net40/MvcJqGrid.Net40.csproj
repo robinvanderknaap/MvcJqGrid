@@ -87,6 +87,9 @@
     <Compile Include="..\MvcJqGrid.Core\Enums\ToolbarPosition.cs">
       <Link>Enums\ToolbarPosition.cs</Link>
     </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\TreeGridModel.cs">
+      <Link>Enums\TreeGridModel.cs</Link>
+    </Compile>
     <Compile Include="..\MvcJqGrid.Core\Extensions\StringExtensions.cs">
       <Link>Extensions\StringExtensions.cs</Link>
     </Compile>
