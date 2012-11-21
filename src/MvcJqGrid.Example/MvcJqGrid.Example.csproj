@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\AdventureWorksLT.mdf" />
+    <Content Include="App_Data\AdventureWorksLT2012_Data.mdf" />
     <Content Include="App_Data\AdventureWorksLT_log.LDF">
       <DependentUpon>AdventureWorksLT.mdf</DependentUpon>
     </Content>
