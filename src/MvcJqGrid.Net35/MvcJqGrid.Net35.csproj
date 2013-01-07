@@ -51,6 +51,15 @@
     <Compile Include="..\MvcJqGrid.Core\DataReaders\JsonReader.cs">
       <Link>DataReaders\JsonReader.cs</Link>
     </Compile>
+    <Compile Include="..\MvcJqGrid.Core\EditFormOptions.cs">
+      <Link>EditFormOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\EditOptions.cs">
+      <Link>EditOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\EditRules.cs">
+      <Link>EditRules.cs</Link>
+    </Compile>
     <Compile Include="..\MvcJqGrid.Core\Enums\Align.cs">
       <Link>Enums\Align.cs</Link>
     </Compile>
@@ -59,6 +68,9 @@
     </Compile>
     <Compile Include="..\MvcJqGrid.Core\Enums\Direction.cs">
       <Link>Enums\Direction.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\EditType.cs">
+      <Link>Enums\EditType.cs</Link>
     </Compile>
     <Compile Include="..\MvcJqGrid.Core\Enums\Formatters.cs">
       <Link>Enums\Formatters.cs</Link>
@@ -90,6 +102,9 @@
     <Compile Include="..\MvcJqGrid.Core\Enums\TreeGridModel.cs">
       <Link>Enums\TreeGridModel.cs</Link>
     </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Extensions\ObjectExtensions.cs">
+      <Link>Extensions\ObjectExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\MvcJqGrid.Core\Grid.cs">
       <Link>Grid.cs</Link>
     </Compile>
@@ -97,6 +112,7 @@
     <Compile Include="GridHtmlHelper.cs" />
     <Compile Include="GridModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\NullPropertiesConverter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

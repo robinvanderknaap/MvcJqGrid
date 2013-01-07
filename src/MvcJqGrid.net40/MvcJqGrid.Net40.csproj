@@ -51,6 +51,15 @@
     <Compile Include="..\MvcJqGrid.Core\DataReaders\JsonReader.cs">
       <Link>DataReaders\JsonReader.cs</Link>
     </Compile>
+    <Compile Include="..\MvcJqGrid.Core\EditFormOptions.cs">
+      <Link>EditFormOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\EditOptions.cs">
+      <Link>EditOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\EditRules.cs">
+      <Link>EditRules.cs</Link>
+    </Compile>
     <Compile Include="..\MvcJqGrid.Core\Enums\Align.cs">
       <Link>Enums\Align.cs</Link>
     </Compile>
@@ -59,6 +68,9 @@
     </Compile>
     <Compile Include="..\MvcJqGrid.Core\Enums\Direction.cs">
       <Link>Enums\Direction.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Enums\EditType.cs">
+      <Link>Enums\EditType.cs</Link>
     </Compile>
     <Compile Include="..\MvcJqGrid.Core\Enums\Formatters.cs">
       <Link>Enums\Formatters.cs</Link>
@@ -90,11 +102,17 @@
     <Compile Include="..\MvcJqGrid.Core\Enums\TreeGridModel.cs">
       <Link>Enums\TreeGridModel.cs</Link>
     </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Extensions\ObjectExtensions.cs">
+      <Link>Extensions\ObjectExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\MvcJqGrid.Core\Extensions\StringExtensions.cs">
       <Link>Extensions\StringExtensions.cs</Link>
     </Compile>
     <Compile Include="..\MvcJqGrid.Core\Grid.cs">
       <Link>Grid.cs</Link>
+    </Compile>
+    <Compile Include="..\MvcJqGrid.Core\Utility\NullPropertiesConverter.cs">
+      <Link>Utility\NullPropertiesConverter.cs</Link>
     </Compile>
     <Compile Include="GridHtmlHelper.cs" />
     <Compile Include="GridModelBinder.cs" />
@@ -103,6 +121,7 @@
   <ItemGroup>
     <Compile Include="Grid.Net4.0.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

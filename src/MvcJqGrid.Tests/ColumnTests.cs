@@ -381,6 +381,104 @@ namespace MvcJqGrid.Tests
             Assert.AreEqual(column.IsExpandable, true);
         }
 
+        [Test]
+        public void CanSetEditable()
+        {
+            var column = GetTestableColumn();
+            column.SetEditable(true);
+
+            Console.WriteLine(column.ToString());
+            StringAssert.Contains("editable:true", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
+
+        [Test]
+        public void CanSetEditTypes()
+        {
+            var column = GetTestableColumn();
+            column.SetEditable(true);
+            
+            column.SetEditType(EditType.Text);
+            StringAssert.Contains("edittype:'text'", column.ToString());
+
+            column.SetEditType(EditType.Checkbox);
+            StringAssert.Contains("edittype:'checkbox'", column.ToString());
+
+            column.SetEditType(EditType.Custom);
+            StringAssert.Contains("edittype:'custom'", column.ToString());
+
+            column.SetEditType(EditType.File);
+            StringAssert.Contains("edittype:'file'", column.ToString());
+
+            column.SetEditType(EditType.Image);
+            StringAssert.Contains("edittype:'image'", column.ToString());
+
+            column.SetEditType(EditType.Password);
+            StringAssert.Contains("edittype:'password'", column.ToString());
+
+            column.SetEditType(EditType.Select);
+            StringAssert.Contains("edittype:'select'", column.ToString());
+
+            column.SetEditType(EditType.TextArea);
+            StringAssert.Contains("edittype:'textarea'", column.ToString());
+
+            column.SetEditType(EditType.Button);
+            StringAssert.Contains("edittype:'button'", column.ToString());
+
+
+            JavascriptAssertColumn.IsValid(column);
+        }
+
+        [Test]
+        public void CanSetEditOptions()
+        {
+            var column = GetTestableColumn();
+            column.SetEditable(true);
+
+            column.SetEditOptions(new EditOptions() { 
+                     BuildSelect = "bs",
+                     DataEvents = "ds",
+                     DataInit = "di",
+                     DataUrl = "du",
+                     DefaultValue = "dv",
+                     NullIfEmpty = true,
+                     OtherOptions = "ot",
+                     Value = "v"
+                });
+
+            Console.WriteLine(column.ToString());
+            StringAssert.Contains("\"buildSelect\":\"bs\"", column.ToString());
+            StringAssert.Contains("\"dataEvents\":\"ds\"", column.ToString());
+        }
+
+        [Test]
+        public void CanSetRules()
+        {
+
+            var column = GetTestableColumn();
+            column.SetEditable(true);
+
+            column.SetEditRules(new EditRules() { 
+                 Custom = true,
+                 CustomFunc = "function(){}",
+                 Date = true,
+                 EditHidden = true,
+                 Email = true,
+                 Integer = true,
+                 MaxValue = 5,
+                 MinValue = 1,
+                 Number = true,
+                 Required = true,
+                 Time = true,
+                 Url = true
+            });
+
+            Console.WriteLine(column.ToString());
+            StringAssert.Contains("\"customFunc\":\"function(){}\"", column.ToString());
+            StringAssert.Contains("\"custom\":true", column.ToString());
+
+        }
+
         private static Column GetTestableColumn()
         {
             return new Column("testColumn");    

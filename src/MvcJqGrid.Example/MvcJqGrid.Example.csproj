@@ -219,6 +219,7 @@
     <Content Include="Views\Home\TreeGridData.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AdventureWorks.dbml.layout">
