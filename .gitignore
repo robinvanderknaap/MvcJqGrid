@@ -9,4 +9,3 @@ build/
 _ReSharper.*/
 *.user
 *.Publish.xml
-App_Data/
