@@ -45,6 +45,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded">
+      <HintPath>..\..\packages\RavenDB.Embedded.2.0.2330\lib\net40\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\..\packages\RavenDB.Database.2.0.2330\lib\net40\Raven.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
@@ -75,21 +88,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureWorks.designer.cs">
-      <DependentUpon>AdventureWorks.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AdventureWorksLT.mdf" />
-    <Content Include="App_Data\AdventureWorksLT2012_Data.mdf" />
-    <Content Include="App_Data\AdventureWorksLT_log.LDF">
-      <DependentUpon>AdventureWorksLT.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\license.txt" />
+    <Content Include="App_Data\raven-data.ico" />
     <Content Include="Content\images\accent.png" />
     <Content Include="Content\images\facebook.png" />
     <Content Include="Content\images\heroAccent.png" />
@@ -200,11 +205,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\AdventureWorks.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>AdventureWorks.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Home\Basic.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Toolbar.cshtml" />
@@ -221,11 +221,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\AdventureWorks.dbml.layout">
-      <DependentUpon>AdventureWorks.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +228,20 @@
       <Project>{7D6EC6E3-D83E-4BEA-85A3-A6B1666B7F3D}</Project>
       <Name>MvcJqGrid.Net40</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Data" />
+    <Content Include="App_Data\IndexDefinitions\Temp%252fCustomers.index" />
+    <Content Include="App_Data\logs\RVN.log" />
+    <Content Include="App_Data\logs\RVNres00001.jrs" />
+    <Content Include="App_Data\logs\RVNres00002.jrs" />
+    <Content Include="App_Data\logs\RVNtmp.log" />
+    <Content Include="App_Data\system\RVN.chk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\IndexDefinitions\TemporaryIndexDefinitionsAsSource\" />
+    <Folder Include="App_Data\Indexes\" />
+    <Folder Include="App_Data\temp\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

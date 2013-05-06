@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Net40", "src\MvcJ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Example", "src\MvcJqGrid.Example\MvcJqGrid.Example.csproj", "{EA890CB5-2409-46C1-9EDE-E40002158633}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Net35", "src\MvcJqGrid.Net35\MvcJqGrid.Net35.csproj", "{2B565B60-BAE3-43BA-A9EB-E1CB0B977198}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Core", "src\MvcJqGrid.Core\MvcJqGrid.Core.csproj", "{F6950D91-7A09-46D4-A832-A21D1195FBB6}"
 EndProject
 Global
@@ -29,10 +27,6 @@ Global
 		{EA890CB5-2409-46C1-9EDE-E40002158633}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA890CB5-2409-46C1-9EDE-E40002158633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA890CB5-2409-46C1-9EDE-E40002158633}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B565B60-BAE3-43BA-A9EB-E1CB0B977198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B565B60-BAE3-43BA-A9EB-E1CB0B977198}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B565B60-BAE3-43BA-A9EB-E1CB0B977198}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B565B60-BAE3-43BA-A9EB-E1CB0B977198}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
