@@ -230,12 +230,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvcJqGrid.Net40\MvcJqGrid.Net40.csproj">
-      <Project>{7D6EC6E3-D83E-4BEA-85A3-A6B1666B7F3D}</Project>
-      <Name>MvcJqGrid.Net40</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Data\Data" />
     <Content Include="App_Data\IndexDefinitions\Temp%252fCustomers.index" />
     <Content Include="App_Data\logs\RVN.log" />
@@ -248,6 +242,12 @@
     <Folder Include="App_Data\IndexDefinitions\TemporaryIndexDefinitionsAsSource\" />
     <Folder Include="App_Data\Indexes\" />
     <Folder Include="App_Data\temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MvcJqGrid\MvcJqGrid.csproj">
+      <Project>{F6950D91-7A09-46D4-A832-A21D1195FBB6}</Project>
+      <Name>MvcJqGrid</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
