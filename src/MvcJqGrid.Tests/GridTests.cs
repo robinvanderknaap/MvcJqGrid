@@ -637,7 +637,7 @@ namespace MvcJqGrid.Tests
             grid.SetSearchClearButton(true);
 
             StringAssert.Contains(@"jQuery('#testGrid').jqGrid('navGrid',""#Pager"",{edit:false,add:false,del:false,search:false,refresh:false});", grid.ToString());
-            StringAssert.Contains(@"jQuery('#testGrid').jqGrid('navButtonAdd',""#Pager"",{caption:""Clear"",title:""Clear Search"",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#testGrid').clearToolbar(); }});", grid.ToString());
+            StringAssert.Contains(@"jQuery('#testGrid').jqGrid('navButtonAdd',""#Pager"",{caption:""Clear"",title:""Clear Search"",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#testGrid')[0].clearToolbar(); }});", grid.ToString());
             StringAssert.Contains(@"jQuery('#testGrid').jqGrid('filterToolbar', {stringResult:true});", grid.ToString());
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
@@ -651,7 +651,7 @@ namespace MvcJqGrid.Tests
             grid.SetSearchToggleButton(true);
 
             StringAssert.Contains(@"jQuery('#testGrid').jqGrid('navGrid',""#Pager"",{edit:false,add:false,del:false,search:false,refresh:false});", grid.ToString());
-            StringAssert.Contains(@"jQuery('#testGrid').jqGrid('navButtonAdd',""#Pager"",{caption:""Toggle Search"",title:""Toggle Search"",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#testGrid').toggleToolbar(); }});", grid.ToString());
+            StringAssert.Contains(@"jQuery('#testGrid').jqGrid('navButtonAdd',""#Pager"",{caption:""Toggle Search"",title:""Toggle Search"",buttonicon :'ui-icon-refresh', onClickButton:function(){jQuery('#testGrid')[0].toggleToolbar(); }});", grid.ToString());
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
 
