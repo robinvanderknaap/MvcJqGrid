@@ -477,6 +477,15 @@ namespace MvcJqGrid
                 if (_searchType.Value == Searchtype.Select) script.AppendLine("stype:'select',");
              
                 script.Append("searchoptions: {");
+
+                if (!string.IsNullOrWhiteSpace(_searchOption))
+                {
+                    script.AppendFormat("sopt:['{0}']", _searchOption);
+                }
+                else
+                {
+                    script.Append("sopt:['bw']");
+                }
             }
 
             // Searchoptions
@@ -488,12 +497,12 @@ namespace MvcJqGrid
                     if (_searchTerms != null)
                     {
                         var emtpyOption = (_searchTerms.Any()) ? ":;" : ":";
-                        script.AppendFormat(@"value: ""{0}{1}""", emtpyOption,
+                        script.AppendFormat(@", value: ""{0}{1}""", emtpyOption,
                                             string.Join(";", _searchTerms.Select(s => s.Key + ":" + s.Value).ToArray()));
                     }
                     else
                     {
-                        script.Append("value: ':'");
+                        script.Append(", value: ':'");
                     }
                 }
 
@@ -502,10 +511,10 @@ namespace MvcJqGrid
                 {
                     if (_searchDateFormat.IsNullOrWhiteSpace())
                         script.Append(
-                            "dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}");
+                            ", dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}");
                     else
                         script.Append(
-                            "dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" +
+                            ", dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" +
                             _searchDateFormat + "'});}");
                 }
 
@@ -538,7 +547,7 @@ namespace MvcJqGrid
             if (_width.HasValue) script.AppendFormat("width:{0},", _width.Value).AppendLine();
 
             // Searchoption
-            if (!string.IsNullOrWhiteSpace(_searchOption))
+            if (!string.IsNullOrWhiteSpace(_searchOption) && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
             {
                 script.AppendLine("searchoptions: { sopt:['" + _searchOption + "'] },");
             }
