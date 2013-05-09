@@ -93,7 +93,7 @@ namespace MvcJqGrid
         private int? _width;
         private JsonReader _jsonReader;
         private bool? _searchToggleButton;
-        private bool _enabledTreeGrid = false;
+        private bool _enabledTreeGrid;
         private int? _treeGridRootLevel;
         private TreeGridModel _treeGridModel;
 
@@ -607,13 +607,13 @@ namespace MvcJqGrid
             {
                 _scrollInt = 1;
             }
-            else if (virtualScroll && justHoldVisibleLines == false) // Resharper indicates expression is always true, but this is not the case.
+            else if (!virtualScroll) 
             {
-                _scroll = true;
+                _scroll = false;
             }
             else
             {
-                _scroll = false;
+                _scroll = true;
             }
 
             return this;
@@ -1155,14 +1155,9 @@ namespace MvcJqGrid
             if (!_caption.IsNullOrWhiteSpace()) script.AppendFormat("caption:'{0}',", _caption).AppendLine();
 
             // Datatype
-            if (_enabledTreeGrid)
-            {
-                script.AppendLine(string.Format("treedatatype:'{0}',", _dataType.ToString().ToLower()));
-            }
-            else
-            {
-                script.AppendLine(string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
-            }
+            script.AppendLine(_enabledTreeGrid
+                ? string.Format("treedatatype:'{0}',", _dataType.ToString().ToLower())
+                : string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
 
             if (_dataType == DataType.Json && _jsonReader != null)
             {
