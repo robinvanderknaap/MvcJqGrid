@@ -517,11 +517,6 @@ namespace MvcJqGrid
                             ", dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" +
                             _searchDateFormat + "'});}");
                 }
-
-                if (!_defaultSearchValue.IsNullOrWhiteSpace())
-                {
-                    script.Append(",");
-                }
             }
 
             // SearchType
@@ -530,7 +525,7 @@ namespace MvcJqGrid
 
                 if (!_defaultSearchValue.IsNullOrWhiteSpace())
                 {
-                    script.AppendFormat("defaultValue: '{0}'", _defaultSearchValue);
+                    script.AppendFormat(",defaultValue: '{0}'", _defaultSearchValue);
                 }
 
                 script.AppendLine("},");
