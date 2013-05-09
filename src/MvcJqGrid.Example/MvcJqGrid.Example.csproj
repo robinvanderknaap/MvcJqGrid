@@ -204,7 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Data" />
-    <Content Include="App_Data\IndexDefinitions\Temp%252fCustomers.index" />
     <Content Include="App_Data\logs\RVN.log" />
     <Content Include="App_Data\logs\RVNres00001.jrs" />
     <Content Include="App_Data\logs\RVNres00002.jrs" />
