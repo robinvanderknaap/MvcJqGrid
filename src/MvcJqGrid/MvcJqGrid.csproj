@@ -57,6 +57,7 @@
     <Compile Include="Enums\PagerPos.cs" />
     <Compile Include="Enums\RecordPos.cs" />
     <Compile Include="Enums\RequestType.cs" />
+    <Compile Include="Enums\SearchOptions.cs" />
     <Compile Include="Enums\Searchtype.cs" />
     <Compile Include="Enums\SortOrder.cs" />
     <Compile Include="Enums\ToolbarPosition.cs" />

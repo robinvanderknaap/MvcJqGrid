@@ -7,7 +7,7 @@ using MvcJqGrid.Extensions;
 
 namespace MvcJqGrid
 {
-    public partial class Column
+    public class Column
     {
         private readonly List<string> _classes = new List<string>();
         private readonly string _columnName;
@@ -30,6 +30,7 @@ namespace MvcJqGrid
         private int? _width;
         private string _defaultSearchValue;
         private bool? _expandableInTree;
+        private string _searchOption;
 
         /// <summary>
         ///     Constructor
@@ -360,6 +361,60 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Sets search option for column
+        /// </summary>
+        /// <param name="searchOption">Search option</param>
+        public Column SetSearchOption(SearchOptions searchOption)
+        {
+            switch (searchOption)
+            {
+                case SearchOptions.Equal:
+                    _searchOption = "eq";
+                    break;
+                case SearchOptions.NotEqual:
+                    _searchOption = "ne";
+                    break;
+                case SearchOptions.Less:
+                    _searchOption = "lt";
+                    break;
+                case SearchOptions.LessOrEqual:
+                    _searchOption = "le";
+                    break;
+                case SearchOptions.Greater:
+                    _searchOption = "gt";
+                    break;
+                case SearchOptions.GreaterOrEqual:
+                    _searchOption = "ge";
+                    break;
+                case SearchOptions.BeginsWith:
+                    _searchOption = "bw";
+                    break;
+                case SearchOptions.DoesNotBeginWith:
+                    _searchOption = "bn";
+                    break;
+                case SearchOptions.IsIn:
+                    _searchOption = "in";
+                    break;
+                case SearchOptions.IsNotIn:
+                    _searchOption = "ni";
+                    break;
+                case SearchOptions.EndsWith:
+                    _searchOption = "ew";
+                    break;
+                case SearchOptions.DoesNotEndWith:
+                    _searchOption = "en";
+                    break;
+                case SearchOptions.Contains:
+                    _searchOption = "cn";
+                    break;
+                case SearchOptions.DoesNotContain:
+                    _searchOption = "nc";
+                    break;
+            }
+            return this;
+        }
+
+        /// <summary>
         ///     Creates javascript string from column to be included in grid javascript
         /// </summary>
         /// <returns></returns>
@@ -432,7 +487,7 @@ namespace MvcJqGrid
                 {
                     if (_searchTerms != null)
                     {
-                        var emtpyOption = (_searchTerms.Count() > 0) ? ":;" : ":";
+                        var emtpyOption = (_searchTerms.Any()) ? ":;" : ":";
                         script.AppendFormat(@"value: ""{0}{1}""", emtpyOption,
                                             string.Join(";", _searchTerms.Select(s => s.Key + ":" + s.Value).ToArray()));
                     }
@@ -481,6 +536,12 @@ namespace MvcJqGrid
 
             // Width
             if (_width.HasValue) script.AppendFormat("width:{0},", _width.Value).AppendLine();
+
+            // Searchoption
+            if (!string.IsNullOrWhiteSpace(_searchOption))
+            {
+                script.AppendLine("searchoptions: { sopt:['" + _searchOption + "'] },");
+            }
 
             // Index
             script.AppendFormat("index:'{0}'", _index).AppendLine();
