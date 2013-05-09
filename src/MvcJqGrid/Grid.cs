@@ -573,14 +573,10 @@ namespace MvcJqGrid
         ///     load the data at portions whitout to care about the memory leaks. (default: false)
         /// </summary>
         /// <param name = "scroll">Boolean indicating if scroll is enforced</param>
+        [Obsolete("Method is obsolete, use SetVirtualScroll instead")]
         public Grid SetScroll(bool scroll)
         {
             _scroll = scroll;
-            if (_scrollInt.HasValue)
-            {
-                throw new InvalidOperationException(
-                    "You can't set scroll to both a boolean and an integer at the same time, please choose one.");
-            }
             return this;
         }
 
@@ -592,14 +588,34 @@ namespace MvcJqGrid
         ///     load the data at portions whitout to care about the memory leaks. (default: false)
         /// </summary>
         /// <param name = "scroll">When integer value is set (eg 1) scroll is enforced</param>
+        [Obsolete("Method is obsolete, use SetVirtualScroll instead")]
         public Grid SetScroll(int scroll)
         {
             _scrollInt = scroll;
-            if (_scroll.HasValue)
+            return this;
+        }
+
+        /// <summary>
+        /// Creates virtual scrolling grid. When enabled, the pager elements are disabled and we can use the vertical scrollbar to load data.
+        /// </summary>
+        /// <param name="virtualScroll">Enables virtual scrolling when set to true</param>
+        /// <param name="justHoldVisibleLines">Boolean indicating if only the visible lines in the grid should be held in memory (prevents memory leaks)</param>
+        /// <returns></returns>
+        public Grid SetVirtualScroll(bool virtualScroll, bool justHoldVisibleLines = true)
+        {
+            if (virtualScroll && justHoldVisibleLines)
             {
-                throw new InvalidOperationException(
-                    "You can't set scroll to both a boolean and an integer at the same time, please choose one.");
+                _scrollInt = 1;
             }
+            else if (virtualScroll && justHoldVisibleLines == false) // Resharper indicates expression is always true, but this is not the case.
+            {
+                _scroll = true;
+            }
+            else
+            {
+                _scroll = false;
+            }
+
             return this;
         }
 
@@ -1267,10 +1283,16 @@ namespace MvcJqGrid
             // RowNumWidth
             if (_rowNumWidth.HasValue) script.AppendFormat("rownumWidth:{0},", _rowNumWidth).AppendLine();
 
-            // Scroll (setters make sure either scroll or scrollint is set, never both)
-            if (_scroll.HasValue) script.AppendFormat("scroll:{0},", _scroll.ToString().ToLower()).AppendLine();
-            if (_scrollInt.HasValue) script.AppendFormat("scroll:{0},", _scrollInt).AppendLine();
-
+            // Virtual scroll (make sure either scroll or scrollint is set, never both)
+            if (_scrollInt.HasValue)
+            {
+                script.AppendFormat("scroll:{0},", _scrollInt).AppendLine();
+            }
+            else if (_scroll.HasValue)
+            {
+                script.AppendFormat("scroll:{0},", _scroll.ToString().ToLower()).AppendLine();
+            }
+            
             // ScrollOffset
             if (_scrollOffset.HasValue) script.AppendFormat("scrollOffset:{0},", _scrollOffset).AppendLine();
 

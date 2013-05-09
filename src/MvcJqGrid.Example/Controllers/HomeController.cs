@@ -51,6 +51,11 @@ namespace MvcJqGrid.Example.Controllers
             return View();
         }
 
+        public ActionResult VirtualScrolling()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();
