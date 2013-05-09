@@ -1349,7 +1349,7 @@ namespace MvcJqGrid
             {
                 #region jqGrid javascript onbefore request hack
 
-                var defaultValueColumns = _columns.Where(x => x.HasDefaultSearchValue).Select(x => new { field = x.Index, op = "bw", data = x.DefaultSearchValue });
+                var defaultValueColumns = _columns.Where(x => x.HasDefaultSearchValue).Select(x => new { field = x.Index, op = x.SearchOption, data = x.DefaultSearchValue });
 
                 var onbeforeRequestHack = @"
                 function() {

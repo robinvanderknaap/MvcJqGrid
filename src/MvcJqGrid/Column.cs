@@ -414,6 +414,13 @@ namespace MvcJqGrid
             return this;
         }
 
+        internal string SearchOption
+        {
+            get {
+                return !string.IsNullOrWhiteSpace(_searchOption) ? _searchOption : "bw";
+            }
+        }
+
         /// <summary>
         ///     Creates javascript string from column to be included in grid javascript
         /// </summary>
@@ -529,6 +536,12 @@ namespace MvcJqGrid
                 }
 
                 script.AppendLine("},");
+            }
+
+            // Default value when no search type is set
+            if (!_searchType.HasValue && !_defaultSearchValue.IsNullOrWhiteSpace())
+            {
+                script.Append("searchoptions: { defaultValue: '" + _defaultSearchValue + "' },");
             }
 
             // Sortable
