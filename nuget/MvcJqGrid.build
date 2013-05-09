@@ -11,11 +11,7 @@
     
     <Target Name="Build" DependsOnTargets="Clean;Rebuild">
 		<Copy
-            SourceFiles="../src/MvcJqGrid.Net35/bin/Release/MvcJqGrid.dll"
-            DestinationFiles="./Package/lib/net35/MvcJqGrid.dll"
-        />
-		<Copy
-            SourceFiles="../src/MvcJqGrid.Net40/bin/Release/MvcJqGrid.dll"
+            SourceFiles="../src/MvcJqGrid/bin/Release/MvcJqGrid.dll"
             DestinationFiles="./Package/lib/net40/MvcJqGrid.dll"
         />
 	</Target>
