@@ -449,6 +449,12 @@ namespace MvcJqGrid.Tests
             Console.WriteLine(column.ToString());
             StringAssert.Contains("\"buildSelect\":\"bs\"", column.ToString());
             StringAssert.Contains("\"dataEvents\":\"ds\"", column.ToString());
+            StringAssert.Contains("\"dataInit\":\"di\"", column.ToString());
+            StringAssert.Contains("\"dataUrl\":\"du\"", column.ToString());
+            StringAssert.Contains("\"defaultValue\":\"dv\"", column.ToString());
+            StringAssert.Contains("\"nullIfEmpty\":true", column.ToString());
+            StringAssert.Contains("\"otherOptions\":\"ot\"", column.ToString());
+            StringAssert.Contains("\"value\":\"v\"", column.ToString());
         }
 
         [Test]
@@ -474,9 +480,18 @@ namespace MvcJqGrid.Tests
             });
 
             Console.WriteLine(column.ToString());
-            StringAssert.Contains("\"customFunc\":\"function(){}\"", column.ToString());
             StringAssert.Contains("\"custom\":true", column.ToString());
-
+            StringAssert.Contains("\"customFunc\":\"function(){}\"", column.ToString());
+            StringAssert.Contains("\"date\":true", column.ToString());
+            StringAssert.Contains("\"editHidden\":true", column.ToString());
+            StringAssert.Contains("\"email\":true", column.ToString());
+            StringAssert.Contains("\"integer\":true", column.ToString());
+            StringAssert.Contains("\"maxValue\":5", column.ToString());
+            StringAssert.Contains("\"minValue\":1", column.ToString());
+            StringAssert.Contains("\"number\":true", column.ToString());
+            StringAssert.Contains("\"required\":true", column.ToString());
+            StringAssert.Contains("\"time\":true", column.ToString());
+            StringAssert.Contains("\"url\":true", column.ToString());
         }
 
         private static Column GetTestableColumn()
