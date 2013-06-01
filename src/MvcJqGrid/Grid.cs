@@ -96,7 +96,7 @@ namespace MvcJqGrid
         private bool _enabledTreeGrid;
         private int? _treeGridRootLevel;
         private TreeGridModel _treeGridModel;
-
+        private bool? _asyncLoad;
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -846,6 +846,18 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Set to true when page is being added to document asyncronously,
+        /// prevents javascript from being wrapped in $(document).ready()
+        /// </summary>
+        /// <param name="asyncPageLoad"></param>
+        /// <returns></returns>
+        public Grid SetAsyncLoad(bool asyncPageLoad)
+        {
+            _asyncLoad = asyncPageLoad;
+            return this;
+        }
+
+        /// <summary>
         ///     This event fires after each inserted row.
         ///     Variables available in call:
         ///     'rowid': Id of the inserted row
@@ -1127,7 +1139,11 @@ namespace MvcJqGrid
             var script = new StringBuilder();
 
             // Start script
-            script.AppendLine("jQuery(document).ready(function () {");
+            if(_asyncLoad.HasValue && _asyncLoad.Value)
+                script.AppendLine("jQuery(window).ready(function () {");
+            else
+                script.AppendLine("jQuery(document).ready(function () {");
+
             script.AppendLine("jQuery('#" + _id + "').jqGrid({");
 
             // Make sure there is at most one key

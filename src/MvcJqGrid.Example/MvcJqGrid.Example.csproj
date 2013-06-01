@@ -198,6 +198,7 @@
     <Content Include="Views\Home\TreeGridData.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

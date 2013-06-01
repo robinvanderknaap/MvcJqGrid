@@ -46,6 +46,11 @@ namespace MvcJqGrid.Example.Controllers
             return View();
         }
 
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
         public ActionResult Events()
         {
             return View();

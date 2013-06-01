@@ -32,6 +32,12 @@ namespace MvcJqGrid
         private bool? _expandableInTree;
         private string _searchOption;
 
+        private bool? _editable;
+        private EditType? _editType;
+        private EditOptions _editOptions;
+        private EditRules _editRules;
+        private EditFormOptions _editFormOptions;
+                
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -360,6 +366,12 @@ namespace MvcJqGrid
             get { return _columnName; }
         }
 
+        //private bool? _editable;
+        //private EditType? _editType;
+        //private IDictionary<string, string> _editOptions;
+        //private EditRules _editRules;
+        //private EditFormOptions _formOptions;
+
         /// <summary>
         /// Sets search option for column
         /// </summary>
@@ -419,6 +431,65 @@ namespace MvcJqGrid
             get {
                 return !string.IsNullOrWhiteSpace(_searchOption) ? _searchOption : "bw";
             }
+        }
+
+        /// <summary>
+        /// Sets whether column can be edited
+        /// </summary>
+        /// <param name="editable"></param>
+        /// <returns></returns>
+        public Column SetEditable(bool editable)
+        {
+            _editable = editable;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the type of html element to render when column is in edit mode,
+        /// SetEditable(true) must be called for this to be respected.
+        /// </summary>
+        /// <param name="editType"></param>
+        /// <returns></returns>
+        public Column SetEditType(EditType editType)
+        {
+            _editType = editType;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the edit options for the column
+        /// SetEditable(true) must be called for this to be respected.
+        /// </summary>
+        /// <param name="editOptions"></param>
+        /// <returns></returns>
+        public Column SetEditOptions(EditOptions editOptions)
+        {
+            _editOptions = editOptions;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the columns edit rules
+        /// SetEditable(true) must be called for this to be respected.
+        /// </summary>
+        /// <param name="editRules"></param>
+        /// <returns></returns>
+        public Column SetEditRules(EditRules editRules)
+        {
+            _editRules = editRules;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the columns edit form options
+        /// SetEditable(true) must be called for this to be respected.
+        /// </summary>
+        /// <param name="editFormOptions"></param>
+        /// <returns></returns>
+        public Column SetEditFormOptions(EditFormOptions editFormOptions)
+        {
+            _editFormOptions = editFormOptions;
+            return this;
         }
 
         /// <summary>
@@ -553,12 +624,32 @@ namespace MvcJqGrid
 
             // Width
             if (_width.HasValue) script.AppendFormat("width:{0},", _width.Value).AppendLine();
+                        
+            //editable
+            if (_editable.HasValue)
+                script.AppendFormat("editable:{0},",_editable.Value.ToString().ToLower()).AppendLine();
 
             // Searchoption
             if (!string.IsNullOrWhiteSpace(_searchOption) && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
             {
                 script.AppendLine("searchoptions: { sopt:['" + _searchOption + "'] },");
             }
+
+            //edit type
+            if(_editType.HasValue)
+                script.AppendFormat("edittype:'{0}',", _editType.Value.ToString().ToLower()).AppendLine();
+
+            //edit options
+            if (_editOptions != null)
+                script.AppendFormat("editoptions:{0},", _editOptions.ToString()).AppendLine();
+
+            //edit rules
+            if(_editRules != null)
+                script.AppendFormat("editrules:{0},", _editRules.ToString()).AppendLine();
+                
+            //edit form options
+            if(_editFormOptions != null)
+                script.AppendFormat("formoptions:{0},", _editFormOptions.ToString()).AppendLine();
 
             // Index
             script.AppendFormat("index:'{0}'", _index).AppendLine();

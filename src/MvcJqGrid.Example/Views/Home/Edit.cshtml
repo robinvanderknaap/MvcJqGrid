@@ -1,0 +1,103 @@
+﻿@section Title {Inline Editing}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Inline Editing Example</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("editing")
+    .SetCaption("Inline Editing")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id")
+        .SetCustomFormatter("buttonize"))
+    .AddColumn(new Column("Name")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text))
+    .AddColumn(new Column("Company")
+                .SetEditable(true)
+                .SetEditType(MvcJqGrid.Enums.EditType.Select)
+                .SetEditOptions(new EditOptions() { Value = "0:Twitter; 1:Google; 2:Microsoft; 3:Cisco" }))
+    .AddColumn(new Column("EmailAddress")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text)
+        .SetEditRules(new EditRules() { Email = true }))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager"))
+
+<script type="text/javascript">
+    function buttonize(cellvalue, options, rowobject) {
+        return '<input type="button" value="Edit" onclick="edit(' + options.rowId + ')">';
+    }
+    function edit(id) {
+        $("#editing").jqGrid("editRow", id, true);
+    }
+</script>
+
+<h3>Source:</h3>
+
+<pre>
+    <code>
+    @@(Html.Grid("editing")
+    .SetCaption("Inline Editing")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id")
+        .SetCustomFormatter("buttonize"))
+    .AddColumn(new Column("Name")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text))
+    .AddColumn(new Column("Company")
+                .SetEditable(true)
+                .SetEditType(MvcJqGrid.Enums.EditType.Select)
+                .SetEditOptions(new EditOptions() { Value = "0:Twitter; 1:Google; 2:Microsoft; 3:Cisco" }))
+    .AddColumn(new Column("EmailAddress")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text)
+        .SetEditRules(new EditRules() { Email = true }))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager"))
+
+&lt;script type="text/javascript"&gt;
+    function buttonize(cellvalue, options, rowobject) {
+        return '&lt;input type=&quot;button&quot; value=&quot;Edit&quot; onclick=&quot;edit(' + options.rowId + ')&quot;&gt;';
+    }
+    function edit(id) {
+        $("#editing").jqGrid("editRow", id, true);
+    }
+&lt;/script&gt;
+    </code>
+</pre>
+
+<h3>Explanation:</h3>
+
+<pre>Columns can be setup to allow inline editing, when a row is set to edit mode the configured editing fields will appear.
+
+<i>SetEditable</i>: Sets whether the column is editable by user, if false no change will happen to the column
+                    when row is in edit mode.
+
+<i>SetEditType</i>: Sets predefined edit type for individual column. Available types:  Text,
+        TextArea, Select, Checkbox, Password, Button, Image, File, Custom
+
+<i>SetEditRules</i>: Sets constraints on the data that can be entered into the editable fields.</pre>
