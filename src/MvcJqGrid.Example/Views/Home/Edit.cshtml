@@ -1,10 +1,10 @@
-﻿@section Title {Formatters}
+﻿@section Title {Inline Editing}
 
 @section featured {
 <section class="featured">
     <div class="content-wrapper">
         <hgroup class="title">
-            <h1>Formatters Example</h1>
+            <h1>Inline Editing Example</h1>
             <h2>razor engine</h2>
         </hgroup>
         
@@ -12,12 +12,53 @@
 </section>
 }
 
-@(Html.Grid("formatters")
-    .SetCaption("Formatters")
+@(Html.Grid("editing")
+    .SetCaption("Inline Editing")
     .AddColumn(new Column("CustomerId")
         .SetLabel("Id")
         .SetCustomFormatter("buttonize"))
-    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Name")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text))
+    .AddColumn(new Column("Company")
+                .SetEditable(true)
+                .SetEditType(MvcJqGrid.Enums.EditType.Select)
+                .SetEditOptions(new EditOptions() { Value = "0:Twitter; 1:Google; 2:Microsoft; 3:Cisco" }))
+    .AddColumn(new Column("EmailAddress")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text)
+        .SetEditRules(new EditRules() { Email = true }))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(10)
+    .SetRowList(new[] { 10, 15, 20, 50 })
+    .SetViewRecords(true)
+    .SetPager("pager"))
+
+<script type="text/javascript">
+    function buttonize(cellvalue, options, rowobject) {
+        return '<input type="button" value="' + cellvalue + '" onclick="edit(' + options.rowId + ')">';
+    }
+    function edit(id) {
+        $("#editing").jqGrid("editRow", id, true);
+    }
+</script>
+
+<h3>Source:</h3>
+
+<pre>@@(Html.Grid("editing")
+    .SetCaption("Inline Editing")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id")
+        .SetCustomFormatter("buttonize"))
+    .AddColumn(new Column("Name")
+        .SetFormatter(Formatters.Email)
+        .SetEditable(true)
+        .SetEditType(EditType.Text))
     .AddColumn(new Column("Company"))
     .AddColumn(new Column("EmailAddress")
         .SetFormatter(Formatters.Email)
@@ -35,35 +76,12 @@
 
 <script type="text/javascript">
     function buttonize(cellvalue, options, rowobject) {
-        return '<input type="button" value="' + cellvalue + '" onclick="alert(' + cellvalue + ')">';
+        return '<input type="button" value="' + cellvalue + '" onclick="edit(' + options.rowId + ')">';
     }
-</script>
-
-<h3>Source:</h3>
-
-<pre>@@(Html.Grid("formatters")
-    .SetCaption("Formatters")
-    .AddColumn(new Column("CustomerId")
-        .SetLabel("Id")
-        .SetCustomFormatter("buttonize"))
-    .AddColumn(new Column("Name"))
-    .AddColumn(new Column("Company"))
-    .AddColumn(new Column("EmailAddress")
-        .SetFormatter(Formatters.Email))
-    .AddColumn(new Column("Last Modified"))
-    .AddColumn(new Column("Telephone"))
-    .SetUrl("@Url.Action("GridDataBasic")")
-    .SetAutoWidth(true)
-    .SetRowNum(10)
-    .SetRowList(new[] { 10, 15, 20, 50 })
-    .SetViewRecords(true)
-    .SetPager("pager"))
-
-&lt;script type="text/javascript"&gt;
-    function buttonize(cellvalue, options, rowobject) {
-        return '&lt;input type="button" value="' + cellvalue + '" onclick="alert(' + cellvalue + ')"&gt;';
+    function edit(id) {
+        $("#editing").jqGrid("editRow", id, true);
     }
-&lt;/script&gt;</pre>
+</script></pre>
 
 <h3>Explanation:</h3>
 
