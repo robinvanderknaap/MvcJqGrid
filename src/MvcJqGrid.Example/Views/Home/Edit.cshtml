@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
     function buttonize(cellvalue, options, rowobject) {
-        return '<input type="button" value="' + cellvalue + '" onclick="edit(' + options.rowId + ')">';
+        return '<input type="button" value="Edit" onclick="edit(' + options.rowId + ')">';
     }
     function edit(id) {
         $("#editing").jqGrid("editRow", id, true);
@@ -50,7 +50,9 @@
 
 <h3>Source:</h3>
 
-<pre>@@(Html.Grid("editing")
+<pre>
+    <code>
+    @@(Html.Grid("editing")
     .SetCaption("Inline Editing")
     .AddColumn(new Column("CustomerId")
         .SetLabel("Id")
@@ -59,7 +61,10 @@
         .SetFormatter(Formatters.Email)
         .SetEditable(true)
         .SetEditType(EditType.Text))
-    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("Company")
+                .SetEditable(true)
+                .SetEditType(MvcJqGrid.Enums.EditType.Select)
+                .SetEditOptions(new EditOptions() { Value = "0:Twitter; 1:Google; 2:Microsoft; 3:Cisco" }))
     .AddColumn(new Column("EmailAddress")
         .SetFormatter(Formatters.Email)
         .SetEditable(true)
@@ -74,27 +79,25 @@
     .SetViewRecords(true)
     .SetPager("pager"))
 
-<script type="text/javascript">
+&lt;script type="text/javascript"&gt;
     function buttonize(cellvalue, options, rowobject) {
-        return '<input type="button" value="' + cellvalue + '" onclick="edit(' + options.rowId + ')">';
+        return '&lt;input type=&quot;button&quot; value=&quot;Edit&quot; onclick=&quot;edit(' + options.rowId + ')&quot;&gt;';
     }
     function edit(id) {
         $("#editing").jqGrid("editRow", id, true);
     }
-</script></pre>
+&lt;/script&gt;
+    </code>
+</pre>
 
 <h3>Explanation:</h3>
 
-<pre>Formatters can attached to each individual column to easily format the content of the column. JqGrid 
-supports a number of predefined formatters, also custom formatters can be set.
+<pre>Columns can be setup to allow inline editing, when a row is set to edit mode the configured editing fields will appear.
 
-<i>SetFormatter</i>: Sets predefined formatter for individual column. Available formatters: Integer, Number,
-Currency, Date, Email, Link, Showlink, Checkbox, Select
+<i>SetEditable</i>: Sets whether the column is editable by user, if false no change will happen to the column
+                    when row is in edit mode.
 
-<i>SetCustomFormatter</i>: Use this method to attach a custom formatter to a column. The method expects the 
-name of the function which will handle the custom formatting. The following variables are passed to 
-the function:
-    'cellvalue': The value to be formated (pure text).
-    'options': Object { rowId: rid, colModel: cm} where rowId - is the id of the row and colModel is 
-               the object of the properties for this column retrieved from colModel array of jqGrid
-    'rowobject': Row data represented in the format determined from datatype option.</pre>
+<i>SetEditType</i>: Sets predefined edit type for individual column. Available types:  Text,
+        TextArea, Select, Checkbox, Password, Button, Image, File, Custom
+
+<i>SetEditRules</i>: Sets constraints on the data that can be entered into the editable fields.</pre>
