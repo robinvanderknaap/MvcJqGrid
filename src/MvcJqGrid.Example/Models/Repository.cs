@@ -1,88 +1,116 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Raven.Client.Embedded;
+using Raven.Client.Indexes;
 
 namespace MvcJqGrid.Example.Models
 {
+    /// <summary>
+    /// This repository is implemented using RavenDB. We load all customers in memory from the database once to keep things simple.
+    /// </summary>
     public class Repository
     {
-        private readonly AdventureWorksDataContext _dataContext = new AdventureWorksDataContext();
+        private static readonly IQueryable<Customer> Customers;
+
+        /// <summary>
+        /// Static contructors are called automatically before the first instance is created or any static members are referenced.
+        /// A static constructor is executed only once.
+        /// </summary>
+        static Repository()
+        {
+            // Initialize embedded ravendb data store.
+            var documentStore = new EmbeddableDocumentStore { DataDirectory = "~/App_Data" };
+            documentStore.Initialize();
+            
+            // Create indexes
+            IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), documentStore);
+    
+            // Retrieve all customers in database
+            using (var session = documentStore.OpenSession())
+            {
+                // 847 customers exist in the database, ravendb limits results to 128 by default.
+                // This is why we need to specifically ask for 847 customers.
+                Customers = session.Query<Customer>().Take(847).ToList().AsQueryable();
+            }
+        }
+        
+        public IList<Customer> GetCustomers(GridSettings gridSettings)
+        {
+            var orderedCustomers = OrderCustomers(Customers, gridSettings.SortColumn, gridSettings.SortOrder);
+
+            if (gridSettings.IsSearch)
+            {
+                orderedCustomers = gridSettings.Where.rules.Aggregate(orderedCustomers, FilterCustomers);
+            }
+
+            return orderedCustomers.Skip((gridSettings.PageIndex - 1)*gridSettings.PageSize).Take(gridSettings.PageSize).ToList();
+        }
 
         public int CountCustomers(GridSettings gridSettings)
         {
-            var customers = _dataContext.Customers.AsQueryable();
-            
-            if (gridSettings.IsSearch)
-            {
-                customers = gridSettings.Where.rules.Aggregate(customers, FilterCustomers);
-            }   
-            return customers.Count();
-        }
-
-        public IQueryable<Customer> GetCustomers(GridSettings gridSettings)
-        {
-            var customers = orderCustomers(_dataContext.Customers.AsQueryable(), gridSettings.SortColumn, gridSettings.SortOrder);
-
-            if (gridSettings.IsSearch)
-            {
-                customers = gridSettings.Where.rules.Aggregate(customers, FilterCustomers);
-            }   
-
-             return customers.Skip((gridSettings.PageIndex - 1) * gridSettings.PageSize).Take(gridSettings.PageSize);     
+            return gridSettings.IsSearch ? gridSettings.Where.rules.Aggregate(Customers, FilterCustomers).Count() : Customers.Count();
         }
 
         public string[] GetCompanyNames()
         {
-            return _dataContext.Customers.Select(c => c.CompanyName).Distinct().ToArray();
+            return Customers.OrderBy(x=>x.Company).Select(c => c.Company).Distinct().ToArray();
         }
 
         private static IQueryable<Customer> FilterCustomers(IQueryable<Customer> customers, Rule rule)
         {
-            if (rule.field == "CustomerId")
+            switch (rule.field)
             {
-                int result;
-                if (!int.TryParse(rule.data, out result))
-                    return customers;
-                return customers.Where(c => c.CustomerID == Convert.ToInt32(rule.data));
+                case "CustomerId":
+                    return customers.Where(c => c.CustomerId == rule.data);
 
-            }
-            if (rule.field == "Name")
-                return from c in customers
-                       where c.FirstName.Contains(rule.data) || c.LastName.Contains(rule.data)
-                       select c;
-            if (rule.field == "Company")
-                return customers.Where(c => c.CompanyName.Contains(rule.data));
-            if (rule.field == "EmailAddress")
-                return customers.Where(c => c.EmailAddress.Contains(rule.data));
-            if (rule.field == "Last Modified")
-            {
-                DateTime result;
-                if (!DateTime.TryParse(rule.data, out result))
+                case "Name":
+                    return customers.Where(c => c.Fullname.ToLower().Contains(rule.data.ToLower()));
+
+                case "Company":
+                    return customers.Where(c => c.Company.ToLower().Contains(rule.data.ToLower()));
+                
+                case "EmailAddress":
+                    return customers.Where(c => c.EmailAddress.ToLower().Contains(rule.data.ToLower()));
+                
+                case "Last Modified":
+                    DateTime dateResult;
+                    return !DateTime.TryParse(rule.data, out dateResult) ? customers : customers.Where(c => c.LastModified.Date == dateResult.Date);
+
+                case "Telephone":
+                    return customers.Where(c => c.Telephone.ToLower().Contains(rule.data.ToLower()));
+                    
+                default:
                     return customers;
-                if (result < new DateTime(1754, 1, 1)) // sql can't handle dates before 1-1-1753
-                    return customers;
-                return customers.Where(c => c.ModifiedDate.Date == Convert.ToDateTime(rule.data).Date);
             }
-            if (rule.field == "Telephone")
-                return customers.Where(c => c.Phone.Contains(rule.data));
-            return customers;
         }
 
-        private IQueryable<Customer> orderCustomers(IQueryable<Customer> customers, string sortColumn, string sortOrder)
+        private static IQueryable<Customer> OrderCustomers(IQueryable<Customer> customers, string sortColumn, string sortOrder)
         {
-            if (sortColumn == "CustomerId")
-                return (sortOrder == "desc") ? customers.OrderByDescending(c => c.CustomerID) : customers.OrderBy(c => c.CustomerID);
-            if (sortColumn == "Name")
-                return (sortOrder == "desc") ? customers.OrderByDescending(c=>c.FirstName) : customers.OrderBy(c=>c.FirstName);
-            if (sortColumn == "Company") 
-               return (sortOrder == "desc")? customers.OrderByDescending(c=>c.CompanyName) : customers.OrderBy(c=>c.CompanyName);
-            if (sortColumn == "EmailAddress")
-                return (sortOrder == "desc") ? customers.OrderByDescending(c => c.EmailAddress) : customers.OrderBy(c => c.EmailAddress);
-            if (sortColumn == "Last Modified")
-                return (sortOrder == "desc") ? customers.OrderByDescending(c => c.ModifiedDate) : customers.OrderBy(c => c.ModifiedDate);
-            if (sortColumn == "Telephone")
-                return (sortOrder == "desc") ? customers.OrderByDescending(c => c.Phone) : customers.OrderBy(c => c.Phone);
-            return customers;
+            switch (sortColumn)
+            {
+                case "CustomerId":
+                    return (sortOrder == "desc") ? customers.OrderByDescending(c => Convert.ToInt32(c.CustomerId)) : customers.OrderBy(c => Convert.ToInt32(c.CustomerId));
+                
+                case "Name":
+                    return (sortOrder == "desc") ? customers.OrderByDescending(c => c.Fullname) : customers.OrderBy(c => c.Fullname);
+                
+                case "Company":
+                    return (sortOrder == "desc") ? customers.OrderByDescending(c => c.Company) : customers.OrderBy(c => c.Company);
+                
+                case "EmailAddress":
+                    return (sortOrder == "desc") ? customers.OrderByDescending(c => c.EmailAddress) : customers.OrderBy(c => c.EmailAddress);
+                
+                case "Last Modified":
+                    return (sortOrder == "desc") ? customers.OrderByDescending(c => c.LastModified) : customers.OrderBy(c => c.LastModified);
+                
+                case "Telephone":
+                    return (sortOrder == "desc") ? customers.OrderByDescending(c => c.Telephone) : customers.OrderBy(c => c.Telephone);
+                
+                default:
+                    return customers;
+            }
         }
-       
     }
 }

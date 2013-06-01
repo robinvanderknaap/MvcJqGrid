@@ -56,6 +56,11 @@ namespace MvcJqGrid.Example.Controllers
             return View();
         }
 
+        public ActionResult VirtualScrolling()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();
@@ -80,15 +85,15 @@ namespace MvcJqGrid.Example.Controllers
                     from c in customers
                     select new
                     {
-                        id = c.CustomerID,
+                        id = c.CustomerId, // Remove ravendb prefix from identifier
                         cell = new[] 
                     { 
-                        c.CustomerID.ToString(), 
-                        string.Format("{0} {1}", c.FirstName, c.LastName),
-                        c.CompanyName,
+                        c.CustomerId, 
+                        c.Fullname,
+                        c.Company,
                         c.EmailAddress,
-                        c.ModifiedDate.ToShortDateString(),
-                        c.Phone
+                        c.LastModified.ToShortDateString(),
+                        c.Telephone
                     }
                     }).ToArray()
             };

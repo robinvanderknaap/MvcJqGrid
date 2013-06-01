@@ -45,6 +45,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded">
+      <HintPath>..\..\packages\RavenDB.Embedded.2.0.2330\lib\net40\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\..\packages\RavenDB.Database.2.0.2330\lib\net40\Raven.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
@@ -75,21 +88,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureWorks.designer.cs">
-      <DependentUpon>AdventureWorks.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AdventureWorksLT.mdf" />
-    <Content Include="App_Data\AdventureWorksLT2012_Data.mdf" />
-    <Content Include="App_Data\AdventureWorksLT_log.LDF">
-      <DependentUpon>AdventureWorksLT.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\license.txt" />
+    <Content Include="App_Data\raven-data.ico" />
     <Content Include="Content\images\accent.png" />
     <Content Include="Content\images\facebook.png" />
     <Content Include="Content\images\heroAccent.png" />
@@ -100,33 +105,7 @@
     <Content Include="Content\jquery.jqGrid\ellipsis-xbl.xml" />
     <Content Include="Content\jquery.jqGrid\ui.jqgrid.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\smoothness\images\animated-overlay.gif" />
     <Content Include="Content\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -140,7 +119,7 @@
     <Content Include="Content\themes\smoothness\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\smoothness\jquery-ui-1.8.custom.css" />
+    <Content Include="Content\themes\smoothness\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\i18n\grid.locale-ar.js" />
     <Content Include="Scripts\i18n\grid.locale-bg.js" />
@@ -150,6 +129,7 @@
     <Content Include="Scripts\i18n\grid.locale-cs.js" />
     <Content Include="Scripts\i18n\grid.locale-da.js" />
     <Content Include="Scripts\i18n\grid.locale-de.js" />
+    <Content Include="Scripts\i18n\grid.locale-dk.js" />
     <Content Include="Scripts\i18n\grid.locale-el.js" />
     <Content Include="Scripts\i18n\grid.locale-en.js" />
     <Content Include="Scripts\i18n\grid.locale-es.js" />
@@ -158,10 +138,14 @@
     <Content Include="Scripts\i18n\grid.locale-fr.js" />
     <Content Include="Scripts\i18n\grid.locale-gl.js" />
     <Content Include="Scripts\i18n\grid.locale-he.js" />
+    <Content Include="Scripts\i18n\grid.locale-hr.js" />
+    <Content Include="Scripts\i18n\grid.locale-hr1250.js" />
     <Content Include="Scripts\i18n\grid.locale-hu.js" />
+    <Content Include="Scripts\i18n\grid.locale-id.js" />
     <Content Include="Scripts\i18n\grid.locale-is.js" />
     <Content Include="Scripts\i18n\grid.locale-it.js" />
     <Content Include="Scripts\i18n\grid.locale-ja.js" />
+    <Content Include="Scripts\i18n\grid.locale-kr.js" />
     <Content Include="Scripts\i18n\grid.locale-lt.js" />
     <Content Include="Scripts\i18n\grid.locale-mne.js" />
     <Content Include="Scripts\i18n\grid.locale-nl.js" />
@@ -172,16 +156,16 @@
     <Content Include="Scripts\i18n\grid.locale-ro.js" />
     <Content Include="Scripts\i18n\grid.locale-ru.js" />
     <Content Include="Scripts\i18n\grid.locale-sk.js" />
+    <Content Include="Scripts\i18n\grid.locale-sr-latin.js" />
     <Content Include="Scripts\i18n\grid.locale-sr.js" />
     <Content Include="Scripts\i18n\grid.locale-sv.js" />
     <Content Include="Scripts\i18n\grid.locale-th.js" />
     <Content Include="Scripts\i18n\grid.locale-tr.js" />
+    <Content Include="Scripts\i18n\grid.locale-tw.js" />
     <Content Include="Scripts\i18n\grid.locale-ua.js" />
-    <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.5.1.js" />
-    <Content Include="Scripts\jquery-1.5.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\i18n\grid.locale-vi.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
     <Content Include="Scripts\modernizr.custom.05850.js" />
     <Content Include="Web.config" />
@@ -200,11 +184,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\AdventureWorks.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>AdventureWorks.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Home\Basic.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Toolbar.cshtml" />
@@ -222,18 +201,29 @@
     <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\AdventureWorks.dbml.layout">
-      <DependentUpon>AdventureWorks.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvcJqGrid.Net40\MvcJqGrid.Net40.csproj">
-      <Project>{7D6EC6E3-D83E-4BEA-85A3-A6B1666B7F3D}</Project>
-      <Name>MvcJqGrid.Net40</Name>
+    <Content Include="App_Data\Data" />
+    <Content Include="App_Data\logs\RVN.log" />
+    <Content Include="App_Data\logs\RVNres00001.jrs" />
+    <Content Include="App_Data\logs\RVNres00002.jrs" />
+    <Content Include="App_Data\logs\RVNtmp.log" />
+    <Content Include="App_Data\system\RVN.chk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\IndexDefinitions\TemporaryIndexDefinitionsAsSource\" />
+    <Folder Include="App_Data\Indexes\" />
+    <Folder Include="App_Data\temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MvcJqGrid\MvcJqGrid.csproj">
+      <Project>{F6950D91-7A09-46D4-A832-A21D1195FBB6}</Project>
+      <Name>MvcJqGrid</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\VirtualScrolling.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

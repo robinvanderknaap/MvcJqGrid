@@ -1,0 +1,60 @@
+﻿@section Title {Virtual Scrolling}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>Virtual Scrolling</h1>
+            <h2>razor engine</h2>
+        </hgroup>
+        
+    </div>
+</section>
+}
+
+@(Html.Grid("VirtualScrolling")
+    .SetCaption("Basic Grid")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(50)
+    .SetVirtualScroll(true)
+    .SetViewRecords(true)
+    .SetHeight(230)
+    .SetPager("pager"))
+
+<h3>Source:</h3>
+
+<pre>@@Html.Grid("VirtualScrolling")
+    .SetCaption("Basic Grid")
+    .AddColumn(new Column("CustomerId")
+        .SetLabel("Id"))
+    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Company"))
+    .AddColumn(new Column("EmailAddress"))
+    .AddColumn(new Column("Last Modified"))
+    .AddColumn(new Column("Telephone"))
+    .SetUrl(Url.Action("GridDataBasic"))
+    .SetAutoWidth(true)
+    .SetRowNum(50)
+    .SetVirtualScroll(true)
+    .SetViewRecords(true)
+    .SetHeight(230)
+    .SetPager("pager"))</pre>   
+     
+<h3>Explanation:</h3>
+
+<pre>This configuration renders a grid with virtual scrolling enabled. The number of rows loaded at once is set to 50. 
+By default only the visible lines are kept in memory to prevent memory leaks.
+
+<i>SetVirtualScroll</i>: Enables virtual scrolling when set to true. 
+Optional parameter 'justHoldVisibleLines' is default set to true to prevent memory leaks.
+
+<i>SetRowNum</i>: Number of rows to load at once.
+</pre>        

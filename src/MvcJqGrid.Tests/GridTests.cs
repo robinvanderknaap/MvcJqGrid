@@ -538,32 +538,12 @@ namespace MvcJqGrid.Tests
         }
 
         [Test]
-        public void CannotSetScrollBoolWhenScrollIntHasBeenSet()
-        {
-            var grid = new Grid("testGrid");
-            grid.SetScroll(30);
-
-            Assert.Throws<InvalidOperationException>(() => grid.SetScroll(true));
-            JavascriptAssert.IsValid(grid.RenderJavascript());
-        }
-
-        [Test]
         public void CanSetScrollInt()
         {
             var grid = new Grid("testGrid");
             grid.SetScroll(30);
 
             StringAssert.Contains("scroll:30,", grid.ToString());
-            JavascriptAssert.IsValid(grid.RenderJavascript());
-        }
-
-        [Test]
-        public void CannotSetScrollIntWhenScrollIntHasBeenSet()
-        {
-            var grid = new Grid("testGrid");
-            grid.SetScroll(true);
-
-            Assert.Throws<InvalidOperationException>(() => grid.SetScroll(30));
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
 

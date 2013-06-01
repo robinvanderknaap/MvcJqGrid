@@ -68,9 +68,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvcJqGrid.Net40\MvcJqGrid.Net40.csproj">
-      <Project>{7D6EC6E3-D83E-4BEA-85A3-A6B1666B7F3D}</Project>
-      <Name>MvcJqGrid.Net40</Name>
+    <ProjectReference Include="..\MvcJqGrid\MvcJqGrid.csproj">
+      <Project>{F6950D91-7A09-46D4-A832-A21D1195FBB6}</Project>
+      <Name>MvcJqGrid</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
