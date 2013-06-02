@@ -366,12 +366,6 @@ namespace MvcJqGrid
             get { return _columnName; }
         }
 
-        //private bool? _editable;
-        //private EditType? _editType;
-        //private IDictionary<string, string> _editOptions;
-        //private EditRules _editRules;
-        //private EditFormOptions _formOptions;
-
         /// <summary>
         /// Sets search option for column
         /// </summary>

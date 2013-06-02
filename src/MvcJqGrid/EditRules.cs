@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MvcJqGrid.Extensions;
+﻿using MvcJqGrid.Extensions;
 
 namespace MvcJqGrid
 {
@@ -21,7 +17,6 @@ namespace MvcJqGrid
         public bool? Time { get; set; }
         public bool? Custom { get; set; }
         public string CustomFunc { get; set; }
-
 
         public override string ToString()
         {

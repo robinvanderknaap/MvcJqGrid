@@ -3,8 +3,6 @@
 ///
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Script.Serialization;
 using System.Reflection;
 
@@ -20,15 +18,18 @@ namespace MvcJqGrid.Utility
 
         public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
         {
-            var jsonExample = new Dictionary<string, object>();
+            var propertiesToBeSerialized = new Dictionary<string, object>();
             foreach (var prop in obj.GetType().GetProperties())
             {
                 var value = prop.GetValue(obj, BindingFlags.Public, null, null, null);
+               
                 if (value != null)
-                    jsonExample.Add(LowercaseFirst(prop.Name), value);
+                {
+                    propertiesToBeSerialized.Add(LowercaseFirst(prop.Name), value);
+                }
             }
 
-            return jsonExample;
+            return propertiesToBeSerialized;
         }
 
         public override IEnumerable<Type> SupportedTypes

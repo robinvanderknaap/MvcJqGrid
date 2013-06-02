@@ -376,7 +376,6 @@ namespace MvcJqGrid.Tests
             var column = GetTestableColumn();
             column.SetEditable(true);
 
-            Console.WriteLine(column.ToString());
             StringAssert.Contains("editable:true", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
@@ -424,7 +423,7 @@ namespace MvcJqGrid.Tests
             var column = GetTestableColumn();
             column.SetEditable(true);
 
-            column.SetEditOptions(new EditOptions() { 
+            column.SetEditOptions(new EditOptions { 
                      BuildSelect = "bs",
                      DataEvents = "ds",
                      DataInit = "di",
@@ -435,7 +434,6 @@ namespace MvcJqGrid.Tests
                      Value = "v"
                 });
 
-            Console.WriteLine(column.ToString());
             StringAssert.Contains("\"buildSelect\":\"bs\"", column.ToString());
             StringAssert.Contains("\"dataEvents\":\"ds\"", column.ToString());
             StringAssert.Contains("\"dataInit\":\"di\"", column.ToString());
@@ -444,6 +442,8 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains("\"nullIfEmpty\":true", column.ToString());
             StringAssert.Contains("\"otherOptions\":\"ot\"", column.ToString());
             StringAssert.Contains("\"value\":\"v\"", column.ToString());
+
+            JavascriptAssertColumn.IsValid(column);
         }
 
         [Test]
@@ -453,7 +453,8 @@ namespace MvcJqGrid.Tests
             var column = GetTestableColumn();
             column.SetEditable(true);
 
-            column.SetEditRules(new EditRules() { 
+            column.SetEditRules(new EditRules
+            { 
                  Custom = true,
                  CustomFunc = "function(){}",
                  Date = true,
@@ -468,7 +469,6 @@ namespace MvcJqGrid.Tests
                  Url = true
             });
 
-            Console.WriteLine(column.ToString());
             StringAssert.Contains("\"custom\":true", column.ToString());
             StringAssert.Contains("\"customFunc\":\"function(){}\"", column.ToString());
             StringAssert.Contains("\"date\":true", column.ToString());
@@ -481,6 +481,8 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains("\"required\":true", column.ToString());
             StringAssert.Contains("\"time\":true", column.ToString());
             StringAssert.Contains("\"url\":true", column.ToString());
+
+            JavascriptAssertColumn.IsValid(column);
         }
 
         private static Column GetTestableColumn()
@@ -497,7 +499,6 @@ namespace MvcJqGrid.Tests
 
                 JavascriptAssert.IsValid(grid.RenderJavascript());
             }
-            
         }
     }
 }
