@@ -208,7 +208,6 @@
     <Content Include="App_Data\logs\RVN.log" />
     <Content Include="App_Data\logs\RVNres00001.jrs" />
     <Content Include="App_Data\logs\RVNres00002.jrs" />
-    <Content Include="App_Data\logs\RVNtmp.log" />
     <Content Include="App_Data\system\RVN.chk" />
   </ItemGroup>
   <ItemGroup>
