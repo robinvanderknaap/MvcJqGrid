@@ -432,7 +432,7 @@ namespace MvcJqGrid
         internal string SearchOption
         {
             get {
-                return _searchOptions.Count>0 
+                return _searchOptions.Any() 
                     ? _searchOptions.First()
                     : "bw";
             }
@@ -561,7 +561,7 @@ namespace MvcJqGrid
              
                 script.Append("searchoptions: {");
 
-                if (_searchOptions.Count>0)
+                if (_searchOptions.Any())
                 {
                     script.AppendFormat("sopt:['{0}']", _searchOptions.Aggregate((current, next) => current + "',  '" + next));
                 }
@@ -635,7 +635,7 @@ namespace MvcJqGrid
                 script.AppendFormat("editable:{0},",_editable.Value.ToString().ToLower()).AppendLine();
 
             // Searchoption
-            if (_searchOptions.Count>0 && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
+            if (_searchOptions.Any() && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
             {
                 script.AppendLine("searchoptions: { sopt:['" + _searchOptions.Aggregate((current,next) => current + "', '" + next) + "'] },");
             }
