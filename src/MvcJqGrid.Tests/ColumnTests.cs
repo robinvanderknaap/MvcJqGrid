@@ -500,5 +500,26 @@ namespace MvcJqGrid.Tests
                 JavascriptAssert.IsValid(grid.RenderJavascript());
             }
         }
+
+        [Test]
+        public void CanSetMultipleSearchOptions()
+        {
+            var column = GetTestableColumn();
+            var multipleSearchOptions = SearchOptions.Equal | SearchOptions.Greater | SearchOptions.Less;
+            column.SetSearchOption(multipleSearchOptions);
+
+            StringAssert.Contains(@"searchoptions: { sopt:['eq', 'lt', 'gt'] }", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
+
+        [Test]
+        public void CanHaveDefaultSearchOption()
+        {
+            var column = GetTestableColumn();
+            column.SetSearchType(Searchtype.Text);
+
+            StringAssert.Contains(@"searchoptions: {sopt:['bw']}", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
     }
 }

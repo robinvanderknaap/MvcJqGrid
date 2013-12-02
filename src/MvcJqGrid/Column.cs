@@ -30,7 +30,7 @@ namespace MvcJqGrid
         private int? _width;
         private string _defaultSearchValue;
         private bool? _expandableInTree;
-        private string _searchOption;
+        private List<string> _searchOptions = new List<string>();
 
         private bool? _editable;
         private EditType? _editType;
@@ -372,58 +372,69 @@ namespace MvcJqGrid
         /// <param name="searchOption">Search option</param>
         public Column SetSearchOption(SearchOptions searchOption)
         {
-            switch (searchOption)
+            var searchOptionValues = Enum.GetValues(typeof(SearchOptions));
+            foreach (SearchOptions value in searchOptionValues)
             {
-                case SearchOptions.Equal:
-                    _searchOption = "eq";
-                    break;
-                case SearchOptions.NotEqual:
-                    _searchOption = "ne";
-                    break;
-                case SearchOptions.Less:
-                    _searchOption = "lt";
-                    break;
-                case SearchOptions.LessOrEqual:
-                    _searchOption = "le";
-                    break;
-                case SearchOptions.Greater:
-                    _searchOption = "gt";
-                    break;
-                case SearchOptions.GreaterOrEqual:
-                    _searchOption = "ge";
-                    break;
-                case SearchOptions.BeginsWith:
-                    _searchOption = "bw";
-                    break;
-                case SearchOptions.DoesNotBeginWith:
-                    _searchOption = "bn";
-                    break;
-                case SearchOptions.IsIn:
-                    _searchOption = "in";
-                    break;
-                case SearchOptions.IsNotIn:
-                    _searchOption = "ni";
-                    break;
-                case SearchOptions.EndsWith:
-                    _searchOption = "ew";
-                    break;
-                case SearchOptions.DoesNotEndWith:
-                    _searchOption = "en";
-                    break;
-                case SearchOptions.Contains:
-                    _searchOption = "cn";
-                    break;
-                case SearchOptions.DoesNotContain:
-                    _searchOption = "nc";
-                    break;
+                if ((searchOption & value) == value)
+                {
+                    switch (value)
+                    {
+                        case SearchOptions.Equal:
+                            _searchOptions.Add("eq");
+                            break;
+                        case SearchOptions.NotEqual:
+                            _searchOptions.Add("ne");
+                            break;
+                        case SearchOptions.Less:
+                            _searchOptions.Add("lt");
+                            break;
+                        case SearchOptions.LessOrEqual:
+                            _searchOptions.Add("le");
+                            break;
+                        case SearchOptions.Greater:
+                            _searchOptions.Add("gt");
+                            break;
+                        case SearchOptions.GreaterOrEqual:
+                            _searchOptions.Add("ge");
+                            break;
+                        case SearchOptions.BeginsWith:
+                            _searchOptions.Add("bw");
+                            break;
+                        case SearchOptions.DoesNotBeginWith:
+                            _searchOptions.Add("bn");
+                            break;
+                        case SearchOptions.IsIn:
+                            _searchOptions.Add("in");
+                            break;
+                        case SearchOptions.IsNotIn:
+                            _searchOptions.Add("ni");
+                            break;
+                        case SearchOptions.EndsWith:
+                            _searchOptions.Add("ew");
+                            break;
+                        case SearchOptions.DoesNotEndWith:
+                            _searchOptions.Add("en");
+                            break;
+                        case SearchOptions.Contains:
+                            _searchOptions.Add("cn");
+                            break;
+                        case SearchOptions.DoesNotContain:
+                            _searchOptions.Add("nc");
+                            break;
+                    }
+                }
             }
+
+            
             return this;
         }
 
         internal string SearchOption
         {
             get {
-                return !string.IsNullOrWhiteSpace(_searchOption) ? _searchOption : "bw";
+                return _searchOptions.Count>0 
+                    ? _searchOptions.First()
+                    : "bw";
             }
         }
 
@@ -550,9 +561,9 @@ namespace MvcJqGrid
              
                 script.Append("searchoptions: {");
 
-                if (!string.IsNullOrWhiteSpace(_searchOption))
+                if (_searchOptions.Count>0)
                 {
-                    script.AppendFormat("sopt:['{0}']", _searchOption);
+                    script.AppendFormat("sopt:['{0}']", _searchOptions.Aggregate((current, next) => current + "',  '" + next));
                 }
                 else
                 {
@@ -624,9 +635,9 @@ namespace MvcJqGrid
                 script.AppendFormat("editable:{0},",_editable.Value.ToString().ToLower()).AppendLine();
 
             // Searchoption
-            if (!string.IsNullOrWhiteSpace(_searchOption) && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
+            if (_searchOptions.Count>0 && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
             {
-                script.AppendLine("searchoptions: { sopt:['" + _searchOption + "'] },");
+                script.AppendLine("searchoptions: { sopt:['" + _searchOptions.Aggregate((current,next) => current + "', '" + next) + "'] },");
             }
 
             //edit type
