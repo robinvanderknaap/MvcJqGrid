@@ -97,6 +97,7 @@ namespace MvcJqGrid
         private int? _treeGridRootLevel;
         private TreeGridModel _treeGridModel;
         private bool? _asyncLoad;
+        private bool? _ignoreCase;
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -858,6 +859,18 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        /// Set to true when filtering grid loaded with SetLoadOnce(true)
+        /// to filter the data case insesitive
+        /// </summary>
+        /// <param name="ignoreCase"></param>
+        /// <returns></returns>
+        public Grid SetIgnoreCase(bool ignoreCase)
+        {
+            _ignoreCase = ignoreCase;
+            return this;
+        }
+
+        /// <summary>
         ///     This event fires after each inserted row.
         ///     Variables available in call:
         ///     'rowid': Id of the inserted row
@@ -1354,6 +1367,9 @@ namespace MvcJqGrid
 
             // Width
             if (_width.HasValue) script.AppendFormat("width:'{0}',", _width).AppendLine();
+
+            // IgnoreCase
+            if (_ignoreCase.HasValue) script.AppendFormat("ignoreCase:{0},", _ignoreCase.ToString().ToLower()).AppendLine();
 
             // onAfterInsertRow
             if (!_onAfterInsertRow.IsNullOrWhiteSpace())

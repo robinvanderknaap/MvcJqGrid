@@ -1111,5 +1111,14 @@ namespace MvcJqGrid.Tests
 
             Assert.IsInstanceOf<IHtmlString>(grid);
         }
+
+        [Test]
+        public void CanSetIgnoreCase()
+        {
+            var grid = new Grid("testGrid");
+            grid.SetIgnoreCase(true);
+            StringAssert.Contains("ignoreCase:true,", grid.ToString());
+            JavascriptAssert.IsValid(grid.RenderJavascript());
+        }
     }
 }
