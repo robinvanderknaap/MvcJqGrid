@@ -25,6 +25,7 @@ namespace MvcJqGrid
         private DataType _dataType = DataType.Json;
         private string _emptyRecords;
         private bool? _footerRow;
+        private bool? _userDataOnFooter;
         private bool? _forceFit;
         private bool? _gridView;
         private bool? _headerTitles;
@@ -218,6 +219,20 @@ namespace MvcJqGrid
         public Grid SetFooterRow(bool footerRow)
         {
             _footerRow = footerRow;
+            return this;
+        }
+
+        /// <summary>
+        ///     When set to true we directly place the user data array userData in the footer. 
+        ///     The rules are as follows: If the userData array contains a name which matches any name defined in colModel, 
+        ///     then the value is placed in that column. If there are no such values nothing is placed. 
+        ///     Note that if this option is used we use the current formatter options (if available) for that column.
+        ///     (default: false)
+        /// </summary>
+        /// <param name = "userDataOnFooter">Boolean indicating whether user data is set on footer row</param>
+        public Grid SetUserDataOnFooter(bool userDataOnFooter)
+        {
+            _userDataOnFooter = userDataOnFooter;
             return this;
         }
 
@@ -1187,6 +1202,10 @@ namespace MvcJqGrid
             // FooterRow
             if (_footerRow.HasValue)
                 script.AppendFormat("footerrow:{0},", _footerRow.ToString().ToLower()).AppendLine();
+
+            // UserDataOnFooter
+            if (_userDataOnFooter.HasValue)
+                script.AppendFormat("userDataOnFooter:{0},", _footerRow.ToString().ToLower()).AppendLine();
 
             // Forcefit
             if (_forceFit.HasValue)

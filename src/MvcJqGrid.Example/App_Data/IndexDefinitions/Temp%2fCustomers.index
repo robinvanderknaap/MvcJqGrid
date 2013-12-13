@@ -1,0 +1,20 @@
+{
+  "Name": "Temp/Customers",
+  "Map": "from doc in docs.Customers\r\nselect new {  }",
+  "Maps": [
+    "from doc in docs.Customers\r\nselect new {  }"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": true,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Temp"
+}
