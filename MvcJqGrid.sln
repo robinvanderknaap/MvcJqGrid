@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Tests", "src\MvcJqGrid.Tests\MvcJqGrid.Tests.csproj", "{6B4A2218-A730-447D-8183-12A96C94E424}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Example", "src\MvcJqGrid.Example\MvcJqGrid.Example.csproj", "{EA890CB5-2409-46C1-9EDE-E40002158633}"
