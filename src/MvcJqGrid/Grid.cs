@@ -98,6 +98,8 @@ namespace MvcJqGrid
         private int? _treeGridRootLevel;
         private TreeGridModel _treeGridModel;
         private bool? _asyncLoad;
+        private bool _stringResult;
+        
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -607,6 +609,19 @@ namespace MvcJqGrid
         public Grid SetScroll(int scroll)
         {
             _scrollInt = scroll;
+            return this;
+        }
+
+        /// <summary>
+        ///     Determines how to post the data on which we perform searching. 
+        ///     When the this option is false the posted data is in key:value pair, if the option is true, the posted data is equal on those as in searchGrid method.
+        ///     See here: http://www.trirand.com/jqgridwiki/doku.php?id=wiki:advanced_searching#options
+        ///     (default: false)
+        /// </summary>
+        /// <param name = "stringResult">Boolean indicating if</param>        
+        public Grid SetStringResult(bool stringResult)
+        {
+            _stringResult = stringResult;
             return this;
         }
 
@@ -1564,7 +1579,7 @@ namespace MvcJqGrid
             // Search toolbar
             if (_searchToolbar == true)
             {
-                script.Append("jQuery('#" + _id + "').jqGrid('filterToolbar', {stringResult:true");
+                script.Append("jQuery('#" + _id + "').jqGrid('filterToolbar', {stringResult:" + _stringResult.ToString().ToLower());
                 if (_searchOnEnter.HasValue)
                     script.AppendFormat(", searchOnEnter:{0}", _searchOnEnter.ToString().ToLower());
                 script.AppendLine("});");
