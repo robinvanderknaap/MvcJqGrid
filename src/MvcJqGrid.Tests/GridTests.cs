@@ -1120,5 +1120,16 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains("ignoreCase:true,", grid.ToString());
             JavascriptAssert.IsValid(grid.RenderJavascript());
         }
+
+        [Test]
+        public void CanSetRowAttr()
+        {
+            var grid = new Grid("testGrid");
+            grid.SetRowAttr("someJavascriptFunction()");
+
+            StringAssert.Contains("rowattr: function(rd) {someJavascriptFunction()},", grid.ToString());
+            JavascriptAssert.IsValid(grid.RenderJavascript());
+        }
+
     }
 }
