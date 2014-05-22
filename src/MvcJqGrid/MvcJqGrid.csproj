@@ -64,6 +64,7 @@
     <Compile Include="Enums\SearchOptions.cs" />
     <Compile Include="Enums\Searchtype.cs" />
     <Compile Include="Enums\SortOrder.cs" />
+    <Compile Include="Enums\SortType.cs" />
     <Compile Include="Enums\ToolbarPosition.cs" />
     <Compile Include="Enums\TreeGridModel.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />

@@ -37,6 +37,7 @@ namespace MvcJqGrid
         private EditOptions _editOptions;
         private EditRules _editRules;
         private EditFormOptions _editFormOptions;
+        private SortType? _sortType;
                 
         /// <summary>
         ///     Constructor
@@ -486,6 +487,12 @@ namespace MvcJqGrid
             return this;
         }
 
+        public Column SetSortType(SortType sortType)
+        {
+            _sortType = sortType;
+            return this;
+        }
+
         /// <summary>
         ///     Creates javascript string from column to be included in grid javascript
         /// </summary>
@@ -645,9 +652,12 @@ namespace MvcJqGrid
             if(_editFormOptions != null)
                 script.AppendFormat("formoptions:{0},", _editFormOptions.ToString()).AppendLine();
 
-            // Index
-            script.AppendFormat("index:'{0}'", _index).AppendLine();
+           if (_sortType.HasValue)
+                script.AppendFormat("sorttype:'{0}',", _sortType.ToString().ToLower()).AppendLine();
 
+           // Index
+           script.AppendFormat("index:'{0}'", _index).AppendLine();
+          
             // End column
             script.Append("}");
 
