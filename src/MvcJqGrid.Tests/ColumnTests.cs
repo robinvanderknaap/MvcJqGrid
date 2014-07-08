@@ -521,5 +521,15 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains(@"searchoptions: {sopt:['bw']}", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
+
+        [Test]
+        public void ClearSearchIsSetToTrue()
+        {
+            var column = GetTestableColumn();
+            column.SetClearSearch(true);
+
+            StringAssert.Contains(@"clearSearch:true", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
     }
 }

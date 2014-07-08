@@ -22,6 +22,7 @@ namespace MvcJqGrid
         private string _label;
         private bool? _resizeable;
         private bool? _search;
+        private bool? _clearSearch;
         private string _searchDateFormat;
         private IDictionary<string, string> _searchTerms;
         private Searchtype? _searchType;
@@ -37,7 +38,7 @@ namespace MvcJqGrid
         private EditOptions _editOptions;
         private EditRules _editRules;
         private EditFormOptions _editFormOptions;
-                
+
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -95,6 +96,17 @@ namespace MvcJqGrid
         public Column SetSearchTerms(string[] searchTerms)
         {
             _searchTerms = searchTerms.ToDictionary(searchterm => searchterm);
+
+            return this;
+        }
+
+        /// <summary>
+        ///     When set to false the X icon at end of search field which is responsible to clear the search data is disabled. the default value is true
+        /// </summary>
+        /// <param name = "clearSearch">Clear search (x) on or off</param>
+        public Column SetClearSearch(bool clearSearch)
+        {
+            _clearSearch = clearSearch;
 
             return this;
         }
@@ -614,12 +626,6 @@ namespace MvcJqGrid
                 script.AppendLine("},");
             }
 
-            // Default value when no search type is set
-            if (!_searchType.HasValue && !_defaultSearchValue.IsNullOrWhiteSpace())
-            {
-                script.Append("searchoptions: { defaultValue: '" + _defaultSearchValue + "' },");
-            }
-
             // Sortable
             if (_sortable.HasValue)
                 script.AppendFormat("sortable:{0},", _sortable.Value.ToString().ToLower()).AppendLine();
@@ -630,15 +636,27 @@ namespace MvcJqGrid
             // Width
             if (_width.HasValue) script.AppendFormat("width:{0},", _width.Value).AppendLine();
                         
-            //editable
+            // Editable
             if (_editable.HasValue)
                 script.AppendFormat("editable:{0},",_editable.Value.ToString().ToLower()).AppendLine();
 
-            // Searchoption
+            // Setup search options
+            var searchOptions = new Dictionary<string, string>();
+
+            // Default value when no search type is set
+            if ((!_searchType.HasValue && !_defaultSearchValue.IsNullOrWhiteSpace()))
+                searchOptions.Add("defaultValue", "'" + _defaultSearchValue + "'");
+
+            // Clear search
+            if (_clearSearch.HasValue)
+                searchOptions.Add("clearSearch", _clearSearch.Value.ToString().ToLower());
+            
+            // Search Option: sopt
             if (_searchOptions.Any() && !_searchType.HasValue) // When searchtype is set, searchoptions is already added
-            {
-                script.AppendLine("searchoptions: { sopt:['" + _searchOptions.Aggregate((current,next) => current + "', '" + next) + "'] },");
-            }
+                searchOptions.Add("sopt", "['" + _searchOptions.Aggregate((current, next) => current + "', '" + next) + "']");
+
+            if (searchOptions.Any())
+                script.Append("searchoptions: { " + string.Join(", ", searchOptions.Select(x => x.Key + ":" + x.Value)) + " },");
 
             //edit type
             if(_editType.HasValue)

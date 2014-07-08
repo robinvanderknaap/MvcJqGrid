@@ -16,7 +16,9 @@
     .SetCaption("Toolbar Search")
     .AddColumn(new Column("CustomerId")
         .SetLabel("Id"))
-    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Name")
+        .SetClearSearch(false)
+    )
     .AddColumn(new Column("Company")
         .SetSearchType(Searchtype.Select)
         .SetSearchTerms((string[])ViewData["CompanyNames"]))
@@ -41,7 +43,9 @@
     .SetCaption("Toolbar Search")
     .AddColumn(new Column("CustomerId")
         .SetLabel("Id"))
-    .AddColumn(new Column("Name"))
+    .AddColumn(new Column("Name")
+        .SetClearSearch(false)
+    )
     .AddColumn(new Column("Company")
         .SetSearchType(Searchtype.Select)
         .SetSearchTerms((string[])ViewData["CompanyNames"]))
@@ -61,7 +65,8 @@
 
 <h3>Explanation:</h3>
 
-<pre>This configuration demonstrates toolbar searching. A searchtype can be specified for each column.
+<pre>
+This configuration demonstrates toolbar searching. A searchtype can be specified for each column.
 
 <i>SetSearchType</i>: Sets searchtype for a column. Searchtype can be set to Input (default), Select or 
 Datepicker.
@@ -72,4 +77,7 @@ The function takes a collection of strings as selectoptions.
 <i>SetSearchToolbar</i>: Enables or disables toolbar searching.
 
 <i>SetSearchOnEnter</i>: When set to true, search is executed when the user hits enter. When set to false 
-search is executed after the user stops typing.</pre>
+search is executed after the user stops typing.
+
+<i>SetClearSearch</i>: When set to false, clear search next to input field is hidden.
+</pre>
