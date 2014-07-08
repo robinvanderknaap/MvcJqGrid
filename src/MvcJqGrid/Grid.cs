@@ -98,7 +98,10 @@ namespace MvcJqGrid
         private int? _treeGridRootLevel;
         private TreeGridModel _treeGridModel;
         private bool? _asyncLoad;
-        private bool _stringResult = true;        private bool? _ignoreCase;
+        private bool _stringResult = true;        
+        private bool? _ignoreCase;
+        private string _rowAttr;
+
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -1174,6 +1177,13 @@ namespace MvcJqGrid
             return this;
         }
 
+        public Grid SetRowAttr(string rowAttr)
+        {
+            _rowAttr = rowAttr;
+            return this;
+        }
+
+
         public string RenderJavascript()
         {
             // Create javascript
@@ -1535,6 +1545,10 @@ namespace MvcJqGrid
             // onSerializeGridData
             if (!_onSerializeGridData.IsNullOrWhiteSpace())
                 script.AppendFormat("serializeGridData: function(postData) {{{0}}},", _onSerializeGridData).AppendLine();
+
+            // rowattr
+            if (!_rowAttr.IsNullOrWhiteSpace())
+                script.AppendFormat("rowattr: function(rd) {{{0}}},", _rowAttr).AppendLine();
 
             // TreeGrid controls
             if (_enabledTreeGrid)
