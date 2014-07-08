@@ -485,6 +485,32 @@ namespace MvcJqGrid.Tests
             JavascriptAssertColumn.IsValid(column);
         }
 
+        [Test]
+        public void CanSetSortType()
+        {
+            var column = GetTestableColumn();
+
+            column.SetSortType(SortType.Currency);
+            StringAssert.Contains("sorttype:'currency'", column.ToString());
+
+            column.SetSortType(SortType.Date);
+            StringAssert.Contains("sorttype:'date'", column.ToString());
+
+            column.SetSortType(SortType.Float);
+            StringAssert.Contains("sorttype:'floate'", column.ToString());
+
+            column.SetSortType(SortType.Integer);
+            StringAssert.Contains("sorttype:'integer'", column.ToString());
+
+            column.SetSortType(SortType.Number);
+            StringAssert.Contains("sorttype:'number'", column.ToString());
+
+            column.SetSortType(SortType.Text);
+            StringAssert.Contains("sorttype:'text'", column.ToString());
+
+            JavascriptAssertColumn.IsValid(column);
+        }
+
         private static Column GetTestableColumn()
         {
             return new Column("testColumn");    
