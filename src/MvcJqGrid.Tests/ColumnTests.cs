@@ -497,7 +497,7 @@ namespace MvcJqGrid.Tests
             StringAssert.Contains("sorttype:'date'", column.ToString());
 
             column.SetSortType(SortType.Float);
-            StringAssert.Contains("sorttype:'floate'", column.ToString());
+            StringAssert.Contains("sorttype:'float'", column.ToString());
 
             column.SetSortType(SortType.Integer);
             StringAssert.Contains("sorttype:'integer'", column.ToString());
