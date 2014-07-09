@@ -63,7 +63,7 @@ namespace MvcJqGrid.Tests
             column.SetSearchType(Searchtype.Datepicker);
             column.SetSearchDateFormat("yy-mm-dd");
 
-            StringAssert.Contains("searchoptions: {sopt:['bw'], dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'yy-mm-dd'});}},", column.ToString());
+            StringAssert.Contains("searchoptions: { sopt:['bw'], dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'yy-mm-dd'});} },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -73,7 +73,7 @@ namespace MvcJqGrid.Tests
             var column = GetTestableColumn();
             column.SetSearchType(Searchtype.Datepicker);
 
-            StringAssert.Contains("searchoptions: {sopt:['bw'], dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}},", column.ToString());
+            StringAssert.Contains("searchoptions: { sopt:['bw'], dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});} },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
         
@@ -86,7 +86,7 @@ namespace MvcJqGrid.Tests
             column.SetSearchTerms(terms);
 
             StringAssert.Contains("stype:'select',", column.ToString());
-            StringAssert.Contains(@"searchoptions: {sopt:['bw'], value: "":;term1:term1;term2:term2""},", column.ToString());
+            StringAssert.Contains(@"searchoptions: { sopt:['bw'], value:"":;term1:term1;term2:term2"" },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -103,7 +103,7 @@ namespace MvcJqGrid.Tests
             column.SetSearchTerms(terms);
 
             StringAssert.Contains("stype:'select',", column.ToString());
-            StringAssert.Contains(@"searchoptions: {sopt:['bw'], value: "":;1:term1;200:term2""},", column.ToString());
+            StringAssert.Contains(@"searchoptions: { sopt:['bw'], value:"":;1:term1;200:term2"" },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -114,7 +114,7 @@ namespace MvcJqGrid.Tests
             column.SetSearchType(Searchtype.Select);
 
             StringAssert.Contains("stype:'select',", column.ToString());
-            StringAssert.Contains("searchoptions: {sopt:['bw'], value: ':'},", column.ToString());
+            StringAssert.Contains("searchoptions: { sopt:['bw'], value:':' },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -284,7 +284,7 @@ namespace MvcJqGrid.Tests
             column.SetSearchType(Searchtype.Select);
 
             StringAssert.Contains("stype:'select',", column.ToString());
-            StringAssert.Contains("searchoptions: {sopt:['bw'], value: ':'},", column.ToString());
+            StringAssert.Contains("searchoptions: { sopt:['bw'], value:':' },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -294,7 +294,7 @@ namespace MvcJqGrid.Tests
             var column = GetTestableColumn();
             column.SetSearchType(Searchtype.Datepicker);
 
-            StringAssert.Contains("searchoptions: {sopt:['bw'], dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}},", column.ToString());
+            StringAssert.Contains("searchoptions: { sopt:['bw'], dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});} },", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
         
@@ -348,7 +348,7 @@ namespace MvcJqGrid.Tests
             column.SetDefaultSearchValue("test");
             column.SetSearchType(Searchtype.Text);
 
-            StringAssert.Contains("defaultValue: 'test'", column.ToString());
+            StringAssert.Contains("defaultValue:'test'", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -544,7 +544,7 @@ namespace MvcJqGrid.Tests
             var column = GetTestableColumn();
             column.SetSearchType(Searchtype.Text);
 
-            StringAssert.Contains(@"searchoptions: {sopt:['bw']}", column.ToString());
+            StringAssert.Contains(@"searchoptions: { sopt:['bw'] }", column.ToString());
             JavascriptAssertColumn.IsValid(column);
         }
 
@@ -555,6 +555,23 @@ namespace MvcJqGrid.Tests
             column.SetClearSearch(true);
 
             StringAssert.Contains(@"clearSearch:true", column.ToString());
+            JavascriptAssertColumn.IsValid(column);
+        }
+
+        [Test]
+        public void CanHaveSearchTypeAndClearSearch()
+        {
+            var column = GetTestableColumn();
+            var terms = new[] { "term1", "term2" };
+
+            column.SetClearSearch(false);
+            column.SetSearchType(Searchtype.Select);
+            column.SetSearchTerms(terms);
+
+            var actual = column.ToString();
+
+            StringAssert.Contains(@"stype:'select',", actual);
+            StringAssert.Contains(@"searchoptions: { sopt:['bw'], value:"":;term1:term1;term2:term2"", clearSearch:false }", actual);
             JavascriptAssertColumn.IsValid(column);
         }
     }

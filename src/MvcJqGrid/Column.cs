@@ -572,66 +572,6 @@ namespace MvcJqGrid
             // Search
             if (_search.HasValue) script.AppendFormat("search:{0},", _search.Value.ToString().ToLower()).AppendLine();
 
-            // SearchType
-            if (_searchType.HasValue)
-            {
-                if (_searchType.Value == Searchtype.Text) script.AppendLine("stype:'text',");
-                if (_searchType.Value == Searchtype.Select) script.AppendLine("stype:'select',");
-             
-                script.Append("searchoptions: {");
-
-                if (_searchOptions.Any())
-                {
-                    script.AppendFormat("sopt:['{0}']", _searchOptions.Aggregate((current, next) => current + "',  '" + next));
-                }
-                else
-                {
-                    script.Append("sopt:['bw']");
-                }
-            }
-
-            // Searchoptions
-            if (_searchType == Searchtype.Select || _searchType == Searchtype.Datepicker)
-            {
-                // SearchType select
-                if (_searchType == Searchtype.Select)
-                {
-                    if (_searchTerms != null)
-                    {
-                        var emtpyOption = (_searchTerms.Any()) ? ":;" : ":";
-                        script.AppendFormat(@", value: ""{0}{1}""", emtpyOption,
-                                            string.Join(";", _searchTerms.Select(s => s.Key + ":" + s.Value).ToArray()));
-                    }
-                    else
-                    {
-                        script.Append(", value: ':'");
-                    }
-                }
-
-                // SearchType datepicker
-                if (_searchType == Searchtype.Datepicker)
-                {
-                    if (_searchDateFormat.IsNullOrWhiteSpace())
-                        script.Append(
-                            ", dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}");
-                    else
-                        script.Append(
-                            ", dataInit:function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" +
-                            _searchDateFormat + "'});}");
-                }
-            }
-
-            // SearchType
-            if (_searchType.HasValue)
-            {
-
-                if (!_defaultSearchValue.IsNullOrWhiteSpace())
-                {
-                    script.AppendFormat(",defaultValue: '{0}'", _defaultSearchValue);
-                }
-
-                script.AppendLine("},");
-            }
 
             // Sortable
             if (_sortable.HasValue)
@@ -650,6 +590,66 @@ namespace MvcJqGrid
             // Setup search options
             var searchOptions = new Dictionary<string, string>();
 
+            // SearchType
+            if (_searchType.HasValue)
+            {
+                if (_searchType.Value == Searchtype.Text)
+                {
+                    script.AppendLine("stype:'text',");
+                }
+
+                if (_searchType.Value == Searchtype.Select)
+                {
+                    script.AppendLine("stype:'select',");
+                }
+
+                if (_searchOptions.Any())
+                {
+                    searchOptions.Add("sopt", string.Format("['{0}']", _searchOptions.Aggregate((current, next) => current + "',  '" + next)));
+                }
+                else
+                {
+                    searchOptions.Add("sopt", "['bw']");
+                }
+            }
+
+            // Searchoptions
+            if (_searchType == Searchtype.Select || _searchType == Searchtype.Datepicker)
+            {
+                // SearchType select
+                if (_searchType == Searchtype.Select)
+                {
+                    if (_searchTerms != null)
+                    {
+                        var emtpyOption = (_searchTerms.Any()) ? ":;" : ":";
+                        searchOptions.Add("value", "\"" + string.Format("{0}{1}", emtpyOption, string.Join(";", _searchTerms.Select(s => s.Key + ":" + s.Value).ToArray())) + "\"");
+                    }
+                    else
+                    {
+                        searchOptions.Add("value", "':'");
+                    }
+                }
+
+                // SearchType datepicker
+                if (_searchType == Searchtype.Datepicker)
+                {
+                    if (_searchDateFormat.IsNullOrWhiteSpace())
+                    {
+                        searchOptions.Add("dataInit", "function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'dd-mm-yy'});}");
+                    }
+                    else
+                    {
+                        searchOptions.Add("dataInit", "function(el){$(el).datepicker({changeYear:true, onSelect: function() {var sgrid = $('###gridid##')[0]; sgrid.triggerToolbar();},dateFormat:'" + _searchDateFormat + "'});}");
+                    }
+                }
+            }
+
+            // SearchType
+            if (_searchType.HasValue && !_defaultSearchValue.IsNullOrWhiteSpace())
+            {
+                searchOptions.Add("defaultValue", "'" + _defaultSearchValue + "'");
+            }
+
             // Default value when no search type is set
             if ((!_searchType.HasValue && !_defaultSearchValue.IsNullOrWhiteSpace()))
                 searchOptions.Add("defaultValue", "'" + _defaultSearchValue + "'");
@@ -663,7 +663,7 @@ namespace MvcJqGrid
                 searchOptions.Add("sopt", "['" + _searchOptions.Aggregate((current, next) => current + "', '" + next) + "']");
 
             if (searchOptions.Any())
-                script.Append("searchoptions: { " + string.Join(", ", searchOptions.Select(x => x.Key + ":" + x.Value)) + " },");
+                script.AppendLine("searchoptions: { " + string.Join(", ", searchOptions.Select(x => x.Key + ":" + x.Value)) + " },");
 
             //edit type
             if(_editType.HasValue)
