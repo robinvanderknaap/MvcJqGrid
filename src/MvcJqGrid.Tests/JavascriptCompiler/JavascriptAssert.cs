@@ -16,10 +16,8 @@ namespace MvcJqGrid.Tests.JavascriptCompiler
 
             JavascriptCompiler.RemoveIgnoreRules(ignoreRuleCodes);
 
-            Assert.IsTrue(result.IsValid, "Error(s) while compiling: {0}",
-                string.Join(", ", result.Errors.Select(x =>
-                        string.Format("line: {0}, column: {1}, error: {2}", x.Line, x.Column, x.ErrorText)
-                        ).ToList()));          
+            var errors = string.Join(", ", result.Errors.Select(x => $"line: {x.StartLine}:{x.EndLine}, column: {x.StartColumn}:{x.EndColumn}, error: {x.Message}"));
+            Assert.IsTrue(result.IsValid, $"Error(s) while compiling: {errors}");          
         }
 
         public static void IsValid(string javascript)

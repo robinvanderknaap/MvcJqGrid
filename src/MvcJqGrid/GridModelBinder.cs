@@ -1,7 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.Web.Mvc;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace MvcJqGrid
 {
@@ -16,26 +21,17 @@ namespace MvcJqGrid
         public Filter Where { get; set; }
     }
 
-    [DataContract]
     public class Filter
     {
-        [DataMember]
         public string groupOp { get; set; }
-        [DataMember]
+
         public Rule[] rules { get; set; }
 
         public static Filter Create(string jsonData)
         {
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(Filter));
-                //var ms = new System.IO.MemoryStream(Encoding.Default.GetBytes(jsonData));
-                var ms = new System.IO.MemoryStream(
-                    Encoding.Convert(
-                        Encoding.Default,
-                        Encoding.UTF8,
-                        Encoding.Default.GetBytes(jsonData)));
-                return serializer.ReadObject(ms) as Filter;
+                return JsonConvert.DeserializeObject<Filter>(jsonData) ?? new Filter();
             }
             catch
             {
@@ -44,37 +40,54 @@ namespace MvcJqGrid
         }
     }
 
-    [DataContract]
     public class Rule
     {
-        [DataMember]
         public string field { get; set; }
-        [DataMember]
         public string op { get; set; }
-        [DataMember]
         public string data { get; set; }
     }
 
     public class GridModelBinder : IModelBinder
     {
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        private readonly ILogger<GridModelBinder> _logger;
+
+        public GridModelBinder(ILogger<GridModelBinder> logger)
+        {
+            _logger = logger;
+        }
+
+        public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             try
             {
-                var request = controllerContext.HttpContext.Request;
-                return new GridSettings
+                var request = bindingContext.HttpContext.Request;
+
+                var search = !string.IsNullOrWhiteSpace(request.Query["_search"]) ? (string)request.Query["_search"] : "false";
+                var page = !string.IsNullOrWhiteSpace(request.Query["page"]) ? (string)request.Query["page"] : "1";
+                var rows = !string.IsNullOrWhiteSpace(request.Query["rows"]) ? (string)request.Query["rows"] : "10";
+                var sortColumn = !string.IsNullOrWhiteSpace(request.Query["sidx"]) ? (string)request.Query["sidx"] : "";
+                var sortOrder = !string.IsNullOrWhiteSpace(request.Query["sord"]) ? (string)request.Query["sord"] : "asc";
+                var filters = !string.IsNullOrWhiteSpace(request.Query["filters"]) ? (string)request.Query["filters"] : "";
+
+                var gridSettings = new GridSettings
                 {
-                    IsSearch = bool.Parse(request["_search"] ?? "false"),
-                    PageIndex = int.Parse(request["page"] ?? "1"),
-                    PageSize = int.Parse(request["rows"] ?? "10"),
-                    SortColumn = request["sidx"] ?? "",
-                    SortOrder = request["sord"] ?? "asc",
-                    Where = Filter.Create(request["filters"] ?? "")
+                    IsSearch = bool.Parse(search),
+                    PageIndex = int.Parse(page),
+                    PageSize = int.Parse(rows),
+                    SortColumn = sortColumn,
+                    SortOrder = sortOrder,
+                    Where = Filter.Create(filters)
                 };
+
+                bindingContext.Result = ModelBindingResult.Success(gridSettings);
+
+                return Task.FromResult<object>(null);
             }
-            catch
+            catch (Exception exception)
             {
-                return null;
+                _logger.LogError(exception, "Failed to bind grid model");
+
+                return Task.FromResult<object>(null);
             }
         }
     }

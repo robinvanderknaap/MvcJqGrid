@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Moq;
 using NUnit.Framework;
 
 namespace MvcJqGrid.Tests
@@ -9,18 +10,11 @@ namespace MvcJqGrid.Tests
         [Test]
         public void CanConstructGridFromGridHelper()
         {
-            var viewContext = new ViewContext();
-            var viewDataContainer = new FakeViewDataContainer();
-            var htmlHelper = new HtmlHelper(viewContext, viewDataContainer);
+            var htmlHelper = new Mock<IHtmlHelper>().Object;
 
             var grid = htmlHelper.Grid("test");
 
             Assert.IsInstanceOf<Grid>(grid);
-        }
-
-        private class FakeViewDataContainer : IViewDataContainer
-        {
-            public ViewDataDictionary ViewData { get; set; }
         }
     }
 }

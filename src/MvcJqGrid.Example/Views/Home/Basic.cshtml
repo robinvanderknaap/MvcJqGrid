@@ -1,5 +1,8 @@
-﻿@section Title {Basic}
+﻿@{
+    Layout = "_Layout";
+}
 
+@section Title {Basic}
 @section featured {
 <section class="featured">
     <div class="content-wrapper">
@@ -7,26 +10,26 @@
             <h1>Basic Example</h1>
             <h2>razor engine</h2>
         </hgroup>
-        
+
     </div>
 </section>
 }
 
 @(Html.Grid("Basic")
-    .SetCaption("Basic Grid")
-    .AddColumn(new Column("CustomerId")
-        .SetLabel("Id"))
-    .AddColumn(new Column("Name"))
-    .AddColumn(new Column("Company"))
-    .AddColumn(new Column("EmailAddress"))
-    .AddColumn(new Column("Last Modified"))
-    .AddColumn(new Column("Telephone"))
-    .SetUrl(Url.Action("GridDataBasic"))
-    .SetAutoWidth(true)
-    .SetRowNum(10)
-    .SetRowList(new[]{10,15,20,50})
-    .SetViewRecords(true)
-    .SetPager("pager"))
+            .SetCaption("Basic Grid")
+            .AddColumn(new Column("CustomerId")
+                .SetLabel("Id"))
+            .AddColumn(new Column("Name"))
+            .AddColumn(new Column("Company"))
+            .AddColumn(new Column("EmailAddress"))
+            .AddColumn(new Column("Last Modified"))
+            .AddColumn(new Column("Telephone"))
+            .SetUrl(Url.Action("GridDataBasic"))
+            .SetAutoWidth(true)
+            .SetRowNum(10)
+            .SetRowList(new[] { 10, 15, 20, 50 })
+            .SetViewRecords(true)
+            .SetPager("pager"))
 
 <h3>Source:</h3>
 
@@ -44,8 +47,8 @@
     .SetRowNum(10)
     .SetRowList(new[]{10,15,20,50})
     .SetViewRecords(true)
-    .SetPager("pager"))</pre>   
-     
+    .SetPager("pager"))</pre>
+
 <h3>Explanation:</h3>
 
 <pre>This configuration renders a basic grid, with ordering and paging enabled. To retrieve data the grid 

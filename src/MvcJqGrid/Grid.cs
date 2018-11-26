@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.Script.Serialization;
-using MvcJqGrid.DataReaders;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Html;
 using MvcJqGrid.Enums;
 using MvcJqGrid.Extensions;
+using Newtonsoft.Json;
+using JsonReader = MvcJqGrid.DataReaders.JsonReader;
 
 namespace MvcJqGrid
 {
     /// <summary>
     ///     Grid class, used to render JqGrid
     /// </summary>
-    public class Grid : IHtmlString
+    public class Grid : IHtmlContent
     {
         private readonly List<Column> _columns = new List<Column>();
         private readonly string _id;
@@ -1427,7 +1429,7 @@ namespace MvcJqGrid
 
                 var onbeforeRequestHack = @"
                 function() {
-                        var defaultValueColumns = " + new JavaScriptSerializer().Serialize(defaultValueColumns) + @";
+                        var defaultValueColumns = " + JsonConvert.SerializeObject(defaultValueColumns) + @";
                         var colModel = this.p.colModel;
 
                         if (defaultValueColumns.length > 0) {
@@ -1669,6 +1671,11 @@ namespace MvcJqGrid
 
             // Return script + required elements
             return script + RenderHtmlElements();
+        }
+
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        {
+            writer.Write(ToString());
         }
 
         public string ToHtmlString()

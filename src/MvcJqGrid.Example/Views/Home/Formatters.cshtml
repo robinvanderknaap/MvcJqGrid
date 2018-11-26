@@ -1,34 +1,38 @@
-﻿@section Title {Formatters}
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Title {Formatters}
 
 @section featured {
-<section class="featured">
-    <div class="content-wrapper">
-        <hgroup class="title">
-            <h1>Formatters Example</h1>
-            <h2>razor engine</h2>
-        </hgroup>
-        
-    </div>
-</section>
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Formatters Example</h1>
+                <h2>razor engine</h2>
+            </hgroup>
+
+        </div>
+    </section>
 }
 
 @(Html.Grid("formatters")
-    .SetCaption("Formatters")
-    .AddColumn(new Column("CustomerId")
-        .SetLabel("Id")
-        .SetCustomFormatter("buttonize"))
-    .AddColumn(new Column("Name"))
-    .AddColumn(new Column("Company"))
-    .AddColumn(new Column("EmailAddress")
-        .SetFormatter(Formatters.Email))
-    .AddColumn(new Column("Last Modified"))
-    .AddColumn(new Column("Telephone"))
-    .SetUrl(Url.Action("GridDataBasic"))
-    .SetAutoWidth(true)
-    .SetRowNum(10)
-    .SetRowList(new[] { 10, 15, 20, 50 })
-    .SetViewRecords(true)
-    .SetPager("pager"))
+        .SetCaption("Formatters")
+        .AddColumn(new Column("CustomerId")
+            .SetLabel("Id")
+            .SetCustomFormatter("buttonize"))
+        .AddColumn(new Column("Name"))
+        .AddColumn(new Column("Company"))
+        .AddColumn(new Column("EmailAddress")
+            .SetFormatter(Formatters.Email))
+        .AddColumn(new Column("Last Modified"))
+        .AddColumn(new Column("Telephone"))
+        .SetUrl(Url.Action("GridDataBasic"))
+        .SetAutoWidth(true)
+        .SetRowNum(10)
+        .SetRowList(new[] { 10, 15, 20, 50 })
+        .SetViewRecords(true)
+        .SetPager("pager"))
 
 <script type="text/javascript">
     function buttonize(cellvalue, options, rowobject) {

@@ -1,6 +1,7 @@
 ﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using NUglify;
 
 namespace MvcJqGrid.Tests.JavascriptCompiler
 {
@@ -8,7 +9,7 @@ namespace MvcJqGrid.Tests.JavascriptCompiler
     {
         public JavascriptCompilerResult()
         {
-            Errors = new Collection<CompilerError>();
+            Errors = new Collection<UglifyError>();
         }
 
         public bool IsValid 
@@ -21,6 +22,6 @@ namespace MvcJqGrid.Tests.JavascriptCompiler
             get { return Errors.Count > 0; }
         }
 
-        public ICollection<CompilerError> Errors { get; set; } 
+        public ICollection<UglifyError> Errors { get; set; } 
     }
 }

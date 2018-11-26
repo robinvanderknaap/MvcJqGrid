@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using Microsoft.AspNetCore.Html;
 using MvcJqGrid.Tests.JavascriptCompiler;
 using NUnit.Framework;
 using MvcJqGrid.DataReaders;
@@ -1109,7 +1110,7 @@ namespace MvcJqGrid.Tests
         {
             var grid = new Grid("testGrid");
 
-            Assert.IsInstanceOf<IHtmlString>(grid);
+            Assert.IsInstanceOf<IHtmlContent>(grid);
         }
 
         [Test]
