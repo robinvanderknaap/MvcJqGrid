@@ -3,10 +3,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MvcJqGrid</AssemblyName>
     <RootNamespace>MvcJqGrid</RootNamespace>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <LangVersion>7.1</LangVersion>
+    <Version>1.0.16</Version>
   </PropertyGroup>
 
   <ItemGroup>
