@@ -85,6 +85,7 @@ namespace MvcJqGrid
         private bool? _showAllSortIcons;
         private bool? _shrinkToFit;
         private Direction? _sortIconDirection;
+        private bool? _sortable;
         private string _sortName;
         private bool? _sortOnHeaderClick;
         private SortOrder? _sortOrder;
@@ -783,6 +784,16 @@ namespace MvcJqGrid
         }
 
         /// <summary>
+        ///     This option will allow you to drag and drop columns in different order.
+        /// </summary>
+        /// <param name = "sortName"></param>
+        public Grid SetSortable(bool sortable)
+        {
+            _sortable = sortable;
+            return this;
+        }
+        
+        /// <summary>
         ///     The initial sorting name when we use datatypes xml or json (data returned from server).
         ///     This parameter is added to the url. If set and the index (name) matches the name from the
         ///     colModel then by default an image sorting icon is added to the column, according to
@@ -1374,6 +1385,9 @@ namespace MvcJqGrid
             // Sortname
             if (!_sortName.IsNullOrWhiteSpace()) script.AppendFormat("sortname:'{0}',", _sortName).AppendLine();
 
+            // Sortable
+            if (_sortable.HasValue) script.AppendFormat("sortable:'{0}',", _sortable).AppendLine();
+            
             // Sorticons
             if (_showAllSortIcons.HasValue || _sortIconDirection.HasValue || _sortOnHeaderClick.HasValue)
             {
