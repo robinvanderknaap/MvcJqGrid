@@ -1,10 +1,13 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MvcJqGrid.Example.Models;
 
 namespace MvcJqGrid.Example.Controllers
 {
-    [HandleError]
     public class HomeController : Controller
     {
         private readonly Repository _repo;
@@ -14,9 +17,14 @@ namespace MvcJqGrid.Example.Controllers
             _repo = new Repository();
         }
 
+        public ActionResult Index()
+        {
+            return View("Basic");
+        }
+
         public ActionResult Basic()
         {
-            return View();
+            return View("Basic");
         }
 
         public ActionResult Search()
@@ -86,9 +94,9 @@ namespace MvcJqGrid.Example.Controllers
                     select new
                     {
                         id = c.CustomerId, // Remove ravendb prefix from identifier
-                        cell = new[] 
-                    { 
-                        c.CustomerId, 
+                        cell = new[]
+                    {
+                        c.CustomerId,
                         c.Fullname,
                         c.Company,
                         c.EmailAddress,
@@ -98,7 +106,7 @@ namespace MvcJqGrid.Example.Controllers
                     }).ToArray()
             };
 
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
+            return Json(jsonData);
         }
 
         public ActionResult TreeGrid()

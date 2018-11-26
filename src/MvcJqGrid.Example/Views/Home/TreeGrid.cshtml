@@ -1,27 +1,30 @@
-﻿@section Title {TreeGrid}
+﻿@{
+    Layout = "_Layout";
+}
+@section Title {TreeGrid}
 
 @section featured {
-<section class="featured">
-    <div class="content-wrapper">
-        <hgroup class="title">
-            <h1>TreeGrid Example</h1>
-            <h2>razor engine</h2>
-        </hgroup>
-        
-    </div>
-</section>
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>TreeGrid Example</h1>
+                <h2>razor engine</h2>
+            </hgroup>
+
+        </div>
+    </section>
 }
 
 @(Html.Grid("treeGrid")
-    .SetCaption("TreeGrid")
-    .AddColumn(new Column("ItemID")
-        .SetLabel("Id").SetKey(true))
-    .AddColumn(new Column("Name")
-                .SetAsExpandable())
-    .SetUrl(Url.Action("TreeGridData"))
-    .EnableTreeGrid()
-    )
- 
+        .SetCaption("TreeGrid")
+        .AddColumn(new Column("ItemID")
+            .SetLabel("Id").SetKey(true))
+        .AddColumn(new Column("Name")
+                    .SetAsExpandable())
+        .SetUrl(Url.Action("TreeGridData"))
+        .EnableTreeGrid()
+)
+
 <h3>Source:</h3>
 
 <pre>@@(Html.Grid("treeGrid")

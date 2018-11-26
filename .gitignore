@@ -9,3 +9,4 @@ build/
 _ReSharper.*/
 *.user
 *.Publish.xml
+.vs/

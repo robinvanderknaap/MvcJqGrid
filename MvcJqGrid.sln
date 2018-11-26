@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Tests", "src\MvcJqGrid.Tests\MvcJqGrid.Tests.csproj", "{6B4A2218-A730-447D-8183-12A96C94E424}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcJqGrid.Tests", "src\MvcJqGrid.Tests\MvcJqGrid.Tests.csproj", "{6B4A2218-A730-447D-8183-12A96C94E424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Example", "src\MvcJqGrid.Example\MvcJqGrid.Example.csproj", "{EA890CB5-2409-46C1-9EDE-E40002158633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcJqGrid", "src\MvcJqGrid\MvcJqGrid.csproj", "{F6950D91-7A09-46D4-A832-A21D1195FBB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid", "src\MvcJqGrid\MvcJqGrid.csproj", "{F6950D91-7A09-46D4-A832-A21D1195FBB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJqGrid.Example", "src\MvcJqGrid.Example\MvcJqGrid.Example.csproj", "{A4634231-AE59-4C4C-BE78-4F13896603A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,16 +19,19 @@ Global
 		{6B4A2218-A730-447D-8183-12A96C94E424}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B4A2218-A730-447D-8183-12A96C94E424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B4A2218-A730-447D-8183-12A96C94E424}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA890CB5-2409-46C1-9EDE-E40002158633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA890CB5-2409-46C1-9EDE-E40002158633}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA890CB5-2409-46C1-9EDE-E40002158633}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA890CB5-2409-46C1-9EDE-E40002158633}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6950D91-7A09-46D4-A832-A21D1195FBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4634231-AE59-4C4C-BE78-4F13896603A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4634231-AE59-4C4C-BE78-4F13896603A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4634231-AE59-4C4C-BE78-4F13896603A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4634231-AE59-4C4C-BE78-4F13896603A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B239EB43-9CD5-4185-9AF7-2F88084A4073}
 	EndGlobalSection
 EndGlobal

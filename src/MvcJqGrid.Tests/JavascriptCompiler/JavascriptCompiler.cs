@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Microsoft.JScript;
+using NUglify;
 
 namespace MvcJqGrid.Tests.JavascriptCompiler
 {
 	/// <summary>
 	/// Orginal source from http://madskristensen.net/post/Verify-JavaScript-syntax-using-C.aspx
 	/// </summary>
-	public class JavaScriptCompiler : IDisposable
+	public class JavaScriptCompiler
 	{
 		#region Private fields
 
-		private readonly JScriptCodeProvider _provider = new JScriptCodeProvider();
-		private readonly CompilerParameters _parameters = new CompilerParameters();
 		readonly StringBuilder _errorMessages = new StringBuilder();
 
 		/// <summary>
@@ -82,19 +80,17 @@ namespace MvcJqGrid.Tests.JavascriptCompiler
 
 			foreach (var file in files)
 			{
-				using (var reader = File.OpenText(file))
-				{
-					var source = reader.ReadToEnd();
-					var results = _provider.CompileAssemblyFromSource(_parameters, source);
-					var javascriptCompilerResult = new JavascriptCompilerResult();
+			    var source = File.ReadAllText(file);
 
-					foreach (var error in results.Errors.Cast<CompilerError>().Where(error => !_ignoredRules.Contains(error.ErrorNumber)))
-					{
-						javascriptCompilerResult.Errors.Add(error);
-					}
+			    var result = NUglify.Uglify.Js(source);
+			    var javascriptCompilerResult = new JavascriptCompilerResult();
 
-					compilerResults.Add(file, javascriptCompilerResult);
-				}
+                foreach (var error in result.Errors)
+			    {
+			        javascriptCompilerResult.Errors.Add(error);
+                }
+
+				compilerResults.Add(file, javascriptCompilerResult);
 			}
 
 			return compilerResults;
@@ -102,10 +98,10 @@ namespace MvcJqGrid.Tests.JavascriptCompiler
 
 		public JavascriptCompilerResult Compile(string source)
 		{
-			var results = _provider.CompileAssemblyFromSource(_parameters, source);
+		    var result = NUglify.Uglify.Js(source);
 			var javascriptCompilerResult = new JavascriptCompilerResult();
 
-			foreach (var error in results.Errors.Cast<CompilerError>().Where(error => !_ignoredRules.Contains(error.ErrorNumber)))
+			foreach (var error in result.Errors)
 			{
 				javascriptCompilerResult.Errors.Add(error);
 			}
@@ -113,31 +109,13 @@ namespace MvcJqGrid.Tests.JavascriptCompiler
 			return javascriptCompilerResult;
 		}
 
-		private void WriteError(string file, CompilerError error)
+		private void WriteError(string file, UglifyError error)
 		{
 			_errorMessages.AppendLine("JavaScript compilation failed");
 			_errorMessages.AppendLine("\tError code: " + error.ErrorNumber);
-			_errorMessages.AppendLine("\t" + error.ErrorText);
-			_errorMessages.AppendLine("\t" + file + "(" + error.Line + ", " + error.Column + ")");
+			_errorMessages.AppendLine("\t" + error.Message);
+			_errorMessages.AppendLine("\t" + file + "(" + error.StartLine + ":" + error.EndLine +", " + error.StartColumn + ":" + error.EndColumn + ")");
 			_errorMessages.AppendLine();
 		}
-
-		#region IDisposable Members
-
-		private void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_provider.Dispose();
-			}
-		}
-
-		public void Dispose()
-		{
-			GC.SuppressFinalize(this);
-			Dispose(true);
-		}
-
-		#endregion
 	}
 }

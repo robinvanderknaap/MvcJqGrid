@@ -1,43 +1,47 @@
-﻿@section Title {Inline Editing}
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Title {Inline Editing}
 
 @section featured {
-<section class="featured">
-    <div class="content-wrapper">
-        <hgroup class="title">
-            <h1>Inline Editing Example</h1>
-            <h2>razor engine</h2>
-        </hgroup>
-        
-    </div>
-</section>
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Inline Editing Example</h1>
+                <h2>razor engine</h2>
+            </hgroup>
+
+        </div>
+    </section>
 }
 
 @(Html.Grid("editing")
-    .SetCaption("Inline Editing")
-    .AddColumn(new Column("CustomerId")
-        .SetLabel("Id")
-        .SetCustomFormatter("buttonize"))
-    .AddColumn(new Column("Name")
-        .SetFormatter(Formatters.Email)
-        .SetEditable(true)
-        .SetEditType(EditType.Text))
-    .AddColumn(new Column("Company")
-                .SetEditable(true)
-                .SetEditType(MvcJqGrid.Enums.EditType.Select)
-                .SetEditOptions(new EditOptions() { Value = "0:Twitter; 1:Google; 2:Microsoft; 3:Cisco" }))
-    .AddColumn(new Column("EmailAddress")
-        .SetFormatter(Formatters.Email)
-        .SetEditable(true)
-        .SetEditType(EditType.Text)
-        .SetEditRules(new EditRules() { Email = true }))
-    .AddColumn(new Column("Last Modified"))
-    .AddColumn(new Column("Telephone"))
-    .SetUrl(Url.Action("GridDataBasic"))
-    .SetAutoWidth(true)
-    .SetRowNum(10)
-    .SetRowList(new[] { 10, 15, 20, 50 })
-    .SetViewRecords(true)
-    .SetPager("pager"))
+        .SetCaption("Inline Editing")
+        .AddColumn(new Column("CustomerId")
+            .SetLabel("Id")
+            .SetCustomFormatter("buttonize"))
+        .AddColumn(new Column("Name")
+            .SetFormatter(Formatters.Email)
+            .SetEditable(true)
+            .SetEditType(EditType.Text))
+        .AddColumn(new Column("Company")
+                    .SetEditable(true)
+                    .SetEditType(MvcJqGrid.Enums.EditType.Select)
+                    .SetEditOptions(new EditOptions() { Value = "0:Twitter; 1:Google; 2:Microsoft; 3:Cisco" }))
+        .AddColumn(new Column("EmailAddress")
+            .SetFormatter(Formatters.Email)
+            .SetEditable(true)
+            .SetEditType(EditType.Text)
+            .SetEditRules(new EditRules() { Email = true }))
+        .AddColumn(new Column("Last Modified"))
+        .AddColumn(new Column("Telephone"))
+        .SetUrl(Url.Action("GridDataBasic"))
+        .SetAutoWidth(true)
+        .SetRowNum(10)
+        .SetRowList(new[] { 10, 15, 20, 50 })
+        .SetViewRecords(true)
+        .SetPager("pager"))
 
 <script type="text/javascript">
     function buttonize(cellvalue, options, rowobject) {
@@ -51,7 +55,7 @@
 <h3>Source:</h3>
 
 <pre>
-    <code>
+<code>
     @@(Html.Grid("editing")
     .SetCaption("Inline Editing")
     .AddColumn(new Column("CustomerId")

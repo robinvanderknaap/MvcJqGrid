@@ -1,263 +1,195 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EA890CB5-2409-46C1-9EDE-E40002158633}</ProjectGuid>
-    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MvcJqGrid.Example</RootNamespace>
-    <AssemblyName>MvcJqGrid.Example</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
-    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Raven.Abstractions">
-      <HintPath>..\..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Embedded">
-      <HintPath>..\..\packages\RavenDB.Embedded.2.0.2330\lib\net40\Raven.Client.Embedded.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight">
-      <HintPath>..\..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Database">
-      <HintPath>..\..\packages\RavenDB.Database.2.0.2330\lib\net40\Raven.Database.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
+    <Content Remove="Views\Home\About.cshtml" />
+    <Content Remove="Views\Home\Basic.cshtml" />
+    <Content Remove="Views\Home\DefaultSearchValue.cshtml" />
+    <Content Remove="Views\Home\Edit.cshtml" />
+    <Content Remove="Views\Home\Events.cshtml" />
+    <Content Remove="Views\Home\Formatters.cshtml" />
+    <Content Remove="Views\Home\Multiselect.cshtml" />
+    <Content Remove="Views\Home\Search.cshtml" />
+    <Content Remove="Views\Home\Toolbar.cshtml" />
+    <Content Remove="Views\Home\TreeGrid.cshtml" />
+    <Content Remove="Views\Home\TreeGridData.cshtml" />
+    <Content Remove="Views\Home\VirtualScrolling.cshtml" />
+    <Content Remove="Views\Shared\Error.cshtml" />
+    <Content Remove="Views\Shared\_Layout.cshtml" />
+    <Content Remove="Views\Web.config" />
+    <Content Remove="wwwroot\Content\images\accent.png" />
+    <Content Remove="wwwroot\Content\images\facebook.png" />
+    <Content Remove="wwwroot\Content\images\heroAccent.png" />
+    <Content Remove="wwwroot\Content\images\orderedListOne.png" />
+    <Content Remove="wwwroot\Content\images\orderedListThree.png" />
+    <Content Remove="wwwroot\Content\images\orderedListTwo.png" />
+    <Content Remove="wwwroot\Content\images\twitter.png" />
+    <Content Remove="wwwroot\Content\jquery.jqGrid\ellipsis-xbl.xml" />
+    <Content Remove="wwwroot\Content\jquery.jqGrid\ui.jqgrid.css" />
+    <Content Remove="wwwroot\Content\Site.css" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\animated-overlay.gif" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Remove="wwwroot\Content\themes\smoothness\jquery-ui-1.10.3.custom.min.css" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-ar.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-bg.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-bg1251.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-cat.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-cn.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-cs.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-da.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-de.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-dk.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-el.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-en.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-es.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-fa.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-fi.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-fr.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-gl.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-he.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-hr.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-hr1250.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-hu.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-id.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-is.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-it.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-ja.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-kr.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-lt.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-mne.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-nl.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-no.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-pl.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-pt-br.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-pt.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-ro.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-ru.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-sk.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-sr-latin.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-sr.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-sv.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-th.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-tr.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-tw.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-ua.js" />
+    <Content Remove="wwwroot\Scripts\i18n\grid.locale-vi.js" />
+    <Content Remove="wwwroot\Scripts\jquery-1.9.1.min.js" />
+    <Content Remove="wwwroot\Scripts\jquery-ui.min.js" />
+    <Content Remove="wwwroot\Scripts\jquery.jqGrid.min.js" />
+    <Content Remove="wwwroot\Scripts\modernizr.custom.05850.js" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Repository.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Views\Home\About.cshtml" />
+    <None Include="Views\Home\Basic.cshtml" />
+    <None Include="Views\Home\DefaultSearchValue.cshtml" />
+    <None Include="Views\Home\Edit.cshtml" />
+    <None Include="Views\Home\Events.cshtml" />
+    <None Include="Views\Home\Formatters.cshtml" />
+    <None Include="Views\Home\Multiselect.cshtml" />
+    <None Include="Views\Home\Search.cshtml" />
+    <None Include="Views\Home\Toolbar.cshtml" />
+    <None Include="Views\Home\TreeGrid.cshtml" />
+    <None Include="Views\Home\TreeGridData.cshtml" />
+    <None Include="Views\Home\VirtualScrolling.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Web.config" />
+    <None Include="wwwroot\Content\images\accent.png" />
+    <None Include="wwwroot\Content\images\facebook.png" />
+    <None Include="wwwroot\Content\images\heroAccent.png" />
+    <None Include="wwwroot\Content\images\orderedListOne.png" />
+    <None Include="wwwroot\Content\images\orderedListThree.png" />
+    <None Include="wwwroot\Content\images\orderedListTwo.png" />
+    <None Include="wwwroot\Content\images\twitter.png" />
+    <None Include="wwwroot\Content\jquery.jqGrid\ellipsis-xbl.xml" />
+    <None Include="wwwroot\Content\jquery.jqGrid\ui.jqgrid.css" />
+    <None Include="wwwroot\Content\Site.css" />
+    <None Include="wwwroot\Content\themes\smoothness\images\animated-overlay.gif" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <None Include="wwwroot\Content\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <None Include="wwwroot\Content\themes\smoothness\jquery-ui-1.10.3.custom.min.css" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-ar.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-bg.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-bg1251.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-cat.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-cn.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-cs.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-da.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-de.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-dk.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-el.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-en.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-es.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-fa.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-fi.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-fr.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-gl.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-he.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-hr.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-hr1250.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-hu.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-id.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-is.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-it.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-ja.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-kr.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-lt.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-mne.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-nl.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-no.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-pl.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-pt-br.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-pt.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-ro.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-ru.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-sk.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-sr-latin.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-sr.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-sv.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-th.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-tr.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-tw.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-ua.js" />
+    <None Include="wwwroot\Scripts\i18n\grid.locale-vi.js" />
+    <None Include="wwwroot\Scripts\jquery-1.9.1.min.js" />
+    <None Include="wwwroot\Scripts\jquery-ui.min.js" />
+    <None Include="wwwroot\Scripts\jquery.jqGrid.min.js" />
+    <None Include="wwwroot\Scripts\modernizr.custom.05850.js" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="App_Data\license.txt" />
-    <Content Include="App_Data\raven-data.ico" />
-    <Content Include="Content\images\accent.png" />
-    <Content Include="Content\images\facebook.png" />
-    <Content Include="Content\images\heroAccent.png" />
-    <Content Include="Content\images\orderedListOne.png" />
-    <Content Include="Content\images\orderedListThree.png" />
-    <Content Include="Content\images\orderedListTwo.png" />
-    <Content Include="Content\images\twitter.png" />
-    <Content Include="Content\jquery.jqGrid\ellipsis-xbl.xml" />
-    <Content Include="Content\jquery.jqGrid\ui.jqgrid.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Content\themes\smoothness\images\animated-overlay.gif" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\smoothness\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\smoothness\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\smoothness\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\smoothness\jquery-ui-1.10.3.custom.min.css" />
-    <Content Include="Global.asax" />
-    <Content Include="Scripts\i18n\grid.locale-ar.js" />
-    <Content Include="Scripts\i18n\grid.locale-bg.js" />
-    <Content Include="Scripts\i18n\grid.locale-bg1251.js" />
-    <Content Include="Scripts\i18n\grid.locale-cat.js" />
-    <Content Include="Scripts\i18n\grid.locale-cn.js" />
-    <Content Include="Scripts\i18n\grid.locale-cs.js" />
-    <Content Include="Scripts\i18n\grid.locale-da.js" />
-    <Content Include="Scripts\i18n\grid.locale-de.js" />
-    <Content Include="Scripts\i18n\grid.locale-dk.js" />
-    <Content Include="Scripts\i18n\grid.locale-el.js" />
-    <Content Include="Scripts\i18n\grid.locale-en.js" />
-    <Content Include="Scripts\i18n\grid.locale-es.js" />
-    <Content Include="Scripts\i18n\grid.locale-fa.js" />
-    <Content Include="Scripts\i18n\grid.locale-fi.js" />
-    <Content Include="Scripts\i18n\grid.locale-fr.js" />
-    <Content Include="Scripts\i18n\grid.locale-gl.js" />
-    <Content Include="Scripts\i18n\grid.locale-he.js" />
-    <Content Include="Scripts\i18n\grid.locale-hr.js" />
-    <Content Include="Scripts\i18n\grid.locale-hr1250.js" />
-    <Content Include="Scripts\i18n\grid.locale-hu.js" />
-    <Content Include="Scripts\i18n\grid.locale-id.js" />
-    <Content Include="Scripts\i18n\grid.locale-is.js" />
-    <Content Include="Scripts\i18n\grid.locale-it.js" />
-    <Content Include="Scripts\i18n\grid.locale-ja.js" />
-    <Content Include="Scripts\i18n\grid.locale-kr.js" />
-    <Content Include="Scripts\i18n\grid.locale-lt.js" />
-    <Content Include="Scripts\i18n\grid.locale-mne.js" />
-    <Content Include="Scripts\i18n\grid.locale-nl.js" />
-    <Content Include="Scripts\i18n\grid.locale-no.js" />
-    <Content Include="Scripts\i18n\grid.locale-pl.js" />
-    <Content Include="Scripts\i18n\grid.locale-pt-br.js" />
-    <Content Include="Scripts\i18n\grid.locale-pt.js" />
-    <Content Include="Scripts\i18n\grid.locale-ro.js" />
-    <Content Include="Scripts\i18n\grid.locale-ru.js" />
-    <Content Include="Scripts\i18n\grid.locale-sk.js" />
-    <Content Include="Scripts\i18n\grid.locale-sr-latin.js" />
-    <Content Include="Scripts\i18n\grid.locale-sr.js" />
-    <Content Include="Scripts\i18n\grid.locale-sv.js" />
-    <Content Include="Scripts\i18n\grid.locale-th.js" />
-    <Content Include="Scripts\i18n\grid.locale-tr.js" />
-    <Content Include="Scripts\i18n\grid.locale-tw.js" />
-    <Content Include="Scripts\i18n\grid.locale-ua.js" />
-    <Content Include="Scripts\i18n\grid.locale-vi.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery.jqGrid.min.js" />
-    <Content Include="Scripts\modernizr.custom.05850.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Web.config" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="packages.config" />
+    <ProjectReference Include="..\MvcJqGrid\MvcJqGrid.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Basic.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\Toolbar.cshtml" />
-    <Content Include="Views\Home\Multiselect.cshtml" />
-    <Content Include="Views\Home\Formatters.cshtml" />
-    <Content Include="Views\Home\Events.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\DefaultSearchValue.cshtml" />
-    <Content Include="Views\Home\TreeGrid.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Home\TreeGridData.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Home\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Data\Data" />
-    <Content Include="App_Data\logs\RVN.log" />
-    <Content Include="App_Data\logs\RVNres00001.jrs" />
-    <Content Include="App_Data\logs\RVNres00002.jrs" />
-    <Content Include="App_Data\system\RVN.chk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\IndexDefinitions\TemporaryIndexDefinitionsAsSource\" />
-    <Folder Include="App_Data\Indexes\" />
-    <Folder Include="App_Data\temp\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MvcJqGrid\MvcJqGrid.csproj">
-      <Project>{F6950D91-7A09-46D4-A832-A21D1195FBB6}</Project>
-      <Name>MvcJqGrid</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\VirtualScrolling.cshtml" />
-  </ItemGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target> -->
-  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
-  </Target>
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57490</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
+
 </Project>
