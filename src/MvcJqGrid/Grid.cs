@@ -1224,9 +1224,13 @@ namespace MvcJqGrid
             if (!_caption.IsNullOrWhiteSpace()) script.AppendFormat("caption:'{0}',", _caption).AppendLine();
 
             // Datatype
-            script.AppendLine(_enabledTreeGrid
-                ? string.Format("treedatatype:'{0}',", _dataType.ToString().ToLower())
-                : string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
+            script.AppendLine(string.Format("datatype:'{0}',", _dataType.ToString().ToLower()));
+
+            // TreeGrid Datatype
+            if (_enabledTreeGrid)
+            {
+                script.AppendLine(string.Format("treedatatype:'{0}',", _dataType.ToString().ToLower()));
+            }
 
             if (_dataType == DataType.Json && _jsonReader != null)
             {
